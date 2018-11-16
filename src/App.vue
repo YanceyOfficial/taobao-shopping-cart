@@ -1,29 +1,43 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <CommonHeader></CommonHeader>
+    <Item></Item>
+    <Total></Total>
+    <CommonFooter></CommonFooter>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+import CommonFooter from "./components/commonFooter.vue";
+import CommonHeader from "./components/commonHeader.vue";
+import Total from "./components/total.vue";
+import Item from "./components/item.vue";
+export default {
+  name: "App",
+  components: {
+    Total,
+    Item,
+    CommonFooter,
+    CommonHeader
+  },
+  data() {
+    return {};
+  },
+  mounted() {
+    this.getData();
+  },
+  methods: {
+    getData() {
+      fetch("../src/assets/mock/data.json").then(response => {
+        console.log(response)
+      });
     }
   }
+};
+</script>
+
+<style lang="scss">
+#app {
+  position: relative;
 }
 </style>

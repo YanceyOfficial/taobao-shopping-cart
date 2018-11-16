@@ -10,6 +10,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "normalize.css": "^8.0.1",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1"
   },
@@ -25,8 +26,9 @@
     "chai": "^4.1.2",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0-0",
-    "node-sass": "^4.9.0",
-    "sass-loader": "^7.0.1",
+    "node-sass": "^4.10.0",
+    "sass-loader": "^7.1.0",
+    "sass-resources-loader": "^2.0.0",
     "vue-template-compiler": "^2.5.17"
   }
 }

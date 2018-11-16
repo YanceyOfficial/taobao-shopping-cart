@@ -1248,7 +1248,7 @@ async@^1.5.2:
   version "1.5.2"
   resolved "http://npm.venus-bdlab.com/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
 
-async@^2.3.0:
+async@^2.1.4, async@^2.3.0:
   version "2.6.1"
   resolved "http://npm.venus-bdlab.com/async/-/async-2.6.1.tgz#b245a23ca71930044ec53fa46aa00a3e87c6a610"
   dependencies:
@@ -3638,7 +3638,7 @@ glob@7.1.2:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.1.2, glob@~7.1.1:
+glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2, glob@~7.1.1:
   version "7.1.3"
   resolved "http://npm.venus-bdlab.com/glob/-/glob-7.1.3.tgz#3960832d3f1574108342dafd3a67b332c0969df1"
   dependencies:
@@ -4706,7 +4706,7 @@ loader-utils@^0.2.16:
     json5 "^0.5.0"
     object-assign "^4.0.1"
 
-loader-utils@^1.0.1, loader-utils@^1.0.2, loader-utils@^1.1.0:
+loader-utils@^1.0.1, loader-utils@^1.0.2, loader-utils@^1.0.4, loader-utils@^1.1.0:
   version "1.1.0"
   resolved "http://npm.venus-bdlab.com/loader-utils/-/loader-utils-1.1.0.tgz#c98aef488bcceda2ffb5e2de646d6a754429f5cd"
   dependencies:
@@ -5277,7 +5277,7 @@ node-releases@^1.0.1:
   dependencies:
     semver "^5.3.0"
 
-node-sass@^4.9.0:
+node-sass@^4.10.0:
   version "4.10.0"
   resolved "http://npm.venus-bdlab.com/node-sass/-/node-sass-4.10.0.tgz#dcc2b364c0913630945ccbf7a2bbf1f926effca4"
   dependencies:
@@ -5344,6 +5344,10 @@ normalize-range@^0.1.2:
 normalize-url@^3.0.0:
   version "3.3.0"
   resolved "http://npm.venus-bdlab.com/normalize-url/-/normalize-url-3.3.0.tgz#b2e1c4dc4f7c6d57743df733a4f5978d18650559"
+
+normalize.css@^8.0.1:
+  version "8.0.1"
+  resolved "http://npm.venus-bdlab.com/normalize.css/-/normalize.css-8.0.1.tgz#9b98a208738b9cc2634caacbc42d131c97487bf3"
 
 npm-bundled@^1.0.1:
   version "1.0.5"
@@ -6688,7 +6692,7 @@ sass-graph@^2.2.4:
     scss-tokenizer "^0.2.3"
     yargs "^7.0.0"
 
-sass-loader@^7.0.1:
+sass-loader@^7.1.0:
   version "7.1.0"
   resolved "http://npm.venus-bdlab.com/sass-loader/-/sass-loader-7.1.0.tgz#16fd5138cb8b424bf8a759528a1972d72aad069d"
   dependencies:
@@ -6698,6 +6702,15 @@ sass-loader@^7.0.1:
     neo-async "^2.5.0"
     pify "^3.0.0"
     semver "^5.5.0"
+
+sass-resources-loader@^2.0.0:
+  version "2.0.0"
+  resolved "http://npm.venus-bdlab.com/sass-resources-loader/-/sass-resources-loader-2.0.0.tgz#88569c542fbf1f18f33a6578b77cc5b36c56911d"
+  dependencies:
+    async "^2.1.4"
+    chalk "^1.1.3"
+    glob "^7.1.1"
+    loader-utils "^1.0.4"
 
 sax@^1.2.4, sax@~1.2.4:
   version "1.2.4"

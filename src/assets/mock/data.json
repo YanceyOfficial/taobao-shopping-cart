@@ -1,0 +1,72 @@
+{
+  "store_id": "5be82ee2dc989f28b3c027eb",
+  "store_name": "人民教育出版社旗舰店",
+  "store_type": "tianmao",
+  "commodity_list": [{
+      "commodity_id": "5be82ee2dc989f28b3c027eb_a",
+      "commodity_name": "现货 他改变了中国 江泽民传 [美]罗伯特 劳伦斯 库恩 人物传记 正版图书籍 世纪文景 上海译文出版社",
+      "commodity_img": "https://img.yanceyleo.com/xxx.webp",
+      "cur_cart_num": 3,
+      "rest_stock": 20,
+      "unit_price": 36.8,
+      "purchase_restriction_num": 3,
+      "is_tiaomao_wuyou": true,
+      "sku": [{
+          "type": "颜色",
+          "list": ["高级黑", "东北银", "发条橙", "土豪金", "脑残粉", "茶婊绿", "古德白", "武藤蓝"]
+        },
+        {
+          "type": "套餐",
+          "list": ["亮铂金键盘套装", "灰钴蓝键盘套装", "深酒红键盘套装", "黑色键盘套装", "官方标配"]
+        },
+        {
+          "type": "网络类型",
+          "list": ["WIFI", "WIFI + 4G", "深酒红键盘套装", "黑色键盘套装", "官方标配"]
+        },
+        {
+          "type": "存储容量",
+          "list": ["64G", "128G", "256G"]
+        },
+        {
+          "type": "特色服务",
+          "list": [{"item": "全国联保[商家赠送]"}]
+        }
+      ]
+    },
+    {
+      "commodity_id": "5be82ee2dc989f28b3c027eb_b",
+      "commodity_name": "【人民出版社】人无远虑，必有近忧——江泽民战略决策研究",
+      "commodity_img": "https://gw.alicdn.com/bao/uploaded/i4/TB1J2IOLXXXXXaZaXXXXXXXXXXX_!!0-item_pic.jpg_200x200q50s150.jpg",
+      "cur_cart_num": 3,
+      "rest_in_stock": -1,
+      "unit_price": 45,
+      "purchase_restriction_num": 0,
+      "is_tiaomao_wuyou": false,
+      "sku": []
+    },
+    {
+      "commodity_id": "5be82ee2dc989f28b3c027eb_c",
+      "commodity_name": "【人民出版社】江泽民文选全三卷（普装）",
+      "commodity_img": "https://gw.alicdn.com/bao/uploaded/i2/1642922453/O1CN011TzW1GPCLQtVK7J_!!0-item_pic.jpg_200x200q50s150.jpg",
+      "cur_cart_num": 3,
+      "rest_in_stock": -1,
+      "unit_price": 71.25,
+      "purchase_restriction_num": 0,
+      "is_tiaomao_wuyou": false,
+      "sku": []
+    }
+  ],
+  "failCommodity": [{
+      "commodity_id": "xxx",
+      "commodity_name": "现货 他改变了中国 江泽民传 [美]罗伯特 劳伦斯 库恩 人物传记 正版图书籍 世纪文景 上海译文出版社",
+      "commodity_img": "https://img.yanceyleo.com/xxx.webp",
+      "fail_reason": "货存不足"
+    },
+    {
+      "commodity_id": "yyy",
+      "commodity_name": "他又变回去了",
+      "commodity_img": "https://img.yanceyleo.com/xxx.webp",
+      "fail_reason": "河蟹"
+    }
+  ]
+}
