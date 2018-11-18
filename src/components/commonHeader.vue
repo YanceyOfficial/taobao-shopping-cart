@@ -1,7 +1,7 @@
 <template>
     <header id="header">
         <i class="iconfont icon-more back_page_icon"></i>
-        <span class="header_text">购物车({{ initTotalAmonut }})</span>
+        <span class="header_text">购物车({{ totalNum }})</span>
     </header>
   </template>
 <script>
@@ -9,9 +9,10 @@ import Router from "vue-router";
 export default {
   name: "commonFooter",
   data() {
-    return {
-      initTotalAmonut: 0
-    };
+    return {};
+  },
+  props: {
+    totalNum: Number,
   },
   mounted() {},
   methods: {}

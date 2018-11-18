@@ -49,12 +49,10 @@ export default {
 
 <style lang="scss">
 #footer {
-  box-sizing: border-box;
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: rem(54);
-  padding-top: rem(4);
+  height: rem(42);
   border-top: 1px solid $border_gray;
   background: $white;
 }

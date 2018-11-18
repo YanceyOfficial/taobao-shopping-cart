@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
-    <CommonHeader></CommonHeader>
-    <Item></Item>
+  <div id='app'>
+    <CommonHeader :totalNum="totalNum"></CommonHeader>
+    <Item :vaildCommodities="vaildCommodities" :invaildCommodities="invaildCommodities"></Item>
     <Total></Total>
     <CommonFooter></CommonFooter>
   </div>
@@ -18,25 +18,36 @@ export default {
     Total,
     Item,
     CommonFooter,
-    CommonHeader
+    CommonHeader,
   },
   data() {
-    return {};
+    return {
+      vaildCommodities: [],
+      invaildCommodities: [],
+      totalNum: 0,
+    };
   },
   mounted() {
     this.getData();
   },
   methods: {
-    getData() {
-      fetch("../src/assets/mock/data.json").then(response => {
-        console.log(response)
-      });
+    async getData() {
+      try {
+        const res = await fetch("../data.json");
+        const data = await res.json();
+        this.vaildCommodities = data.vaild_commodities;
+        this.invaildCommodities = data.invaild_commodities;
+        this.totalNum = data.total_number;
+      } catch (e) {
+        console.log(new Error(e));
+      } finally {
+      }
     }
   }
 };
 </script>
 
-<style lang="scss">
+<style lang='scss'>
 #app {
   position: relative;
 }

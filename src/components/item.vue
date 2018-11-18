@@ -1,187 +1,73 @@
 <template>
     <section id="item">
       <ul class="store_list">
-        <li class="store_item">
-          <div class="store_wrapper">
-          <span class="store_basic">
-            <label for="selectStoreAll" class="radio_label">
-              <input type="radio" id="selectStoreAll" class="select_radio">
-              <i class="iconfont radio_icon icon-round"></i>
-            </label>
-            <i class="tianmao_logo"></i>
-            <span class="store_name">{{ storeName }}</span>
-            <i class="iconfont icon-more go_store_hp"></i>
-          </span>
-          <span class="store_attach">
-            <span class="get_coupon">领券</span>
-            <span class="get_edit" :data-store-id="flag" @click="showDelete($event)">{{ flag ? '完成' : '编辑' }}</span>
-          </span>
-        </div>
-          <div class="store_activity_wrapper">
+
+        <!-- 有效的宝贝 -->
+        <li class="store_item" ref="getStoreDOM" v-for="(store, storeIndex) in vaildCommodities" :key="store.store_id">
+          <div :class="['store_wrapper', store.store_promotion.length === 0? 'store_wrapper_no_border' : '']">
+            <span class="store_basic">
+              <label for="selectStoreAll" class="radio_label">
+                <input type="radio" id="selectStoreAll" class="select_radio">
+                <i class="iconfont radio_icon icon-round"></i>
+              </label>
+              <i class="store_type_logo" :style="{backgroundImage: `url(${getStoreType(store.store_type)})`}"></i>
+              <span class="store_name">{{ store.store_name }}</span>
+              <i class="iconfont icon-more go_store_hp"></i>
+            </span>
+            <span class="store_attach">
+              <span class="get_coupon" v-if="store.coupon">领券</span>
+              <span class="get_edit" @click="toggleDelete(storeIndex)">编辑</span>
+            </span>
+          </div>
+          <div class="store_activity_wrapper" v-if="store.store_promotion.length !== 0">
             <span class="activity_title">本店活动</span>
-            <span class="activity_content">满100元，享包邮</span>
+            <span class="activity_content">{{ store.store_promotion }}</span>
           </div>
           <ul class="commodity_list">
-            <li class="commodity_item">
-              <div :class="['commodity_item_container', flag ? 'shrink_commodity_item' : '']" data-store-id="5be82ee2dc989f28b3c027eb">
+            <li class="commodity_item" v-for="(commodity, commodityIndex) in store.commodity_list" :key="commodity.sku_id">
+              <div class="commodity_item_container">
                 <div class="radio_img_wrapper">
-                  <label for="selectStoreOne" class="radio_label">
-                    <input type="radio" id="selectStoreOne" class="select_radio">
+                  <input type="checkbox" ref="oneSelect" @change="handleOneSelect($event)">
+                  <!-- <label for="selectStoreOne" class="radio_label" @click="">
+                    <input type="radio" id="selectStoreOne" class="select_radio" :checked="true">
                     <i class="iconfont radio_icon icon-round"></i>
-                  </label>
-                  <img :src="jiangzemin" alt="" class="commodity_img">
+                  </label> -->
+                  <img :src="commodity.commodity_img" :alt="commodity.commodity_name" class="commodity_img">
                 </div>
                 <div class="commodity_detail_wrapper">
-                  <h3 class="commodity_title">现货 他改变了中国 江泽民传 [美]罗伯特 劳伦斯 库恩 人物传记 正版图书籍 世纪文景 上海译文出版社</h3>
-                  <span class="low_stock_warning">库存紧张</span>
-                  <span class="low_stock_warning">库存紧张</span>
-                  <span class="low_stock_warning">库存紧张</span>
-                  <span class="low_stock_warning">库存紧张</span>
+                  <h3 class="commodity_title">{{ commodity.commodity_name }}</h3>
+                  <p class="warning tmall_wuyou_logo_wrapper" v-if="commodity.is_tmall_wuyou">
+                    <img :src="tmall_wuyou_logo" alt="tmall_wuyou_logo">
+                  </p>
+                  <p class="sku_picker" v-if="commodity.type_union.length !== 0">{{ commodity.type_union.join(';') }}</p>
+                    <div v-for="(warning, index) in commodity.warning_msg" :key="index">
+                        <p class="warning low_stock_warning">{{ warning }}</p>
+                    </div>
                   <div class="handle_count_wrapper">
                     <span class="price_wrapper">
                       <span class="small_text">¥</span>
-                      <span class="large_text">{{ unitPrice }}.</span>
-                      <span class="small_text">{{ unitPrice }}</span>
+                      <span class="large_text">{{ commodity.sku_unit_price.toString().split('.')[0] }}</span>
+                      <span class="large_text" v-if="commodity.sku_unit_price.toString().split('.').length === 2">.</span>
+                      <span class="small_text">{{ commodity.sku_unit_price.toString().split('.')[1] }}</span>
                     </span>
                     <span class="handle_count">
-                      <i class="iconfont icon-move handle_count_btn"></i>
-                      <span>{{ count }}</span>
-                      <i class="iconfont icon-add handle_count_btn"></i>
+                      <!-- 减少数量需要传递三个参数，分别是 店铺索引/商品索引/当前数量 -->
+                      <i class="iconfont icon-move handle_count_btn" @click="reduceCount(storeIndex, commodityIndex, commodity.cur_cart_num)"></i>
+                      <span>{{ commodity.cur_cart_num }}</span>
+                      <!-- 增加数量需要传递五个参数，分别是 店铺索引/商品索引/当前数量/购买上限/库存总量 -->
+                      <i
+                        class="iconfont icon-add handle_count_btn"
+                        @click="addCount(storeIndex, commodityIndex, commodity.cur_cart_num, commodity.purchase_restriction_num, commodity.sku_rest_stock)"
+                      >
+                      </i>
                     </span>
                   </div>
                 </div>
               </div>
-                <div :class="['delete_commodity', flag ? 'show_delete' : '']" data-store-id="5be82ee2dc989f28b3c027eb">删除</div>
-            </li>
-            <li class="commodity_item">
-              <div :class="['commodity_item_container', flag ? 'shrink_commodity_item' : '']">
-                <label for="selectStoreOne" class="radio_label">
-                  <input type="radio" id="selectStoreOne" class="select_radio">
-                  <i class="iconfont radio_icon icon-round"></i>
-                </label>
-                <img :src="jiangzemin" alt="" class="commodity_img">
-                <div class="commodity_detail_wrapper">
-                  <h3 class="commodity_title">现货 他改变了中国 江泽民传 [美]罗伯特 劳伦斯 库恩 人物传记 正版图书籍 世纪文景 上海译文出版社</h3>
-                  <div class="handle_count_wrapper">
-                    <span class="price_wrapper">
-                      <span class="small_text">¥</span>
-                      <span class="large_text">{{ unitPrice }}.</span>
-                      <span class="small_text">{{ unitPrice }}</span>
-                    </span>
-                    <span class="handle_count">
-                      <i class="iconfont icon-move handle_count_btn"></i>
-                      <span>{{ count }}</span>
-                      <i class="iconfont icon-add handle_count_btn"></i>
-                    </span>
-                  </div>
-                </div>
-              </div>
-                <div :class="['delete_commodity', flag ? 'show_delete' : '']">删除</div>
+              <div class="delete_commodity">删除</div>
             </li>
           </ul>
         </li>
-
-
-        <!-- the second store -->
-        <li class="store_item">
-          <div class="store_wrapper">
-          <span class="store_basic">
-            <label for="selectStoreAll" class="radio_label">
-              <input type="radio" id="selectStoreAll" class="select_radio">
-              <i class="iconfont radio_icon icon-round"></i>
-            </label>
-            <i class="tianmao_logo"></i>
-            <span class="store_name">{{ storeName }}</span>
-            <i class="iconfont icon-more go_store_hp"></i>
-          </span>
-          <span class="store_attach">
-            <span class="get_coupon">领券</span>
-            <span class="get_edit" @click="showDelete()">{{ flag ? '完成' : '编辑' }}</span>
-          </span>
-        </div>
-          <div class="store_activity_wrapper">
-            <span class="activity_title">本店活动</span>
-            <span class="activity_content">满100元，享包邮</span>
-          </div>
-          <ul class="commodity_list">
-            <li class="commodity_item">
-              <div :class="['commodity_item_container', flag ? 'shrink_commodity_item' : '']">
-                <label for="selectStoreOne" class="radio_label">
-                  <input type="radio" id="selectStoreOne" class="select_radio">
-                  <i class="iconfont radio_icon icon-round"></i>
-                </label>
-                <img :src="jiangzemin" alt="" class="commodity_img">
-                <div class="commodity_detail_wrapper">
-                  <h3 class="commodity_title">现货 他改变了中国 江泽民传 [美]罗伯特 劳伦斯 库恩 人物传记 正版图书籍 世纪文景 上海译文出版社</h3>
-                  <div class="handle_count_wrapper">
-                    <span class="price_wrapper">
-                      <span class="small_text">¥</span>
-                      <span class="large_text">{{ unitPrice }}.</span>
-                      <span class="small_text">{{ unitPrice }}</span>
-                    </span>
-                    <span class="handle_count">
-                      <i class="iconfont icon-move handle_count_btn"></i>
-                      <span>{{ count }}</span>
-                      <i class="iconfont icon-add handle_count_btn"></i>
-                    </span>
-                  </div>
-                </div>
-              </div>
-                <div :class="['delete_commodity', flag ? 'show_delete' : '']">删除</div>
-            </li>
-            <li class="commodity_item">
-              <div :class="['commodity_item_container', flag ? 'shrink_commodity_item' : '']">
-                <label for="selectStoreOne" class="radio_label">
-                  <input type="radio" id="selectStoreOne" class="select_radio">
-                  <i class="iconfont radio_icon icon-round"></i>
-                </label>
-                <img :src="jiangzemin" alt="" class="commodity_img">
-                <div class="commodity_detail_wrapper">
-                  <h3 class="commodity_title">现货 他改变了中国 江泽民传 [美]罗伯特 劳伦斯 库恩 人物传记 正版图书籍 世纪文景 上海译文出版社</h3>
-                  <div class="handle_count_wrapper">
-                    <span class="price_wrapper">
-                      <span class="small_text">¥</span>
-                      <span class="large_text">{{ unitPrice }}.</span>
-                      <span class="small_text">{{ unitPrice }}</span>
-                    </span>
-                    <span class="handle_count">
-                      <i class="iconfont icon-move handle_count_btn"></i>
-                      <span>{{ count }}</span>
-                      <i class="iconfont icon-add handle_count_btn"></i>
-                    </span>
-                  </div>
-                </div>
-              </div>
-                <div :class="['delete_commodity', flag ? 'show_delete' : '']">删除</div>
-            </li>
-            <li class="commodity_item">
-              <div :class="['commodity_item_container', flag ? 'shrink_commodity_item' : '']">
-                <label for="selectStoreOne" class="radio_label">
-                  <input type="radio" id="selectStoreOne" class="select_radio">
-                  <i class="iconfont radio_icon icon-round"></i>
-                </label>
-                <img :src="jiangzemin" alt="" class="commodity_img">
-                <div class="commodity_detail_wrapper">
-                  <h3 class="commodity_title">现货 他改变了中国 江泽民传 [美]罗伯特 劳伦斯 库恩 人物传记 正版图书籍 世纪文景 上海译文出版社</h3>
-                  <div class="handle_count_wrapper">
-                    <span class="price_wrapper">
-                      <span class="small_text">¥</span>
-                      <span class="large_text">{{ unitPrice }}.</span>
-                      <span class="small_text">{{ unitPrice }}</span>
-                    </span>
-                    <span class="handle_count">
-                      <i class="iconfont icon-move handle_count_btn"></i>
-                      <span>{{ count }}</span>
-                      <i class="iconfont icon-add handle_count_btn"></i>
-                    </span>
-                  </div>
-                </div>
-              </div>
-                <div :class="['delete_commodity', flag ? 'show_delete' : '']">删除</div>
-            </li>
-          </ul>
-        </li>
-
 
         <!-- 失效的宝贝 -->
         <li class="store_item">
@@ -190,57 +76,127 @@
             <span class="remove_invaid_commodity">清空失效宝贝</span>
           </div>
           <ul class="commodity_list">
-            <li class="commodity_item">
-              <div :class="['commodity_item_container', 'invaid_container', flag ? 'shrink_commodity_item' : '']">
-                <span class="invaid_logo">失效</span>
-                <img :src="jiangzemin" alt="" class="commodity_img invalid_img">
+            <li class="commodity_item"  v-for="commodity in invaildCommodities" :key="commodity.commodity_id">
+              <div class="commodity_item_container invaild_item_container">
+                <span :class="['invaid_logo', commodity.pre_hot ? 'pre_hot' : '']">{{ commodity.pre_hot ? '预热' : '失效' }}</span>
+                <img :src="commodity.commodity_img" :alt="commodity.commodity_name" class="commodity_img invalid_img">
                 <div class="invaid_detail_wrapper">
-                  <h3 class="commodity_title invaid_title">现货 他改变了中国 江泽民传 [美]罗伯特 劳伦斯 库恩 人物传记 正版图书籍 世纪文景 上海译文出版社</h3>
-                  <p class="invaid_reason">商品库存不足</p>
+                  <h3 class="commodity_title invaid_title">{{ commodity.commodity_name }}</h3>
+                  <p class="invaid_reason">{{ commodity.fail_reason }}</p>
                   <p class="link_to_likely">找相似</p>
                 </div>
               </div>
-                <div :class="['delete_commodity', flag ? 'show_delete' : '']">删除</div>
-            </li>
-            <li class="commodity_item">
-              <div :class="['commodity_item_container', 'invaid_container', flag ? 'shrink_commodity_item' : '']">
-                <span class="invaid_logo">失效</span>
-                <img :src="jiangzemin" alt="" class="commodity_img invalid_img">
-                <div class="invaid_detail_wrapper">
-                  <h3 class="commodity_title invaid_title">现货 他改变了中国 江泽民传 [美]罗伯特 劳伦斯 库恩 人物传记 正版图书籍 世纪文景 上海译文出版社</h3>
-                  <p class="invaid_reason">宝贝已不能购买，请联系卖家</p>
-                  <p class="link_to_likely">找相似</p>
-                </div>
-              </div>
-                <div :class="['delete_commodity', flag ? 'show_delete' : '']">删除</div>
             </li>
           </ul>
         </li>
-
       </ul>
+
+      <!-- modal -->
+      <div class='dialog_wrapper' v-show="showDialog">
+        <Overlay></Overlay>
+        <PurchaseRestrictionDialog :warningMsg="warningMsg"></PurchaseRestrictionDialog>
+      </div>
     </section>
   </template>
 
 <script>
 import Router from "vue-router";
+import Overlay from "./overlay";
+import PurchaseRestrictionDialog from "./purchaseRestrictionDialog";
+import urlList from "../constant/url.js";
 export default {
   name: "item",
   data() {
     return {
-      curStoreId: "",
-      flag: false,
-      count: 2,
-      storeName: "良品铺子旗舰店",
-      unitPrice: 0,
-      // jiangzemin: "https://yancey-assets.oss-cn-beijing.aliyuncs.com/O1CN01GNwiZV1VdBx79CBZl_%21%210-item_pic.jpg_200x200q50s150.jpg"
-      jiangzemin:
-        "https://gw.alicdn.com/bao/uploaded/i2/619123122/O1CN011YvuzFv3R9ezInI_!!0-item_pic.jpg_200x200q50s150.jpg"
+      tmall_wuyou_logo:
+        "http://gw.alicdn.com/tfs/TB10WFoJH9YBuNjy0FgXXcxcXXa-405-72.png",
+      showDialog: false,
+      warningMsg: "",
+      selectList: [],
     };
+  },
+  components: {
+    Overlay,
+    PurchaseRestrictionDialog
+  },
+  props: {
+    vaildCommodities: Array,
+    invaildCommodities: Array
   },
   mounted() {},
   methods: {
-    showDelete() {
-      this.flag = !this.flag;
+    toggleDelete(storeIndex) {
+      const curStoreDOM = this.$refs.getStoreDOM[storeIndex];
+      const deleteDOM = curStoreDOM.querySelectorAll(".delete_commodity");
+      const commodityDOM = curStoreDOM.querySelectorAll(
+        ".commodity_item_container"
+      );
+      const editorTagDOM = curStoreDOM.querySelector(".get_edit");
+      for (let i = 0, l = deleteDOM.length; i < l; i += 1) {
+        deleteDOM[i].classList.toggle("show_delete");
+        commodityDOM[i].classList.toggle("shrink_commodity_item");
+      }
+      if (editorTagDOM.innerText === "编辑") {
+        editorTagDOM.innerText = "完成";
+      } else {
+        editorTagDOM.innerText = "编辑";
+      }
+    },
+    getStoreType(typeNum) {
+      if (typeNum === 1) {
+        return urlList.tmall;
+      } else if (typeNum === 2) {
+        return urlList.enterprise;
+      } else if (typeNum === 3) {
+        return urlList.tmall_internation;
+      }
+    },
+    closeDialog() {
+      setTimeout(() => {
+        this.showDialog = false;
+      }, 1000);
+    },
+    addCount(storeIndex, commodityIndex, curNum, limitMaxNum, maxStockNum) {
+      // 如果有限购条件
+      if (limitMaxNum > 0) {
+        // 如果增加一件的话将超过最大限购数
+        if (curNum + 1 > limitMaxNum) {
+          this.showDialog = true;
+          this.warningMsg = "亲，该宝贝不能购买更多哦～";
+          this.closeDialog();
+        } else {
+          this.vaildCommodities[storeIndex].commodity_list[
+            commodityIndex
+          ].cur_cart_num += 1;
+        }
+      } else {
+        if (curNum + 1 > maxStockNum) {
+          this.showDialog = true;
+          this.warningMsg = "亲，该宝贝不能购买更多哦～";
+          this.closeDialog();
+        } else {
+          this.vaildCommodities[storeIndex].commodity_list[
+            commodityIndex
+          ].cur_cart_num += 1;
+        }
+      }
+    },
+    reduceCount(storeIndex, commodityIndex, curNum) {
+      if (curNum - 1 === 0) {
+        this.showDialog = true;
+        this.warningMsg = "受不了了，宝贝不能再减少了哦～";
+        this.closeDialog();
+      } else {
+        this.vaildCommodities[storeIndex].commodity_list[
+          commodityIndex
+        ].cur_cart_num -= 1;
+      }
+    },
+    handleOneSelect(e) {
+      console.log()
+      if (e.target.checked) {
+
+      }
     }
   }
 };
@@ -264,6 +220,10 @@ export default {
   }
 }
 
+.store_wrapper_no_border {
+  box-shadow: none !important;
+}
+
 .store_wrapper {
   display: flex;
   align-items: center;
@@ -274,17 +234,21 @@ export default {
     justify-content: space-between;
     align-items: center;
     width: 50%;
-    .tianmao_logo {
+    .store_type_logo {
       display: inline-block;
       width: $font_size_16;
       height: $font_size_16;
-      background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAMAAADW3miqAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpFRjQ4QTZBMjczMkYxMUU1OTIxNEVBNEM3N0VGQTM4QiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpFRjQ4QTZBMzczMkYxMUU1OTIxNEVBNEM3N0VGQTM4QiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkVGNDhBNkEwNzMyRjExRTU5MjE0RUE0Qzc3RUZBMzhCIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkVGNDhBNkExNzMyRjExRTU5MjE0RUE0Qzc3RUZBMzhCIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+cikVKAAAAwBQTFRF0Ds6aWFg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)
-        no-repeat;
+      background-repeat: no-repeat;
       background-size: contain;
+    }
+    .store_name {
+      width: rem(100);
+      height: rem(18);
+      overflow: hidden;
     }
     .go_store_hp {
       position: relative;
-      top: rem(1);
+      top: 0;
       font-size: $font_size_18;
       font-weight: bold;
     }
@@ -325,11 +289,12 @@ export default {
 .commodity_item_container {
   display: flex;
   justify-content: space-around;
+  margin-top: rem(8);
   padding: rem(4) rem(10);
   transition: transform 0.2s ease-in 0s;
   transform: translateX(0);
   will-change: transform;
-  .radio_img_wrapper{
+  .radio_img_wrapper {
     display: flex;
     height: rem(98);
   }
@@ -347,14 +312,45 @@ export default {
     justify-content: space-between;
     min-height: rem(98);
     padding: 0 0 rem(6) rem(12);
-    .low_stock_warning {
+    .sku_picker {
+      position: relative;
+      margin: rem(8) 0;
+      padding: rem(2) rem(24) rem(2) rem(2);
+      background: $_background_gray;
+      color: $invaid_gray;
+      border-radius: rem(4);
+      &::after {
+        position: absolute;
+        top: 0;
+        right: rem(8);
+        bottom: 0;
+        margin: auto;
+        content: "";
+        width: rem(12);
+        height: rem(12);
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAaCAYAAABozQZiAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo1MjQzMkFFNTQ0MEYxMUU1OTZDRjk2ODYxMEYzRTU0MSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo1MjQzMkFFNjQ0MEYxMUU1OTZDRjk2ODYxMEYzRTU0MSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjUyNDMyQUUzNDQwRjExRTU5NkNGOTY4NjEwRjNFNTQxIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjUyNDMyQUU0NDQwRjExRTU5NkNGOTY4NjEwRjNFNTQxIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+YpVSkgAAATZJREFUeNpinDlzJhsDA0MBEP8E4mlpaWm/GYgETECcC8SdQDwBiNfOmjWLjRTNv5D4vkC8hlgDQJqnAfEycgxgAvrxL5COI8cAkM0M5BrABGOQYwDj////UQSACpmB1CIgjkIS3gcyCGjBN6w2Y3HBXCRhJyDeAjSYC69mJANSgXgGkrAjugFMuAIDaADIP1n4DMDwMzoAKmSEpoUMJOHbQGzERCghILlgDpKwKhDPZiIyGbMCsSya2HuCmqFxvAaI3ZGEdwBxDhORGn2RhEEB6AX0zj+cAYZD42IgjoeGA/aowqERlGwTYRqxasajMQ6aeLCnMFI0omiGZojFxGqEa0bKSWHEagQBZikpKWxZkKBGmM1xaBo3EaMRphk50DYDcSgxGkGABYgXgJwPxXNIKfQBAgwAqZCKsABxZ/8AAAAASUVORK5CYII=)
+          center center no-repeat;
+        background-size: contain;
+        transform: rotate(90deg);
+      }
+    }
+    .warning {
+      margin-top: rem(2);
       color: $orange;
+    }
+    .tmall_wuyou_logo_wrapper {
+      margin-top: rem(8);
+      img {
+        display: block;
+        height: rem(12);
+      }
     }
   }
   .handle_count_wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: rem(8);
     .handle_count {
       width: rem(60);
       display: flex;
@@ -379,7 +375,7 @@ export default {
   -webkit-box-orient: vertical;
 }
 
-.invaid_container{
+.invaid_container {
   align-items: center;
 }
 
@@ -396,14 +392,23 @@ export default {
   }
 }
 
+.invaild_item_container {
+  align-items: center;
+}
+
 .invaid_logo {
   box-sizing: border-box;
   display: inline-block;
-  width: rem(88);
-  background: #aaaaaa;
-  color: #ffffff;
+  width: rem(84);
+  background: $invaid_logo_gray;
+  color: $white;
   border-radius: rem(4);
   text-align: center;
+  padding: 0 rem(1);
+  line-height: 1.4;
+}
+.pre_hot {
+  background: $pre_hot;
 }
 .invalid_img {
   margin-left: rem(8) !important;

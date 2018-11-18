@@ -45,7 +45,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  bottom: rem(52);
+  bottom: rem(42);
   width: 100%;
   height: rem(48);
   border-top: rem(1) solid $border_gray;

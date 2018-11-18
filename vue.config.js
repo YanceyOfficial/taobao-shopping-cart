@@ -9,4 +9,16 @@ module.exports = {
       },
     },
   },
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'https://api.yanceyleo.com',
+        changeOrigin: true,
+        ws: true,
+        pathRewrite: {
+          '^/api': '',
+        },
+      },
+    },
+  },
 };
