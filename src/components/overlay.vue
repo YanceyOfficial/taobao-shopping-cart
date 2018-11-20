@@ -3,16 +3,16 @@
 </template>
 
 <script>
-import Router from "vue-router";
+
 export default {
-  name: "overlay",
+  name: 'overlay',
   data() {
     return {
-      openOverlay: false
+      openOverlay: false,
     };
   },
   mounted() {},
-  methods: {}
+  methods: {},
 };
 </script>
 

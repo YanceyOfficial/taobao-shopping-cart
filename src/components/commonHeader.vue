@@ -5,9 +5,9 @@
     </header>
   </template>
 <script>
-import Router from "vue-router";
+
 export default {
-  name: "commonFooter",
+  name: 'commonFooter',
   data() {
     return {};
   },
@@ -15,7 +15,7 @@ export default {
     totalNum: Number,
   },
   mounted() {},
-  methods: {}
+  methods: {},
 };
 </script>
 

@@ -36,14 +36,14 @@
   </template>
 
 <script>
-import Router from "vue-router";
+
 export default {
-  name: "commonFooter",
+  name: 'commonFooter',
   data() {
     return {};
   },
   mounted() {},
-  methods: {}
+  methods: {},
 };
 </script>
 

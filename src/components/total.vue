@@ -2,7 +2,13 @@
   <section id="total">
     <span class="total_left">
       <label for="selectAll" class="radio_label">
-        <input type="radio" id="selectAll" class="select_radio">
+        <input
+          type="checkbox"
+          id="selectAll"
+          class="select_radio"
+          v-model="selectAllStatus"
+          @change="selectAll()"
+        >
         <i class="iconfont radio_icon icon-round"></i>
         全选
       </label>
@@ -11,30 +17,38 @@
       <span>
         合计：
         <span class="price_wrapper">
-          <span class="small_text">¥</span>
-          <span class="large_text">{{ totalPrice }}.</span>
-          <span class="small_text">{{ totalPrice }}</span>
+          <span class="large_text">{{ curTotalPrice.toString().split('.')[0] }}.</span>
+          <span
+            class="small_text"
+          >
+            {{ curTotalPrice.toString().split('.')[1] ? curTotalPrice.toString().split('.')[1] : '00' }}
+          </span>
         </span>
         <span class="settle_warapper">
-          <button class="settle_btn">结算({{ totalAmount }})</button>
+          <button class="settle_btn">结算({{ selectListLength }})</button>
         </span>
       </span>
     </span>
   </section>
 </template>
-
 <script>
-import Router from "vue-router";
 export default {
-  name: "total",
+  name: 'total',
   data() {
     return {
-      totalPrice: 0,
-      totalAmount: 0
+      selectAllStatus: false,
     };
   },
+  props: {
+    selectListLength: Number,
+    curTotalPrice: Number,
+  },
   mounted() {},
-  methods: {}
+  methods: {
+    selectAll() {
+      this.$emit('getSelectAllFeedback', this.selectAllStatus);
+    },
+  },
 };
 </script>
 
@@ -54,7 +68,7 @@ export default {
 
 .total_left {
   position: relative;
-  margin-left: rem(16);
+  margin-left: rem(10);
   font-size: $font_size_16;
 }
 

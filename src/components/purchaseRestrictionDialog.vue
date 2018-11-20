@@ -1,29 +1,35 @@
 <template>
   <section id="purchaseRestrictionDialog">
-      <p class="purchase_restriction"> {{ warningMsg }} </p>
-      <div class="delete_confirm" v-if="false">
-          <p class="delete_confirm_title">确定要删除这个宝贝吗？</p>
+      <p class="purchase_restriction" v-if="!isDialog"> {{ warningMsg }} </p>
+      <div class="delete_confirm" v-if="isDialog">
+          <p class="delete_confirm_title">{{ warningMsg }}</p>
           <div class="delete_confirm_btn">
-            <span class="btn cancel">取消</span>
-            <span class="btn ok">确定</span>
+            <span class="btn cancel" @click="handleCancel()">取消</span>
+            <span class="btn ok" @click="handleOk()">确定</span>
           </div>
       </div>
   </section>
 </template>
 
 <script>
-import Router from "vue-router";
 export default {
-  name: "purchaseRestrictionDialog",
+  name: 'purchaseRestrictionDialog',
   data() {
-    return {
-    };
+    return {};
   },
   props: {
     warningMsg: String,
+    isDialog: Number,
   },
   mounted() {},
-  methods: {}
+  methods: {
+    handleOk() {
+      this.$emit('getDialogFeedback', this.isDialog, true);
+    },
+    handleCancel() {
+      this.$emit('getDialogFeedback', this.isDialog, false);
+    },
+  },
 };
 </script>
 
@@ -31,7 +37,6 @@ export default {
 #purchaseRestrictionDialog {
   font-size: $font_size_14;
   text-align: center;
-  z-index: 9999;
   .purchase_restriction {
     position: fixed;
     width: rem(240);
@@ -47,6 +52,7 @@ export default {
     border-radius: rem(4);
   }
   .delete_confirm {
+    position: fixed;
     width: rem(270);
     height: rem(90);
     top: 0;
@@ -56,6 +62,7 @@ export default {
     margin: auto;
     background: $delete_dialog_background;
     color: $white;
+    z-index: 9999;
     .delete_confirm_title {
       font-size: $font_size_16;
       color: $delete_title;

@@ -3,14 +3,33 @@
       <ul class="store_list">
 
         <!-- 有效的宝贝 -->
-        <li class="store_item" ref="getStoreDOM" v-for="(store, storeIndex) in vaildCommodities" :key="store.store_id">
-          <div :class="['store_wrapper', store.store_promotion.length === 0? 'store_wrapper_no_border' : '']">
+        <li
+          class="store_item"
+          ref="getStoreDOM"
+          v-for="(store, storeIndex) in vaildCommodities"
+          :key="store.store_id"
+        >
+          <div
+            :class="['store_wrapper', store.store_promotion.length === 0? 'store_wrapper_no_border' : '']"
+          >
             <span class="store_basic">
-              <label for="selectStoreAll" class="radio_label">
-                <input type="radio" id="selectStoreAll" class="select_radio">
+              <label
+                :for="`selectStoreAll_${store.store_id}`"
+                class="radio_label"
+                @change="handleOneStoreSelect($event)"
+              >
+                <input
+                  type="checkbox"
+                  :id="`selectStoreAll_${store.store_id}`"
+                  class="select_radio"
+                >
                 <i class="iconfont radio_icon icon-round"></i>
               </label>
-              <i class="store_type_logo" :style="{backgroundImage: `url(${getStoreType(store.store_type)})`}"></i>
+              <i
+                class="store_type_logo"
+                :style="{backgroundImage: `url(${getStoreType(store.store_type)})`}"
+              >
+              </i>
               <span class="store_name">{{ store.store_name }}</span>
               <i class="iconfont icon-more go_store_hp"></i>
             </span>
@@ -24,62 +43,112 @@
             <span class="activity_content">{{ store.store_promotion }}</span>
           </div>
           <ul class="commodity_list">
-            <li class="commodity_item" v-for="(commodity, commodityIndex) in store.commodity_list" :key="commodity.sku_id">
+            <li
+              class="commodity_item"
+              v-for="(commodity, commodityIndex) in store.commodity_list"
+              :key="commodity.sku_id"
+            >
               <div class="commodity_item_container">
                 <div class="radio_img_wrapper">
-                  <input type="checkbox" ref="oneSelect" @change="handleOneSelect($event)">
-                  <!-- <label for="selectStoreOne" class="radio_label" @click="">
-                    <input type="radio" id="selectStoreOne" class="select_radio" :checked="true">
+                  <label
+                    :for="`selectStoreOne_${store.store_id}_${commodity.sku_id}`"
+                    class="radio_label"
+                    @change="handleOneSelect($event, commodity.sku_id, commodity.cur_cart_num,
+                    commodity.sku_unit_price)"
+                  >
+                    <input
+                      type="checkbox"
+                      :id="`selectStoreOne_${store.store_id}_${commodity.sku_id}`"
+                      class="select_radio"
+                      :data-cur="`${commodity.sku_id}_${commodity.cur_cart_num}_${commodity.sku_unit_price}`"
+                    >
                     <i class="iconfont radio_icon icon-round"></i>
-                  </label> -->
-                  <img :src="commodity.commodity_img" :alt="commodity.commodity_name" class="commodity_img">
+                  </label>
+                  <img
+                    :src="commodity.commodity_img"
+                    :alt="commodity.commodity_name"
+                    class="commodity_img"
+                  >
                 </div>
                 <div class="commodity_detail_wrapper">
                   <h3 class="commodity_title">{{ commodity.commodity_name }}</h3>
                   <p class="warning tmall_wuyou_logo_wrapper" v-if="commodity.is_tmall_wuyou">
                     <img :src="tmall_wuyou_logo" alt="tmall_wuyou_logo">
                   </p>
-                  <p class="sku_picker" v-if="commodity.type_union.length !== 0">{{ commodity.type_union.join(';') }}</p>
+                  <p class="sku_picker"
+                     v-if="commodity.type_union.length !== 0"
+                     @click="handleSkuSelect()"
+                  >
+                    {{ commodity.type_union.join(';') }}
+                  </p>
                     <div v-for="(warning, index) in commodity.warning_msg" :key="index">
                         <p class="warning low_stock_warning">{{ warning }}</p>
                     </div>
                   <div class="handle_count_wrapper">
                     <span class="price_wrapper">
                       <span class="small_text">¥</span>
-                      <span class="large_text">{{ commodity.sku_unit_price.toString().split('.')[0] }}</span>
-                      <span class="large_text" v-if="commodity.sku_unit_price.toString().split('.').length === 2">.</span>
-                      <span class="small_text">{{ commodity.sku_unit_price.toString().split('.')[1] }}</span>
+                      <span class="large_text">
+                        {{ commodity.sku_unit_price.toString().split('.')[0] }}
+                      </span>
+                      <span
+                        class="large_text"
+                        v-if="commodity.sku_unit_price.toString().split('.').length === 2">
+                        .
+                      </span>
+                      <span class="small_text">
+                        {{ commodity.sku_unit_price.toString().split('.')[1] }}
+                      </span>
                     </span>
                     <span class="handle_count">
-                      <!-- 减少数量需要传递三个参数，分别是 店铺索引/商品索引/当前数量 -->
-                      <i class="iconfont icon-move handle_count_btn" @click="reduceCount(storeIndex, commodityIndex, commodity.cur_cart_num)"></i>
+                      <!-- 减少数量需要传递四个参数，分别是 店铺索引/商品索引/当前数量/skuId -->
+                      <i
+                        class="iconfont icon-move handle_count_btn"
+                        @click="reduceCount(storeIndex, commodityIndex, commodity.cur_cart_num, commodity.sku_id)">
+
+                      </i>
                       <span>{{ commodity.cur_cart_num }}</span>
-                      <!-- 增加数量需要传递五个参数，分别是 店铺索引/商品索引/当前数量/购买上限/库存总量 -->
+                      <!-- 增加数量需要传递六个参数，分别是 店铺索引/商品索引/当前数量/购买上限/库存总量/skuId-->
                       <i
                         class="iconfont icon-add handle_count_btn"
-                        @click="addCount(storeIndex, commodityIndex, commodity.cur_cart_num, commodity.purchase_restriction_num, commodity.sku_rest_stock)"
+                        @click="addCount(storeIndex, commodityIndex, commodity.cur_cart_num, commodity.purchase_restriction_num, commodity.sku_rest_stock, commodity.sku_id)"
                       >
                       </i>
                     </span>
                   </div>
                 </div>
               </div>
-              <div class="delete_commodity">删除</div>
+              <div
+                class="delete_commodity"
+                @click="deleteCommodity(storeIndex, commodityIndex)">
+                删除
+              </div>
             </li>
           </ul>
         </li>
 
         <!-- 失效的宝贝 -->
-        <li class="store_item">
+        <li class="store_item" v-if="invaildCommodities.length > 0">
           <div class="invaid_title_wrapper">
             <span class="invaid_big_logo">失效宝贝</span>
-            <span class="remove_invaid_commodity">清空失效宝贝</span>
+            <span class="remove_invaid_commodity" @click="deleteInvaidCommodities()">清空失效宝贝</span>
           </div>
           <ul class="commodity_list">
-            <li class="commodity_item"  v-for="commodity in invaildCommodities" :key="commodity.commodity_id">
+            <li
+              class="commodity_item"
+              v-for="commodity in invaildCommodities"
+              :key="commodity.commodity_id"
+            >
               <div class="commodity_item_container invaild_item_container">
-                <span :class="['invaid_logo', commodity.pre_hot ? 'pre_hot' : '']">{{ commodity.pre_hot ? '预热' : '失效' }}</span>
-                <img :src="commodity.commodity_img" :alt="commodity.commodity_name" class="commodity_img invalid_img">
+                <span
+                  :class="['invaid_logo', commodity.pre_hot ? 'pre_hot' : '']"
+                >
+                  {{ commodity.pre_hot ? '预热' : '失效' }}
+                </span>
+                <img
+                  :src="commodity.commodity_img"
+                  :alt="commodity.commodity_name"
+                  class="commodity_img invalid_img"
+                >
                 <div class="invaid_detail_wrapper">
                   <h3 class="commodity_title invaid_title">{{ commodity.commodity_name }}</h3>
                   <p class="invaid_reason">{{ commodity.fail_reason }}</p>
@@ -94,116 +163,395 @@
       <!-- modal -->
       <div class='dialog_wrapper' v-show="showDialog">
         <Overlay></Overlay>
-        <PurchaseRestrictionDialog :warningMsg="warningMsg"></PurchaseRestrictionDialog>
+        <PurchaseRestrictionDialog
+          :warningMsg="warningMsg"
+          :isDialog="isDialog"
+          @getDialogFeedback="getDialogFeedback"
+        >
+        </PurchaseRestrictionDialog>
       </div>
+
+      <!-- total -->
+      <Total
+        :selectListLength="selectListLength"
+        :curTotalPrice="curTotalPrice"
+        @getSelectAllFeedback="getSelectAllFeedback"
+        ref="selectAllStatus"
+      >
+      </Total>
+
+      <!-- skuSelector -->
+      <SkuSelector
+        class="hidden_sku_selector"
+        :showSkuPicker="showSkuPicker"
+        @getSkuPickFeedback="getSkuPickFeedback"
+      >
+      </SkuSelector>
     </section>
   </template>
 
 <script>
-import Router from "vue-router";
-import Overlay from "./overlay";
-import PurchaseRestrictionDialog from "./purchaseRestrictionDialog";
-import urlList from "../constant/url.js";
+import Overlay from './overlay';
+import PurchaseRestrictionDialog from './purchaseRestrictionDialog';
+import Total from './total';
+import SkuSelector from './skuSelector';
+import urlList from '../constant/url.js';
+
 export default {
-  name: "item",
+  name: 'item',
   data() {
     return {
       tmall_wuyou_logo:
-        "http://gw.alicdn.com/tfs/TB10WFoJH9YBuNjy0FgXXcxcXXa-405-72.png",
+        'http://gw.alicdn.com/tfs/TB10WFoJH9YBuNjy0FgXXcxcXXa-405-72.png',
       showDialog: false,
-      warningMsg: "",
+      warningMsg: '',
+      isDialog: 0,
       selectList: [],
+      selectListLength: 0,
+      curTotalPrice: 0,
+      dialogFeedback: false,
+      showSkuPicker: false,
+      curStoreIndex: 0,
+      curSkuIndex: 0,
     };
   },
   components: {
     Overlay,
-    PurchaseRestrictionDialog
+    PurchaseRestrictionDialog,
+    Total,
+    SkuSelector,
   },
   props: {
     vaildCommodities: Array,
-    invaildCommodities: Array
+    invaildCommodities: Array,
   },
   mounted() {},
+  watch: {
+    selectList: {
+      handler() {
+        this.selectListLength = this.selectList.length;
+        this.curTotalPrice = 0;
+        for (let i = 0, l = this.selectListLength; i < l; i += 1) {
+          this.curTotalPrice
+            += this.selectList[i].curNum * this.selectList[i].unitPrice;
+        }
+      },
+      deep: true,
+    },
+  },
   methods: {
+    // 显示隐藏一个商铺下的所有商品的删除按钮
     toggleDelete(storeIndex) {
       const curStoreDOM = this.$refs.getStoreDOM[storeIndex];
-      const deleteDOM = curStoreDOM.querySelectorAll(".delete_commodity");
+      const deleteDOM = curStoreDOM.querySelectorAll('.delete_commodity');
       const commodityDOM = curStoreDOM.querySelectorAll(
-        ".commodity_item_container"
+        '.commodity_item_container',
       );
-      const editorTagDOM = curStoreDOM.querySelector(".get_edit");
+      const editorTagDOM = curStoreDOM.querySelector('.get_edit');
       for (let i = 0, l = deleteDOM.length; i < l; i += 1) {
-        deleteDOM[i].classList.toggle("show_delete");
-        commodityDOM[i].classList.toggle("shrink_commodity_item");
+        deleteDOM[i].classList.toggle('show_delete');
+        commodityDOM[i].classList.toggle('shrink_commodity_item');
       }
-      if (editorTagDOM.innerText === "编辑") {
-        editorTagDOM.innerText = "完成";
+      if (editorTagDOM.innerText === '编辑') {
+        editorTagDOM.innerText = '完成';
       } else {
-        editorTagDOM.innerText = "编辑";
+        editorTagDOM.innerText = '编辑';
       }
     },
+    // 获取商铺类型 天猫 | 企业店铺 | 天猫国际
     getStoreType(typeNum) {
       if (typeNum === 1) {
         return urlList.tmall;
-      } else if (typeNum === 2) {
+      } if (typeNum === 2) {
         return urlList.enterprise;
-      } else if (typeNum === 3) {
+      } if (typeNum === 3) {
         return urlList.tmall_internation;
       }
+      return false;
     },
+    // 定时关闭对话框
     closeDialog() {
       setTimeout(() => {
         this.showDialog = false;
       }, 1000);
     },
-    addCount(storeIndex, commodityIndex, curNum, limitMaxNum, maxStockNum) {
+    // skuId匹配
+    matchSkuId(skuId) {
+      const result = this.selectList.findIndex(
+        skuItem => skuItem.skuId === skuId,
+      );
+      return result;
+    },
+    // 添加sku数量
+    addCount(
+      storeIndex,
+      commodityIndex,
+      curNum,
+      limitMaxNum,
+      maxStockNum,
+      skuId,
+    ) {
       // 如果有限购条件
       if (limitMaxNum > 0) {
         // 如果增加一件的话将超过最大限购数
         if (curNum + 1 > limitMaxNum) {
           this.showDialog = true;
-          this.warningMsg = "亲，该宝贝不能购买更多哦～";
+          this.warningMsg = '亲，该宝贝不能购买更多哦～';
+          this.isDialog = 0;
           this.closeDialog();
         } else {
           this.vaildCommodities[storeIndex].commodity_list[
             commodityIndex
           ].cur_cart_num += 1;
+
+          if (this.matchSkuId(skuId) !== -1) {
+            this.selectList[this.matchSkuId(skuId)].curNum += 1;
+          }
         }
+        // 没有限购条件，数量只要不超过库存量即可
+      } else if (curNum + 1 > maxStockNum) {
+        this.showDialog = true;
+        this.isDialog = 0;
+        this.warningMsg = '亲，该宝贝不能购买更多哦～';
+        this.closeDialog();
       } else {
-        if (curNum + 1 > maxStockNum) {
-          this.showDialog = true;
-          this.warningMsg = "亲，该宝贝不能购买更多哦～";
-          this.closeDialog();
-        } else {
-          this.vaildCommodities[storeIndex].commodity_list[
-            commodityIndex
-          ].cur_cart_num += 1;
+        this.vaildCommodities[storeIndex].commodity_list[
+          commodityIndex
+        ].cur_cart_num += 1;
+        if (this.matchSkuId(skuId) !== -1) {
+          this.selectList[this.matchSkuId(skuId)].curNum += 1;
         }
       }
     },
-    reduceCount(storeIndex, commodityIndex, curNum) {
+    // 减少sku数量
+    reduceCount(storeIndex, commodityIndex, curNum, skuId) {
       if (curNum - 1 === 0) {
         this.showDialog = true;
-        this.warningMsg = "受不了了，宝贝不能再减少了哦～";
+        this.isDialog = 0;
+        this.warningMsg = '受不了了，宝贝不能再减少了哦～';
         this.closeDialog();
       } else {
         this.vaildCommodities[storeIndex].commodity_list[
           commodityIndex
         ].cur_cart_num -= 1;
+        if (this.matchSkuId(skuId) !== -1) {
+          this.selectList[this.matchSkuId(skuId)].curNum -= 1;
+        }
       }
     },
-    handleOneSelect(e) {
-      console.log()
-      if (e.target.checked) {
-
+    // 全选按钮
+    handleSelectAll(type) {
+      const selectAllDOM = document.querySelector('#selectAll');
+      if (type) {
+        selectAllDOM.nextElementSibling.classList.remove('icon-round');
+        selectAllDOM.nextElementSibling.classList.add('icon-roundcheckfill');
+        selectAllDOM.checked = true;
+        this.$refs.selectAllStatus.selectAllStatus = true;
+      } else {
+        selectAllDOM.nextElementSibling.classList.add('icon-round');
+        selectAllDOM.nextElementSibling.classList.remove('icon-roundcheckfill');
+        selectAllDOM.checked = false;
+        this.$refs.selectAllStatus.selectAllStatus = false;
       }
-    }
-  }
+    },
+    // 判断所有店铺是否被选中
+    getSelectStoreAll() {
+      const selectStoreAllDOM = document.querySelectorAll(
+        'input[id^=selectStoreAll]',
+      );
+      const selectAllDOM = document.querySelector('#selectAll');
+      const result = Array.from(selectStoreAllDOM).every(item => item.checked);
+
+      if (result) {
+        selectAllDOM.nextElementSibling.classList.remove('icon-round');
+        selectAllDOM.nextElementSibling.classList.add('icon-roundcheckfill');
+        selectAllDOM.checked = true;
+        this.$refs.selectAllStatus.selectAllStatus = true;
+      }
+    },
+    // 选择单品
+    handleOneSelect(e, skuId, curNum, unitPrice) {
+      const sku = {
+        skuId,
+        curNum,
+        unitPrice,
+      };
+      const storeId = e.target.id.split('_')[1];
+      const curStoreDOM = document.querySelector(
+        `input[id=selectStoreAll_${storeId}]`,
+      );
+      const curStoreCommoditiesDOMList = document.querySelectorAll(
+        `input[id^=selectStoreOne_${storeId}]`,
+      );
+
+      // 取消选中时
+      if (!e.target.checked) {
+        this.selectList.splice(this.matchSkuId(skuId), 1);
+        e.target.nextElementSibling.classList.add('icon-round');
+        e.target.nextElementSibling.classList.remove('icon-roundcheckfill');
+
+        // 若先点击了店铺全选 再去取消一件单品时 将店铺全选按钮熄掉
+        curStoreDOM.nextElementSibling.classList.add('icon-round');
+        curStoreDOM.nextElementSibling.classList.remove('icon-roundcheckfill');
+        curStoreDOM.checked = false;
+
+        // 全选也要熄掉
+        this.handleSelectAll(false);
+
+        // 选中时
+      } else {
+        this.selectList.push(sku);
+        e.target.nextElementSibling.classList.remove('icon-round');
+        e.target.nextElementSibling.classList.add('icon-roundcheckfill');
+
+        // 判断如果此时恰好一个商铺底下的商品全部被勾选 将店铺全选按钮点亮
+        const result = Array.from(curStoreCommoditiesDOMList).every(item => item.checked);
+
+        if (result) {
+          curStoreDOM.nextElementSibling.classList.remove('icon-round');
+          curStoreDOM.nextElementSibling.classList.add('icon-roundcheckfill');
+          curStoreDOM.checked = true;
+        }
+
+        this.getSelectStoreAll();
+      }
+    },
+    // 按商铺批量选择
+    handleOneStoreSelect(e) {
+      const storeId = e.target.id.split('_')[1];
+      const commoditiesOfStore = document.querySelectorAll(
+        `input[id^=selectStoreOne_${storeId}]`,
+      );
+      if (e.target.checked) {
+        e.target.nextElementSibling.classList.remove('icon-round');
+        e.target.nextElementSibling.classList.add('icon-roundcheckfill');
+        for (let i = 0, l = commoditiesOfStore.length; i < l; i += 1) {
+          if (!commoditiesOfStore[i].checked) {
+            commoditiesOfStore[i].checked = true;
+            commoditiesOfStore[i].nextElementSibling.classList.remove(
+              'icon-round',
+            );
+            commoditiesOfStore[i].nextElementSibling.classList.add(
+              'icon-roundcheckfill',
+            );
+
+            const dataCurArr = commoditiesOfStore[i].dataset.cur.split('_');
+            const sku = {
+              skuId: dataCurArr[0],
+              curNum: parseInt(dataCurArr[1], 10),
+              unitPrice: parseFloat(dataCurArr[2]),
+            };
+            this.selectList.push(sku);
+          }
+        }
+        this.getSelectStoreAll();
+      } else {
+        e.target.nextElementSibling.classList.add('icon-round');
+        e.target.nextElementSibling.classList.remove('icon-roundcheckfill');
+        for (let i = 0, l = commoditiesOfStore.length; i < l; i += 1) {
+          commoditiesOfStore[i].checked = false;
+          commoditiesOfStore[i].nextElementSibling.classList.add('icon-round');
+          commoditiesOfStore[i].nextElementSibling.classList.remove(
+            'icon-roundcheckfill',
+          );
+          const dataCurArr = commoditiesOfStore[i].dataset.cur.split('_');
+          this.selectList.splice(this.matchSkuId(dataCurArr[0]), 1);
+          this.handleSelectAll(false);
+        }
+      }
+    },
+    // 获取全选按钮传递过来的信息
+    getSelectAllFeedback(params) {
+      const allInputDOM = document.querySelectorAll('input');
+      const commoditiesDOM = document.querySelectorAll(
+        'input[id^=selectStoreOne]',
+      );
+      this.selectList.splice(0, this.selectList.length);
+      if (params) {
+        for (const item of allInputDOM) {
+          item.checked = true;
+          item.nextElementSibling.classList.remove('icon-round');
+          item.nextElementSibling.classList.add('icon-roundcheckfill');
+        }
+        for (let i = 0, l = commoditiesDOM.length; i < l; i += 1) {
+          const dataCurArr = commoditiesDOM[i].dataset.cur.split('_');
+          const sku = {
+            skuId: dataCurArr[0],
+            curNum: parseInt(dataCurArr[1], 10),
+            unitPrice: parseFloat(dataCurArr[2]),
+          };
+          this.selectList.push(sku);
+        }
+      } else {
+        for (const item of allInputDOM) {
+          item.checked = false;
+          item.nextElementSibling.classList.add('icon-round');
+          item.nextElementSibling.classList.remove('icon-roundcheckfill');
+        }
+      }
+    },
+    // todo
+    // 显示隐藏sku picker
+    handleSkuSelect() {
+      const bodyDOM = document.querySelector('body');
+      bodyDOM.style.position = 'fixed';
+      this.showSkuPicker = true;
+    },
+    // 获取Sku Picker反馈以关闭
+    getSkuPickFeedback(params) {
+      const bodyDOM = document.querySelector('body');
+      if (params) {
+        bodyDOM.style.position = 'relative';
+        this.showSkuPicker = false;
+      }
+    },
+    // 删除无效商品
+    deleteInvaidCommodities() {
+      this.showDialog = true;
+      this.warningMsg = '确定要删除失效产品吗？';
+      this.isDialog = 1;
+    },
+    // 删除单品
+    deleteCommodity(curStoreIndex, curSkuIndex) {
+      this.showDialog = true;
+      this.warningMsg = '确定要删除这个宝贝吗？';
+      this.isDialog = 2;
+      this.curStoreIndex = curStoreIndex;
+      this.curSkuIndex = curSkuIndex;
+      // this.vaildCommodities[curStoreIndex].commodity_list.splice(curSkuIndex,1);
+    },
+    // 获取对话框传递过来的信息
+    getDialogFeedback(type, params) {
+      if (type === 1) {
+        if (params) {
+          this.invaildCommodities.splice(0, this.invaildCommodities.length);
+          this.showDialog = false;
+        } else {
+          this.showDialog = false;
+        }
+      } else if (params) {
+        this.vaildCommodities[this.curStoreIndex].commodity_list.splice(
+          this.curSkuIndex,
+          1,
+        );
+        if (
+          this.vaildCommodities[this.curStoreIndex].commodity_list.length
+            === 0
+        ) {
+          this.vaildCommodities.splice([this.curStoreIndex], 1);
+        }
+        this.showDialog = false;
+      } else {
+        this.showDialog = false;
+      }
+    },
+  },
 };
 </script>
 
 <style lang="scss">
 #item {
+  position: relative;
   width: 100%;
 }
 
@@ -224,13 +572,17 @@ export default {
   box-shadow: none !important;
 }
 
+.icon-roundcheckfill {
+  color: $orange !important;
+}
+
 .store_wrapper {
   display: flex;
   align-items: center;
-  padding: rem(2) rem(12);
+  padding: rem(2) rem(10);
   box-shadow: inset 0px -1px 1px -1px $border_gray;
   .store_basic {
-    display: inline-flex;
+    display: flex;
     justify-content: space-between;
     align-items: center;
     width: 50%;
@@ -247,8 +599,6 @@ export default {
       overflow: hidden;
     }
     .go_store_hp {
-      position: relative;
-      top: 0;
       font-size: $font_size_18;
       font-weight: bold;
     }
@@ -462,5 +812,13 @@ export default {
   transition: transform 0.2s ease-in 0s;
   transform: translateX(0);
   will-change: transform;
+}
+.hidden_sku_selector {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 100%;
+  z-index: 9999;
 }
 </style>
