@@ -24,8 +24,8 @@
             {{ curTotalPrice.toString().split('.')[1] ? curTotalPrice.toString().split('.')[1] : '00' }}
           </span>
         </span>
-        <span class="settle_warapper">
-          <button class="settle_btn">结算({{ selectListLength }})</button>
+        <span class="settle_wrapper">
+          <button class="settle_btn" @click="submitOrder()">结算({{ selectListLength }})</button>
         </span>
       </span>
     </span>
@@ -47,6 +47,9 @@ export default {
   methods: {
     selectAll() {
       this.$emit('getSelectAllFeedback', this.selectAllStatus);
+    },
+    submitOrder() {
+      this.$emit('getSumbitOderFeedback');
     },
   },
 };

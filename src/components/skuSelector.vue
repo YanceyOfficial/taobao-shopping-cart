@@ -23,7 +23,7 @@
           </div>
         </div>
         <div class="ok_btn_wrapper">
-          <button class="ok_btn">确认</button>
+          <button class="ok_btn">此功能不在购物车范围内 <del>就是懒</del></button>
         </div>
       </div>
     </div>
@@ -31,8 +31,6 @@
   </section>
 </template>
 <script>
-import Router from 'vue-router';
-
 export default {
   name: 'skuSelector',
   data() {
