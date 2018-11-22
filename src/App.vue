@@ -4,6 +4,7 @@
     <Item
       :vaildCommodities='vaildCommodities'
       :invaildCommodities='invaildCommodities'
+      :totalNum='totalNum'
       @handleTotalNum='handleTotalNum'
     >
     </Item>

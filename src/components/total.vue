@@ -49,7 +49,7 @@ export default {
       this.$emit('getSelectAllFeedback', this.selectAllStatus);
     },
     submitOrder() {
-      this.$emit('getSumbitOderFeedback');
+      this.$emit('getSubmitOderFeedback');
     },
   },
 };

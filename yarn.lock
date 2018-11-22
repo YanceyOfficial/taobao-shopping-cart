@@ -7934,6 +7934,10 @@ vue-template-es2015-compiler@^1.6.0:
   version "1.6.0"
   resolved "http://npm.venus-bdlab.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.6.0.tgz#dc42697133302ce3017524356a6c61b7b69b4a18"
 
+vue2-touch-events@^1.1.1:
+  version "1.1.1"
+  resolved "http://npm.venus-bdlab.com/vue2-touch-events/-/vue2-touch-events-1.1.1.tgz#8f776d2b9ab6385bc8c4fcae6aa587314210a9b8"
+
 vue@^2.5.17:
   version "2.5.17"
   resolved "http://npm.venus-bdlab.com/vue/-/vue-2.5.17.tgz#0f8789ad718be68ca1872629832ed533589c6ada"

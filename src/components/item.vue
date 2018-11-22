@@ -1,7 +1,6 @@
 <template>
   <section id="item">
-    <ul class="store_list">
-
+    <ul class="store_list" v-if="totalNum !== 0">
       <!-- 有效的宝贝 -->
       <li
         class="store_item"
@@ -49,7 +48,11 @@
             v-for="(commodity, commodityIndex) in store.commodity_list"
             :key="commodity.sku_id"
           >
-            <div class="commodity_item_container">
+            <div
+              class="commodity_item_container"
+              :id="`commodityItem_${store.store_id}_${commodity.sku_id}`"
+              v-touch:swipe="handleSwiper(store.store_id, commodity.sku_id)"
+            >
               <div class="radio_img_wrapper">
                 <label
                   :for="`selectStoreOne_${store.store_id}_${commodity.sku_id}`"
@@ -133,6 +136,7 @@
             </div>
             <div
               class="delete_commodity"
+              :id="`delete_${store.store_id}_${commodity.sku_id}`"
               @click="deleteCommodity(storeIndex, commodityIndex, commodity.sku_id)">
               删除
             </div>
@@ -179,6 +183,9 @@
       </li>
     </ul>
 
+    <!-- no commodities -->
+    <NoCommodities v-if="totalNum === 0"></NoCommodities>
+
     <!-- modal -->
     <div class='dialog_wrapper' v-show="showDialog">
       <Overlay></Overlay>
@@ -195,12 +202,13 @@
       :selectListLength="selectListLength"
       :curTotalPrice="curTotalPrice"
       @getSelectAllFeedback="getSelectAllFeedback"
-      @getSumbitOderFeedback="getSumbitOderFeedback"
+      @getSubmitOderFeedback="getSubmitOderFeedback"
       ref="selectAllStatus"
+      v-if="totalNum !== 0"
     >
     </Total>
 
-    <!-- skuSelector -->
+    <!-- sku selector -->
     <SkuSelector
       class="hidden_sku_selector"
       :showSkuPicker="showSkuPicker"
@@ -211,11 +219,12 @@
 </template>
 
 <script>
-import Overlay from './overlay';
-import PurchaseRestrictionDialog from './purchaseRestrictionDialog';
-import Total from './total';
-import SkuSelector from './skuSelector';
-import urlList from '../constant/url.js';
+import Overlay from './overlay.vue';
+import PurchaseRestrictionDialog from './purchaseRestrictionDialog.vue';
+import Total from './total.vue';
+import SkuSelector from './skuSelector.vue';
+import NoCommodities from './noCommodities.vue';
+import urlList from '../constant/url';
 
 export default {
   name: 'item',
@@ -242,6 +251,7 @@ export default {
     PurchaseRestrictionDialog,
     Total,
     SkuSelector,
+    NoCommodities,
   },
   props: {
     vaildCommodities: Array,
@@ -495,6 +505,20 @@ export default {
         editorTagDOM.innerText = '编辑';
       }
     },
+    // 左滑展示删除按钮
+    handleSwiper(storeId, skuId) {
+      return (direction) => {
+        const curCommodityDOM = document.querySelector(`#commodityItem_${storeId}_${skuId}`);
+        const curDeleteDOM = document.querySelector(`#delete_${storeId}_${skuId}`);
+        if (direction === 'left') {
+          curDeleteDOM.classList.add('show_delete');
+          curCommodityDOM.classList.add('shrink_commodity_item');
+        } else {
+          curDeleteDOM.classList.remove('show_delete');
+          curCommodityDOM.classList.remove('shrink_commodity_item');
+        }
+      };
+    },
     // 删除无效商品
     deleteInvaidCommodities() {
       this.showDialog = true;
@@ -552,7 +576,8 @@ export default {
         this.showSkuPicker = false;
       }
     },
-    getSumbitOderFeedback() {
+    // 获取提交订单的反馈
+    getSubmitOderFeedback() {
       if (this.selectList.length === 0) {
         this.showDialog = true;
         this.isDialog = 0;
@@ -561,7 +586,7 @@ export default {
       } else {
         this.showDialog = true;
         this.isDialog = 0;
-        this.warningMsg = '家里有矿啊，你咋不上天呢？！';
+        this.warningMsg = '家里有矿啊，你还真买啊？！';
         this.closeDialog();
       }
     },
