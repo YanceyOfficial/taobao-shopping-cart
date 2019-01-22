@@ -1,5 +1,5 @@
 <template>
-  <section id="total">
+  <section id="total" class="border_1px_top">
     <span class="total_left">
       <label for="selectAll" class="radio_label">
         <input
@@ -65,7 +65,7 @@ export default {
   bottom: calc(#{rem(42)} + env(safe-area-inset-bottom));
   width: 100%;
   height: rem(48);
-  border-top: rem(1) solid $border_gray;
+  // border-top: rem(1) solid $border_gray;
   background: $white;
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <footer id="footer">
+  <footer id="footer" class="border_1px_top">
     <ul class="nav_list">
       <li class="nav_item">
         <span class="nav_item_tab">
@@ -52,7 +52,7 @@ export default {
   bottom: 0;
   width: 100%;
   height: calc(#{rem(42)} + env(safe-area-inset-bottom));
-  border-top: 1px solid $border_gray;
+  // border-top: 1px solid $border_gray;
   background: $white;
 }
 

@@ -157,7 +157,8 @@ table {
   *zoom: 1;
 }
 
-a, body {
+a,
+body {
   color: #051b28;
 }
 
@@ -187,6 +188,7 @@ button {
 
 .price_wrapper {
   color: $orange;
+
   .large_text {
     font-size: $font_size_16;
   }
@@ -196,12 +198,44 @@ button {
   }
 }
 
-.inline_block_wrapper{
+.inline_block_wrapper {
   display: inline-block;
 }
 
-.flex_center{
+.flex_center {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.border_1px_top {
+  position: relative;
+
+  &::after {
+    position: absolute;
+    content: '';
+    top: -50%;
+    bottom: -50%;
+    left: -50%;
+    right: -50%;
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+    border-top: 1px solid $border_gray;
+  }
+}
+
+.border_1px_bottom {
+  position: relative;
+
+  &::after {
+    position: absolute;
+    content: '';
+    top: -50%;
+    bottom: -50%;
+    left: -50%;
+    right: -50%;
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+    border-bottom: 1px solid $border_gray;
+  }
 }

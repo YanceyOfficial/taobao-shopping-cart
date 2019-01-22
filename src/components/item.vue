@@ -10,7 +10,7 @@
       >
         <div
           :class="['store_wrapper',
-            store.store_promotion.length === 0? 'store_wrapper_no_border' : '']"
+            store.store_promotion.length === 0? '' : 'border_1px_bottom']"
         >
             <span class="store_basic">
               <label
@@ -613,10 +613,6 @@ export default {
     }
   }
 
-  .store_wrapper_no_border {
-    box-shadow: none !important;
-  }
-
   .icon-roundcheckfill {
     color: $orange !important;
   }
@@ -625,7 +621,6 @@ export default {
     display: flex;
     align-items: center;
     padding: rem(2) rem(10);
-    box-shadow: inset 0px -1px 1px -1px $border_gray;
     .store_basic {
       display: flex;
       justify-content: space-between;
