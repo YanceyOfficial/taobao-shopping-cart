@@ -221,6 +221,7 @@ button {
     -webkit-transform: scale(0.5);
     transform: scale(0.5);
     border-top: 1px solid $border_gray;
+    z-index: -1;
   }
 }
 
@@ -237,5 +238,6 @@ button {
     -webkit-transform: scale(0.5);
     transform: scale(0.5);
     border-bottom: 1px solid $border_gray;
+    z-index: -1;
   }
 }
