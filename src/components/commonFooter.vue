@@ -1,49 +1,48 @@
 <template>
-    <footer id="footer">
-        <ul class="nav_list">
-          <li class="nav_item">
-            <span class="nav_item_tab">
-              <i class="iconfont icon-home footer_icon"></i>
-              <p class="tab_name">首页</p>
-            </span>
-          </li>
-           <li class="nav_item">
-            <span class="nav_item_tab">
-              <i class="iconfont icon-cartfill footer_icon"></i>
-              <p class="tab_name">购物车</p>
-            </span>
-          </li>
-           <li class="nav_item">
-            <span class="nav_item_tab">
-              <i class="iconfont icon-my footer_icon"></i>
-              <p class="tab_name">我的淘宝</p>
-            </span>
-          </li>
-           <li class="nav_item">
-             <span class="nav_item_tab">
-              <i class="iconfont icon-like footer_icon"></i>
-              <p class="tab_name">心水</p>
-            </span>
-          </li>
-          <li class="nav_item">
-             <span class="nav_item_tab">
-              <i class="iconfont icon-more_light footer_icon"></i>
-              <p class="tab_name">更多</p>
-            </span>
-          </li>
-        </ul>
-    </footer>
-  </template>
+  <footer id="footer">
+    <ul class="nav_list">
+      <li class="nav_item">
+        <span class="nav_item_tab">
+          <i class="iconfont icon-home footer_icon"></i>
+          <p class="tab_name">首页</p>
+        </span>
+      </li>
+      <li class="nav_item">
+        <span class="nav_item_tab">
+          <i class="iconfont icon-cartfill footer_icon"></i>
+          <p class="tab_name">购物车</p>
+        </span>
+      </li>
+      <li class="nav_item">
+        <span class="nav_item_tab">
+          <i class="iconfont icon-my footer_icon"></i>
+          <p class="tab_name">我的淘宝</p>
+        </span>
+      </li>
+      <li class="nav_item">
+        <span class="nav_item_tab">
+          <i class="iconfont icon-like footer_icon"></i>
+          <p class="tab_name">心水</p>
+        </span>
+      </li>
+      <li class="nav_item">
+        <span class="nav_item_tab">
+          <i class="iconfont icon-more_light footer_icon"></i>
+          <p class="tab_name">更多</p>
+        </span>
+      </li>
+    </ul>
+  </footer>
+</template>
 
 <script>
-
 export default {
-  name: 'commonFooter',
+  name: "commonFooter",
   data() {
     return {};
   },
   mounted() {},
-  methods: {},
+  methods: {}
 };
 </script>
 
@@ -52,7 +51,8 @@ export default {
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: rem(42);
+  // height: rem(42);
+  height: calc(#{rem(42)} + env(safe-area-inset-bottom));
   border-top: 1px solid $border_gray;
   background: $white;
 }
@@ -69,7 +69,7 @@ export default {
   .footer_icon {
     font-size: $font_size_18;
   }
-  .tab_name{
+  .tab_name {
     font-size: $font_size_12;
     font-weight: 400;
     line-height: 1;
