@@ -62,7 +62,6 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // bottom: rem(42);
   bottom: calc(#{rem(42)} + env(safe-area-inset-bottom));
   width: 100%;
   height: rem(48);

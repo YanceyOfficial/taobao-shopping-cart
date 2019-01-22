@@ -51,7 +51,6 @@ export default {
   position: fixed;
   bottom: 0;
   width: 100%;
-  // height: rem(42);
   height: calc(#{rem(42)} + env(safe-area-inset-bottom));
   border-top: 1px solid $border_gray;
   background: $white;
@@ -73,6 +72,7 @@ export default {
     font-size: $font_size_12;
     font-weight: 400;
     line-height: 1;
+    transform: scale(0.83333333);
   }
 }
 </style>
