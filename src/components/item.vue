@@ -598,6 +598,7 @@ export default {
   #item {
     position: relative;
     width: 100%;
+    padding-bottom: env(safe-area-inset-bottom);
   }
 
   .store_list {
