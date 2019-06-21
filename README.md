@@ -1,6 +1,6 @@
 # Vue练手 仿手淘H5购物车
 
-## ScreenShot
+## Screenshot
 
 ![仿手淘H5购物车](https://user-gold-cdn.xitu.io/2018/11/23/1673f3a2cecbba26?w=640&h=1138&f=gif&s=5211086)
 
