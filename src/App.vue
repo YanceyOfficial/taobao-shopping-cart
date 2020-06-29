@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import CommonFooter from './components/commonFooter.vue'
-import CommonHeader from './components/commonHeader.vue'
-import Item from './components/item.vue'
+import CommonFooter from './components/CommonFooter.vue'
+import CommonHeader from './components/CommonHeader.vue'
+import Item from './components/Item.vue'
 
 export default {
   name: 'App',
