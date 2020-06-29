@@ -37,13 +37,13 @@
 
 <script>
 export default {
-  name: "commonFooter",
+  name: 'commonFooter',
   data() {
-    return {};
+    return {}
   },
   mounted() {},
-  methods: {}
-};
+  methods: {},
+}
 </script>
 
 <style lang="scss">

@@ -39,7 +39,7 @@ export default {
     // 当删除了失效商品后，购物车总数也要相应减少
     invaildCommodities() {
       if (this.invaildCommodities.length === 0) {
-        this.totalNum = this.totalNum - this.invaildCommoditiesNum;
+        this.totalNum -= this.invaildCommoditiesNum;
       }
     },
   },

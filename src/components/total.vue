@@ -8,7 +8,7 @@
           class="select_radio"
           v-model="selectAllStatus"
           @change="selectAll()"
-        >
+        />
         <i class="iconfont radio_icon icon-round"></i>
         全选
       </label>
@@ -18,10 +18,10 @@
         合计：
         <span class="price_wrapper">
           <span class="large_text">{{ curTotalPrice.toString().split('.')[0] }}.</span>
-          <span
-            class="small_text"
-          >
-            {{ curTotalPrice.toString().split('.')[1] ? curTotalPrice.toString().split('.')[1] : '00' }}
+          <span class="small_text">
+            {{ curTotalPrice.toString().split('.')[1] ?
+            curTotalPrice.toString().split('.')[1] :
+            '00' }}
           </span>
         </span>
         <span class="settle_wrapper">
@@ -37,7 +37,7 @@ export default {
   data() {
     return {
       selectAllStatus: false,
-    };
+    }
   },
   props: {
     selectListLength: Number,
@@ -46,13 +46,13 @@ export default {
   mounted() {},
   methods: {
     selectAll() {
-      this.$emit('getSelectAllFeedback', this.selectAllStatus);
+      this.$emit('getSelectAllFeedback', this.selectAllStatus)
     },
     submitOrder() {
-      this.$emit('getSubmitOderFeedback');
+      this.$emit('getSubmitOderFeedback')
     },
   },
-};
+}
 </script>
 
 <style lang="scss">
