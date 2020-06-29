@@ -19,7 +19,7 @@
 
 [仿手淘H5购物车 手机扫二维码直达️](https://shopping-cart.yancey.app)
 
-![仿手淘H5购物车](http://yancey-assets.oss-cn-beijing.aliyuncs.com/1542942925.png)
+![仿手淘H5购物车](https://yancey-assets.oss-cn-beijing.aliyuncs.com/1542942925.png)
 
 ## Usage
 

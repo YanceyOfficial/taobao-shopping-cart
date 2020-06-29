@@ -40,7 +40,7 @@ export default {
       .no_commodities_logo {
         width: rem(60);
         height: rem(60);
-        background: url('http://gw.alicdn.com/tfscom/TB1xdQSJFXXXXcuXXXXy7S8WFXX-176-176.png') no-repeat center center;
+        background: url('https://gw.alicdn.com/tfscom/TB1xdQSJFXXXXcuXXXXy7S8WFXX-176-176.png') no-repeat center center;
         background-size: cover;
       }
     }

@@ -214,7 +214,7 @@ export default {
   data() {
     return {
       tmall_wuyou_logo:
-        'http://gw.alicdn.com/tfs/TB10WFoJH9YBuNjy0FgXXcxcXXa-405-72.png',
+        'https://gw.alicdn.com/tfs/TB10WFoJH9YBuNjy0FgXXcxcXXa-405-72.png',
       showDialog: false,
       warningMsg: '',
       isDialog: 0,
