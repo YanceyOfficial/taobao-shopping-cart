@@ -48,18 +48,20 @@ export default {
 
 <style lang="scss">
 #footer {
+  display: flex;
   position: fixed;
   bottom: 0;
   width: 100%;
   height: calc(#{rem(42)} + env(safe-area-inset-bottom));
-  // border-top: 1px solid $border_gray;
   background: $white;
 }
 
 .nav_list {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   padding: 0 rem(20);
+  width: 100%;
   .nav_item_tab {
     display: block;
     text-align: center;

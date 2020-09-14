@@ -125,7 +125,7 @@ export default {
     bottom: 0;
     z-index: 9999;
     width: 100%;
-    height: 82%;
+    height: 76%;
     background: $white;
     border-top-left-radius: rem(12);
     border-top-right-radius: rem(12);
