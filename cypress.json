@@ -1,3 +1,10 @@
 {
-  "pluginsFile": "tests/e2e/plugins/index.js"
+  "viewportWidth": 414,
+  "viewportHeight": 736,
+  "pluginsFile": "tests/e2e/plugins/index.js",
+  "reporter": "junit",
+  "reporterOptions": {
+    "mochaFile": "results/my-test-output.xml",
+    "toConsole": true
+  }
 }
