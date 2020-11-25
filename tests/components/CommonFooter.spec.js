@@ -5,7 +5,7 @@ import CommonFooter from '@/components/CommonFooter.vue'
 
 describe('测试 CommonFooter 组件', () => {
   it('是否包含首页, 购物车, 我的淘宝, 心水, 更多 tab item', () => {
-    mount(CommonFooter, { propsData: { msg: 'Hello, Cypress!' } })
+    mount(CommonFooter)
 
     cy.contains('p', '首页').should('be.visible')
     cy.contains('p', '购物车').should('be.visible')

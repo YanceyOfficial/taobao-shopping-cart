@@ -3,31 +3,10 @@
 import { mount } from '@cypress/vue'
 import CommonFooter from '@/components/CommonFooter.vue'
 
-describe('HelloWorld', () => {
-  it('Works awesomely', () => {
-    mount(CommonFooter, { propsData: { msg: 'Hello, Cypress!' } })
+describe('测试 CommonHeader 组件', () => {
+  it('如果传入的 totalNum 为 20, 标题应该显示 "购物车(20)"', () => {
+    mount(CommonFooter, { propsData: { totalNum: 20 } })
 
-    // now we can use any Cypress command to interact with the component
-    // https://on.cypress.io/api
-    cy.contains('h1', 'Hello, Cypress!').should('be.visible')
+    cy.contains('.header_text', '购物车(20)').should('be.visible')
   })
-
-  // it('renders the component with a default name', () => {
-  //   mount(Greetings)
-
-  //   // now we can use any Cypress command to interact with the component
-  //   // https://on.cypress.io/api
-  //   cy.get('[data-testid=title]').should('exist').and('contain', 'Hello world')
-  // })
-
-  // it('renders the name passed in', () => {
-  //   const name = 'Jess'
-  //   mount(Greetings, {
-  //     propsData: {
-  //       name,
-  //     },
-  //   })
-
-  //   cy.get('[data-testid=title]').should('contain', `Hello ${name}`)
-  // })
 })
