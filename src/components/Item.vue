@@ -199,7 +199,7 @@ import PurchaseRestrictionDialog from './PurchaseRestrictionDialog.vue'
 import Total from './Total.vue'
 import SkuSelector from './SkuSelector.vue'
 import NoCommodities from './NoCommodities.vue'
-import urlList from '../constant/url'
+import urlList from '../constants'
 
 export default {
   name: 'item',

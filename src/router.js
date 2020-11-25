@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import ShoppingCart from './views/shoppingCart.vue';
+import ShoppingCart from './App.vue';
 
 Vue.use(Router);
 

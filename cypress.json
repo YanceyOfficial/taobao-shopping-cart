@@ -1,10 +1,9 @@
 {
-  "viewportWidth": 414,
-  "viewportHeight": 736,
-  "pluginsFile": "tests/e2e/plugins/index.js",
-  "reporter": "junit",
-  "reporterOptions": {
-    "mochaFile": "results/my-test-output.xml",
-    "toConsole": true
-  }
+  "pluginsFile": "tests/plugins/index.js",
+  "supportFile": "tests/support/index.js",
+  "fixturesFolder": "tests/fixtures",
+  "integrationFolder": "tests/e2e",
+  "testFiles": "**/*.spec.js*",
+  "experimentalComponentTesting": true,
+  "componentFolder": "tests/components"
 }

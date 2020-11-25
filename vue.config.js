@@ -2,12 +2,11 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
-        prependData: `
-          @import "@/assets/style/_variable.scss";
-          @import "@/assets/style/_function.scss";
-        `,
+        prependData:
+          '\n          @import "@/assets/style/_variable.scss";\n          @import "@/assets/style/_function.scss";\n        ',
       },
     },
+    requireModuleExtension: true,
   },
   devServer: {
     proxy: {
@@ -21,4 +20,4 @@ module.exports = {
       },
     },
   },
-};
+}
