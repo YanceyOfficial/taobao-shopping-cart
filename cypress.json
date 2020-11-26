@@ -3,7 +3,7 @@
   "supportFile": "tests/support/index.js",
   "fixturesFolder": "tests/fixtures",
   "integrationFolder": "tests/e2e",
-  "testFiles": "**/*.spec.js*",
+  "testFiles": "**/*.spec.ts*",
   "experimentalComponentTesting": true,
   "componentFolder": "tests/components"
 }

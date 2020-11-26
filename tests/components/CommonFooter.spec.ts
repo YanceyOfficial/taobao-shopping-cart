@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 import { mount } from '@cypress/vue'
 import CommonFooter from '@/components/CommonFooter.vue'
 

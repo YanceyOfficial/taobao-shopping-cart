@@ -3,16 +3,32 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: ['plugin:vue/essential', '@vue/airbnb'],
-  rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    semi: 'off',
-    'arrow-parens': 'off',
-    'operator-linebreak': 'off',
-    'max-len': 'off',
-  },
+  extends: [
+    'plugin:vue/essential',
+    '@vue/airbnb',
+    '@vue/typescript/recommended',
+  ],
   parserOptions: {
-    parser: 'babel-eslint',
+    ecmaVersion: 2020,
   },
+  rules: {
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'arrow-parens': 'off',
+    'max-len': 'off',
+    'operator-linebreak': 'off',
+    semi: 'off',
+    '@typescript-eslint/camelcase': 'off',
+  },
+  overrides: [
+    {
+      files: [
+        '**/__tests__/*.{j,t}s?(x)',
+        '**/tests/unit/**/*.spec.{j,t}s?(x)',
+      ],
+      env: {
+        mocha: true,
+      },
+    },
+  ],
 }

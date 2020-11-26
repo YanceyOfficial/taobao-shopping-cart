@@ -1,36 +1,32 @@
 <template>
   <section id="purchaseRestrictionDialog">
-      <p class="purchase_restriction" v-if="!isDialog"> {{ warningMsg }} </p>
-      <div class="delete_confirm" v-if="isDialog">
-          <p class="delete_confirm_title">{{ warningMsg }}</p>
-          <div class="delete_confirm_btn">
-            <span class="btn cancel" @click="handleCancel()">取消</span>
-            <span class="btn ok" @click="handleOk()">确定</span>
-          </div>
+    <p class="purchase_restriction" v-if="!isDialog">{{ warningMsg }}</p>
+    <div class="delete_confirm" v-if="isDialog">
+      <p class="delete_confirm_title">{{ warningMsg }}</p>
+      <div class="delete_confirm_btn">
+        <span class="btn cancel" @click="handleCancel()">取消</span>
+        <span class="btn ok" @click="handleOk()">确定</span>
       </div>
+    </div>
   </section>
 </template>
 
 <script>
 export default {
   name: 'purchaseRestrictionDialog',
-  data() {
-    return {};
-  },
   props: {
     warningMsg: String,
     isDialog: Number,
   },
-  mounted() {},
   methods: {
     handleOk() {
-      this.$emit('getDialogFeedback', this.isDialog, true);
+      this.$emit('getDialogFeedback', this.isDialog, true)
     },
     handleCancel() {
-      this.$emit('getDialogFeedback', this.isDialog, false);
+      this.$emit('getDialogFeedback', this.isDialog, false)
     },
   },
-};
+}
 </script>
 
 <style lang="scss">

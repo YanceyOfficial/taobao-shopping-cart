@@ -1,25 +1,20 @@
 <template>
-    <header id="header">
-        <i class="iconfont icon-more back_page_icon"></i>
-        <span class="header_text">购物车({{ totalNum }})</span>
-    </header>
-  </template>
-<script>
+  <header id="header">
+    <i class="iconfont icon-more back_page_icon"></i>
+    <span class="header_text">购物车({{ totalNum }})</span>
+  </header>
+</template>
 
-export default {
-  name: 'commonFooter',
-  data() {
-    return {};
-  },
-  props: {
-    totalNum: Number,
-  },
-  mounted() {},
-  methods: {},
-};
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
+
+@Component
+export default class CommonHeader extends Vue {
+  @Prop() private totalNum!: number
+}
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 #header {
   position: relative;
   display: flex;

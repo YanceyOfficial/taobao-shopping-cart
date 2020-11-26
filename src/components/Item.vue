@@ -10,8 +10,10 @@
         :key="store.store_id"
       >
         <div
-          :class="['store_wrapper',
-            store.store_promotion.length === 0? '' : 'border_1px_bottom']"
+          :class="[
+            'store_wrapper',
+            store.store_promotion.length === 0 ? '' : 'border_1px_bottom',
+          ]"
         >
           <span class="store_basic">
             <label
@@ -19,12 +21,18 @@
               class="radio_label"
               @change="handleOneStoreSelect($event)"
             >
-              <input type="checkbox" :id="`selectStoreAll_${store.store_id}`" class="select_radio" />
+              <input
+                type="checkbox"
+                :id="`selectStoreAll_${store.store_id}`"
+                class="select_radio"
+              />
               <i class="iconfont radio_icon icon-round"></i>
             </label>
             <i
               class="store_type_logo"
-              :style="{backgroundImage: `url(${getStoreType(store.store_type)})`}"
+              :style="{
+                backgroundImage: `url(${getStoreType(store.store_type)})`,
+              }"
             ></i>
             <span class="store_name">{{ store.store_name }}</span>
             <i class="iconfont icon-more go_store_hp"></i>
@@ -34,7 +42,10 @@
             <span class="get_edit" @click="toggleDelete(storeIndex)">编辑</span>
           </span>
         </div>
-        <div class="store_activity_wrapper" v-if="store.store_promotion.length !== 0">
+        <div
+          class="store_activity_wrapper"
+          v-if="store.store_promotion.length !== 0"
+        >
           <span class="activity_title">本店活动</span>
           <span class="activity_content">{{ store.store_promotion }}</span>
         </div>
@@ -53,15 +64,20 @@
                 <label
                   :for="`selectStoreOne_${store.store_id}_${commodity.sku_id}`"
                   class="radio_label"
-                  @change="handleOneSelect($event, commodity.sku_id, commodity.cur_cart_num,
-                    commodity.sku_unit_price)"
+                  @change="
+                    handleOneSelect(
+                      $event,
+                      commodity.sku_id,
+                      commodity.cur_cart_num,
+                      commodity.sku_unit_price,
+                    )
+                  "
                 >
                   <input
                     type="checkbox"
                     :id="`selectStoreOne_${store.store_id}_${commodity.sku_id}`"
                     class="select_radio"
-                    :data-cur="
-                      `${commodity.sku_id}_${commodity.cur_cart_num}_${commodity.sku_unit_price}`"
+                    :data-cur="`${commodity.sku_id}_${commodity.cur_cart_num}_${commodity.sku_unit_price}`"
                   />
                   <i class="iconfont radio_icon icon-round"></i>
                 </label>
@@ -73,48 +89,70 @@
               </div>
               <div class="commodity_detail_wrapper">
                 <h3 class="commodity_title">{{ commodity.commodity_name }}</h3>
-                <p class="warning tmall_wuyou_logo_wrapper" v-if="commodity.is_tmall_wuyou">
+                <p
+                  class="warning tmall_wuyou_logo_wrapper"
+                  v-if="commodity.is_tmall_wuyou"
+                >
                   <img :src="tmall_wuyou_logo" alt="tmall_wuyou_logo" />
                 </p>
                 <p
                   class="sku_picker"
                   v-if="commodity.type_union.length !== 0"
                   @click="handleSkuSelect()"
-                >{{ commodity.type_union.join(';') }}</p>
-                <div v-for="(warning, index) in commodity.warning_msg" :key="index">
+                >
+                  {{ commodity.type_union.join(';') }}
+                </p>
+                <div
+                  v-for="(warning, index) in commodity.warning_msg"
+                  :key="index"
+                >
                   <p class="warning low_stock_warning">{{ warning }}</p>
                 </div>
                 <div class="handle_count_wrapper">
                   <span class="price_wrapper">
                     <span class="small_text">¥</span>
-                    <span class="large_text">{{ commodity.sku_unit_price.toString().split('.')[0] }}</span>
+                    <span class="large_text">{{
+                      commodity.sku_unit_price.toString().split('.')[0]
+                    }}</span>
                     <span
                       class="large_text"
-                      v-if="commodity.sku_unit_price.toString().split('.').length === 2"
-                    >.</span>
-                    <span class="small_text">{{ commodity.sku_unit_price.toString().split('.')[1] }}</span>
+                      v-if="
+                        commodity.sku_unit_price.toString().split('.')
+                          .length === 2
+                      "
+                      >.</span
+                    >
+                    <span class="small_text">{{
+                      commodity.sku_unit_price.toString().split('.')[1]
+                    }}</span>
                   </span>
                   <span class="handle_count">
                     <!-- 减少数量需要传递四个参数，分别是 店铺索引/商品索引/当前数量/skuId -->
                     <i
                       class="iconfont icon-move handle_count_btn"
-                      @click="reduceCount(
+                      @click="
+                        reduceCount(
                           storeIndex,
                           commodityIndex,
                           commodity.cur_cart_num,
-                          commodity.sku_id)"
+                          commodity.sku_id,
+                        )
+                      "
                     ></i>
                     <span>{{ commodity.cur_cart_num }}</span>
                     <!-- 增加数量需要传递六个参数，分别是 店铺索引/商品索引/当前数量/购买上限/库存总量/skuId-->
                     <i
                       class="iconfont icon-add handle_count_btn"
-                      @click="addCount(
+                      @click="
+                        addCount(
                           storeIndex,
                           commodityIndex,
                           commodity.cur_cart_num,
                           commodity.purchase_restriction_num,
                           commodity.sku_rest_stock,
-                          commodity.sku_id)"
+                          commodity.sku_id,
+                        )
+                      "
                     ></i>
                   </span>
                 </div>
@@ -123,8 +161,12 @@
             <div
               class="delete_commodity"
               :id="`delete_${store.store_id}_${commodity.sku_id}`"
-              @click="deleteCommodity(storeIndex, commodityIndex, commodity.sku_id)"
-            >删除</div>
+              @click="
+                deleteCommodity(storeIndex, commodityIndex, commodity.sku_id)
+              "
+            >
+              删除
+            </div>
           </li>
         </ul>
       </li>
@@ -133,7 +175,11 @@
       <li class="store_item" v-if="invaildCommodities.length > 0">
         <div class="invaid_title_wrapper">
           <span class="invaid_big_logo">失效宝贝</span>
-          <span class="remove_invaid_commodity" @click="deleteInvaidCommodities()">清空失效宝贝</span>
+          <span
+            class="remove_invaid_commodity"
+            @click="deleteInvaidCommodities()"
+            >清空失效宝贝</span
+          >
         </div>
         <ul class="commodity_list">
           <li
@@ -144,14 +190,17 @@
             <div class="commodity_item_container invaild_item_container">
               <span
                 :class="['invaid_logo', commodity.pre_hot ? 'pre_hot' : '']"
-              >{{ commodity.pre_hot ? '预热' : '失效' }}</span>
+                >{{ commodity.pre_hot ? '预热' : '失效' }}</span
+              >
               <img
                 :src="commodity.commodity_img"
                 :alt="commodity.commodity_name"
                 class="commodity_img invalid_img"
               />
               <div class="invaid_detail_wrapper">
-                <h3 class="commodity_title invaid_title">{{ commodity.commodity_name }}</h3>
+                <h3 class="commodity_title invaid_title">
+                  {{ commodity.commodity_name }}
+                </h3>
                 <p class="invaid_reason">{{ commodity.fail_reason }}</p>
                 <p class="link_to_likely">找相似</p>
               </div>
@@ -233,7 +282,6 @@ export default {
     invaildCommodities: Array,
     totalNum: Number,
   },
-  mounted() {},
   watch: {
     // 监听选中list的变化，一定要深！
     selectList: {
@@ -241,8 +289,8 @@ export default {
         this.selectListLength = this.selectList.length
         this.curTotalPrice = 0
         for (let i = 0, l = this.selectListLength; i < l; i += 1) {
-          this.curTotalPrice +=
-            this.selectList[i].curNum * this.selectList[i].unitPrice
+          this.curTotalPrice
+            += this.selectList[i].curNum * this.selectList[i].unitPrice
         }
       },
       deep: true,
@@ -258,7 +306,7 @@ export default {
     // skuId匹配
     matchSkuId(skuId) {
       const result = this.selectList.findIndex(
-        skuItem => skuItem.skuId === skuId,
+        (skuItem) => skuItem.skuId === skuId,
       )
       return result
     },
@@ -353,7 +401,7 @@ export default {
         'input[id^=selectStoreAll]',
       )
       const selectAllDOM = document.querySelector('#selectAll')
-      const result = Array.from(selectStoreAllDOM).every(item => item.checked)
+      const result = Array.from(selectStoreAllDOM).every((item) => item.checked)
 
       if (result) {
         selectAllDOM.nextElementSibling.classList.remove('icon-round')
@@ -399,7 +447,7 @@ export default {
 
         // 判断如果此时恰好一个商铺底下的商品全部被勾选 将店铺全选按钮点亮
         const result = Array.from(curStoreCommoditiesDOMList).every(
-          item => item.checked,
+          (item) => item.checked,
         )
 
         if (result) {
@@ -507,7 +555,7 @@ export default {
     },
     // 左滑展示删除按钮
     handleSwiper(storeId, skuId) {
-      return direction => {
+      return (direction) => {
         const curCommodityDOM = document.querySelector(
           `#commodityItem_${storeId}_${skuId}`,
         )

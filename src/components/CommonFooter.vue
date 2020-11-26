@@ -38,11 +38,6 @@
 <script>
 export default {
   name: 'commonFooter',
-  data() {
-    return {}
-  },
-  mounted() {},
-  methods: {},
 }
 </script>
 

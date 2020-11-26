@@ -17,15 +17,21 @@
       <span>
         合计：
         <span class="price_wrapper">
-          <span class="large_text">{{ curTotalPrice.toString().split('.')[0] }}.</span>
+          <span class="large_text"
+            >{{ curTotalPrice.toString().split('.')[0] }}.</span
+          >
           <span class="small_text">
-            {{ curTotalPrice.toString().split('.')[1] ?
-            curTotalPrice.toString().split('.')[1] :
-            '00' }}
+            {{
+              curTotalPrice.toString().split('.')[1]
+                ? curTotalPrice.toString().split('.')[1]
+                : '00'
+            }}
           </span>
         </span>
         <span class="settle_wrapper">
-          <button class="settle_btn" @click="submitOrder()">结算({{ selectListLength }})</button>
+          <button class="settle_btn" @click="submitOrder()">
+            结算({{ selectListLength }})
+          </button>
         </span>
       </span>
     </span>
@@ -43,7 +49,6 @@ export default {
     selectListLength: Number,
     curTotalPrice: Number,
   },
-  mounted() {},
   methods: {
     selectAll() {
       this.$emit('getSelectAllFeedback', this.selectAllStatus)

@@ -3,17 +3,14 @@
 </template>
 
 <script>
-
 export default {
   name: 'overlay',
   data() {
     return {
       openOverlay: false,
-    };
+    }
   },
-  mounted() {},
-  methods: {},
-};
+}
 </script>
 
 <style lang="scss">

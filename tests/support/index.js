@@ -22,5 +22,6 @@ require('@cypress/vue/dist/support')
 // Alternatively you can use CommonJS syntax:
 require('./commands')
 
+
 // Import any global stylesheets here
 // require('../../src/styles/index.scss') // 💅
