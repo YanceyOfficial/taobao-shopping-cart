@@ -244,12 +244,13 @@
 
 <script lang="ts">
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
+import Overlay from '@/components/Overlay.vue'
+import PurchaseRestrictionDialog from '@/components/PurchaseRestrictionDialog.vue'
+import Total from '@/components/Total.vue'
+import SkuSelector from '@/components/SkuSelector.vue'
+import NoCommodities from '@/components/NoCommodities.vue'
 import { urls } from '@/shared/constants'
-import Overlay from './Overlay.vue'
-import PurchaseRestrictionDialog from './PurchaseRestrictionDialog.vue'
-import Total from './Total.vue'
-import SkuSelector from './SkuSelector.vue'
-import NoCommodities from './NoCommodities.vue'
+import { ValidCommodity, InvalidCommodity } from '@/types/types'
 
 @Component({
   components: {
@@ -261,9 +262,9 @@ import NoCommodities from './NoCommodities.vue'
   },
 })
 export default class Item extends Vue {
-  @Prop() private vaildCommodities!: any[]
+  @Prop() private vaildCommodities!: ValidCommodity[]
 
-  @Prop() private invaildCommodities!: any[]
+  @Prop() private invaildCommodities!: InvalidCommodity[]
 
   @Prop() private totalNum!: number
 
@@ -276,7 +277,7 @@ export default class Item extends Vue {
 
   private isDialog = 0
 
-  private selectList: any[] = []
+  private selectList: ValidCommodity[] = []
 
   private selectListLength = 0
 

@@ -16,6 +16,12 @@ import { Component, Watch, Vue } from 'vue-property-decorator'
 import CommonHeader from '@/components/CommonHeader.vue'
 import CommonFooter from '@/components/CommonFooter.vue'
 import Item from '@/components/Item.vue'
+import { requests } from '@/shared/utils'
+import {
+  ValidCommodity,
+  InvalidCommodity,
+  ShoppingCartData,
+} from '@/types/types'
 
 @Component({
   components: {
@@ -25,9 +31,9 @@ import Item from '@/components/Item.vue'
   },
 })
 export default class Home extends Vue {
-  private vaildCommodities: any[] = []
+  private vaildCommodities: ValidCommodity[] = []
 
-  private invaildCommodities: any[] = []
+  private invaildCommodities: InvalidCommodity[] = []
 
   private totalNum = 0
 
@@ -45,22 +51,14 @@ export default class Home extends Vue {
   }
 
   public async getData() {
-    try {
-      const res = await fetch('../data.json')
-      const data = await res.json()
-      this.vaildCommodities = data.vaild_commodities
-      this.invaildCommodities = data.invaild_commodities
-      for (let i = 0, l = this.vaildCommodities.length; i < l; i += 1) {
-        this.totalNum += this.vaildCommodities[i].commodity_list.length
-      }
-      this.totalNum += this.invaildCommodities.length
-      this.invaildCommoditiesNum += this.invaildCommodities.length
-    } catch (e) {
-      throw new Error(e)
-    }
+    const data = await requests<ShoppingCartData>('../data.json')
+    this.vaildCommodities = data.vaild_commodities
+    this.invaildCommodities = data.invaild_commodities
+    this.totalNum = data.total_number
+    this.invaildCommoditiesNum += this.invaildCommodities.length
   }
 
-  public handleTotalNum(params: any) {
+  public handleTotalNum(params: boolean) {
     if (params) {
       this.totalNum -= 1
     }
