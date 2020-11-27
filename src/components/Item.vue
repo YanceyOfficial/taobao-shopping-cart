@@ -620,7 +620,7 @@ export default class Item extends Vue {
       if (
         this.vaildCommodities[this.curStoreIndex].commodity_list.length === 0
       ) {
-        this.vaildCommodities.splice([this.curStoreIndex], 1)
+        this.vaildCommodities.splice(this.curStoreIndex, 1)
       }
 
       this.$emit('handleTotalNum', true)
@@ -639,14 +639,14 @@ export default class Item extends Vue {
   // todo
   // 显示隐藏sku picker
   public handleSkuSelect() {
-    const bodyDOM = document.querySelector('body')
+    const bodyDOM = document.querySelector('body') as HTMLBodyElement
     bodyDOM.style.position = 'fixed'
     this.showSkuPicker = true
   }
 
   // 获取Sku Picker反馈以关闭
   public getSkuPickFeedback(isClosePicker: boolean) {
-    const bodyDOM = document.querySelector('body')
+    const bodyDOM = document.querySelector('body') as HTMLBodyElement
     if (isClosePicker) {
       bodyDOM.style.position = 'relative'
       this.showSkuPicker = false
