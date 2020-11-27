@@ -34,3 +34,9 @@ export interface ShoppingCartData {
   vaild_commodities: ValidCommodity[]
   invaild_commodities: InvalidCommodity[]
 }
+
+export interface SelectedCommodity {
+  curNum: number
+  skuId: string
+  unitPrice: number
+}

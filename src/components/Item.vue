@@ -65,12 +65,11 @@
                   :for="`selectStoreOne_${store.store_id}_${commodity.sku_id}`"
                   class="radio_label"
                   @change="
-                    handleOneSelect(
-                      $event,
-                      commodity.sku_id,
-                      commodity.cur_cart_num,
-                      commodity.sku_unit_price,
-                    )
+                    handleOneSelect($event, {
+                      skuId: commodity.sku_id,
+                      curNum: commodity.cur_cart_num,
+                      unitPrice: commodity.sku_unit_price,
+                    })
                   "
                 >
                   <input
@@ -250,7 +249,11 @@ import Total from '@/components/Total.vue'
 import SkuSelector from '@/components/SkuSelector.vue'
 import NoCommodities from '@/components/NoCommodities.vue'
 import { urls } from '@/shared/constants'
-import { ValidCommodity, InvalidCommodity } from '@/types/types'
+import {
+  ValidCommodity,
+  InvalidCommodity,
+  SelectedCommodity,
+} from '@/types/types'
 
 @Component({
   components: {
@@ -277,7 +280,7 @@ export default class Item extends Vue {
 
   private isDialog = 0
 
-  private selectList: ValidCommodity[] = []
+  private selectList: SelectedCommodity[] = []
 
   private selectListLength = 0
 
@@ -327,7 +330,7 @@ export default class Item extends Vue {
   // skuId匹配
   public matchSkuId(skuId: string) {
     const result = this.selectList.findIndex(
-      (skuItem: any) => skuItem.skuId === skuId,
+      (skuItem) => skuItem.skuId === skuId,
     )
     return result
   }
@@ -335,7 +338,7 @@ export default class Item extends Vue {
   // 增加单品数量
   public addCount(
     storeIndex: number,
-    commodityIndex: string,
+    commodityIndex: number,
     curNum: number,
     limitMaxNum: number,
     maxStockNum: number,
@@ -397,7 +400,7 @@ export default class Item extends Vue {
   }
 
   // 全选按钮
-  public handleSelectAll(type: any) {
+  public handleSelectAll(type: boolean) {
     const selectAllDOM = document.querySelector('#selectAll')
     if (type) {
       selectAllDOM.nextElementSibling.classList.remove('icon-round')
@@ -429,12 +432,8 @@ export default class Item extends Vue {
   }
 
   // 选择单品
-  public handleOneSelect(e, skuId, curNum, unitPrice) {
-    const sku = {
-      skuId,
-      curNum,
-      unitPrice,
-    }
+  public handleOneSelect(e: Event, sku: SelectedCommodity) {
+    const { skuId } = sku
     const storeId = e.target.id.split('_')[1]
     const curStoreDOM = document.querySelector(
       `input[id=selectStoreAll_${storeId}]`,
@@ -479,7 +478,7 @@ export default class Item extends Vue {
   }
 
   // 按商铺批量选择
-  public handleOneStoreSelect(e: any) {
+  public handleOneStoreSelect(e: Event) {
     const storeId = e.target.id.split('_')[1]
     const commoditiesOfStore = document.querySelectorAll(
       `input[id^=selectStoreOne_${storeId}]`,
@@ -524,13 +523,13 @@ export default class Item extends Vue {
   }
 
   // 获取全选按钮传递过来的信息
-  public getSelectAllFeedback(params: any) {
+  public getSelectAllFeedback(isSelectedAll: boolean) {
     const allInputDOM = document.querySelectorAll('input')
     const commoditiesDOM = document.querySelectorAll(
       'input[id^=selectStoreOne]',
     )
     this.selectList.splice(0, this.selectList.length)
-    if (params) {
+    if (isSelectedAll) {
       // eslint-disable-next-line no-restricted-syntax
       for (const item of allInputDOM) {
         item.checked = true
@@ -557,7 +556,7 @@ export default class Item extends Vue {
   }
 
   // 显示隐藏一个商铺下的所有商品的删除按钮
-  public toggleDelete(storeIndex: any) {
+  public toggleDelete(storeIndex: number) {
     const curStoreDOM = this.$refs.getStoreDOM[storeIndex]
     const deleteDOM = curStoreDOM.querySelectorAll('.delete_commodity')
     const commodityDOM = curStoreDOM.querySelectorAll(
@@ -600,7 +599,11 @@ export default class Item extends Vue {
   }
 
   // 删除单品
-  public deleteCommodity(curStoreIndex, curSkuIndex, curSkuId) {
+  public deleteCommodity(
+    curStoreIndex: number,
+    curSkuIndex: number,
+    curSkuId: string,
+  ) {
     this.showDialog = true
     this.warningMsg = '确定要删除这个宝贝吗？'
     this.isDialog = 2
@@ -610,15 +613,15 @@ export default class Item extends Vue {
   }
 
   // 获取对话框传递过来的信息（确认删除无效商品 / 确认删除有效商品）
-  public getDialogFeedback(type, params) {
+  public getDialogFeedback(type: number, confirmToDelete: boolean) {
     if (type === 1) {
-      if (params) {
+      if (confirmToDelete) {
         this.invaildCommodities.splice(0, this.invaildCommodities.length)
         this.showDialog = false
       } else {
         this.showDialog = false
       }
-    } else if (params) {
+    } else if (confirmToDelete) {
       this.vaildCommodities[this.curStoreIndex].commodity_list.splice(
         this.curSkuIndex,
         1,
@@ -651,9 +654,9 @@ export default class Item extends Vue {
   }
 
   // 获取Sku Picker反馈以关闭
-  public getSkuPickFeedback(params) {
+  public getSkuPickFeedback(isClosePicker: boolean) {
     const bodyDOM = document.querySelector('body')
-    if (params) {
+    if (isClosePicker) {
       bodyDOM.style.position = 'relative'
       this.showSkuPicker = false
     }

@@ -1,7 +1,8 @@
 // https://shop.m.taobao.com/shop/shop_index.htm?shop_id=102675548
 // https://item.taobao.com/item.htm?id=559724345943
+import { ShoppingCartData } from '@/types/types'
 
-const data = {
+const data: ShoppingCartData = {
   total_number: 12,
 
   vaild_commodities: [
