@@ -10,7 +10,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
 export default class CommonHeader extends Vue {
-  @Prop() private totalNum!: number
+  @Prop(Number) private readonly totalNum!: number
 }
 </script>
 

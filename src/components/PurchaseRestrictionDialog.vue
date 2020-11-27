@@ -11,25 +11,26 @@
   </section>
 </template>
 
-<script>
-export default {
-  name: 'purchaseRestrictionDialog',
-  props: {
-    warningMsg: String,
-    isDialog: Number,
-  },
-  methods: {
-    handleOk() {
-      this.$emit('getDialogFeedback', this.isDialog, true)
-    },
-    handleCancel() {
-      this.$emit('getDialogFeedback', this.isDialog, false)
-    },
-  },
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
+
+@Component
+export default class PurchaseRestrictionDialog extends Vue {
+  @Prop(String) private readonly warningMsg!: string
+
+  @Prop(Number) private readonly isDialog!: number
+
+  public handleOk() {
+    this.$emit('getDialogFeedback', this.isDialog, true)
+  }
+
+  public handleCancel() {
+    this.$emit('getDialogFeedback', this.isDialog, false)
+  }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" slot-scope>
 #purchaseRestrictionDialog {
   font-size: $font_size_14;
   text-align: center;

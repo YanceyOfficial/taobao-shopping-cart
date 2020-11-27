@@ -242,34 +242,16 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
+import { urls } from '@/shared/constants'
 import Overlay from './Overlay.vue'
 import PurchaseRestrictionDialog from './PurchaseRestrictionDialog.vue'
 import Total from './Total.vue'
 import SkuSelector from './SkuSelector.vue'
 import NoCommodities from './NoCommodities.vue'
-import urlList from '../constants'
 
-export default {
-  name: 'item',
-  data() {
-    return {
-      tmall_wuyou_logo:
-        'https://gw.alicdn.com/tfs/TB10WFoJH9YBuNjy0FgXXcxcXXa-405-72.png',
-      showDialog: false,
-      warningMsg: '',
-      isDialog: 0,
-      selectList: [],
-      selectListLength: 0,
-      curTotalPrice: 0,
-      dialogFeedback: false,
-      showSkuPicker: false,
-      // delete
-      curStoreIndex: 0,
-      curSkuIndex: 0,
-      curSkuId: '',
-    }
-  },
+@Component({
   components: {
     Overlay,
     PurchaseRestrictionDialog,
@@ -277,248 +259,244 @@ export default {
     SkuSelector,
     NoCommodities,
   },
-  props: {
-    vaildCommodities: Array,
-    invaildCommodities: Array,
-    totalNum: Number,
-  },
-  watch: {
-    // 监听选中list的变化，一定要深！
-    selectList: {
-      handler() {
-        this.selectListLength = this.selectList.length
-        this.curTotalPrice = 0
-        for (let i = 0, l = this.selectListLength; i < l; i += 1) {
-          this.curTotalPrice
-            += this.selectList[i].curNum * this.selectList[i].unitPrice
-        }
-      },
-      deep: true,
-    },
-  },
-  methods: {
-    // 定时关闭对话框
-    closeDialog() {
-      setTimeout(() => {
-        this.showDialog = false
-      }, 1000)
-    },
-    // skuId匹配
-    matchSkuId(skuId) {
-      const result = this.selectList.findIndex(
-        (skuItem) => skuItem.skuId === skuId,
-      )
-      return result
-    },
-    // 获取商铺类型  1-天猫 | 2-企业店铺 | 3-天猫国际
-    getStoreType(typeNum) {
-      if (typeNum === 1) {
-        return urlList.tmall
-      }
-      if (typeNum === 2) {
-        return urlList.enterprise
-      }
-      if (typeNum === 3) {
-        return urlList.tmall_internation
-      }
-      return false
-    },
-    // 增加单品数量
-    addCount(
-      storeIndex,
-      commodityIndex,
-      curNum,
-      limitMaxNum,
-      maxStockNum,
-      skuId,
-    ) {
-      // 如果有限购条件
-      if (limitMaxNum > 0) {
-        // 如果增加一件的话将超过最大限购数
-        if (curNum + 1 > limitMaxNum) {
-          this.showDialog = true
-          this.warningMsg = '亲，该宝贝不能购买更多哦～'
-          this.isDialog = 0
-          this.closeDialog()
-        } else {
-          this.vaildCommodities[storeIndex].commodity_list[
-            commodityIndex
-          ].cur_cart_num += 1
+})
+export default class Item extends Vue {
+  @Prop() private vaildCommodities!: any[]
 
-          if (this.matchSkuId(skuId) !== -1) {
-            this.selectList[this.matchSkuId(skuId)].curNum += 1
-          }
-        }
-        // 没有限购条件，数量只要不超过库存量即可
-      } else if (curNum + 1 > maxStockNum) {
+  @Prop() private invaildCommodities!: any[]
+
+  @Prop() private totalNum!: number
+
+  private tmall_wuyou_logo =
+    'https://gw.alicdn.com/tfs/TB10WFoJH9YBuNjy0FgXXcxcXXa-405-72.png'
+
+  private showDialog = false
+
+  private warningMsg = ''
+
+  private isDialog = 0
+
+  private selectList: any[] = []
+
+  private selectListLength = 0
+
+  private curTotalPrice = 0
+
+  private dialogFeedback = false
+
+  private showSkuPicker = false
+
+  private curStoreIndex = 0
+
+  private curSkuIndex = 0
+
+  private curSkuId = ''
+
+  @Watch('selectList', { deep: true })
+  handler() {
+    this.selectListLength = this.selectList.length
+    this.curTotalPrice = 0
+    for (let i = 0, l = this.selectListLength; i < l; i += 1) {
+      this.curTotalPrice +=
+        this.selectList[i].curNum * this.selectList[i].unitPrice
+    }
+  }
+
+  // 获取商铺类型  1-天猫 | 2-企业店铺 | 3-天猫国际
+  public getStoreType(typeNum: number) {
+    if (typeNum === 1) {
+      return urls.tmall
+    }
+    if (typeNum === 2) {
+      return urls.enterprise
+    }
+    if (typeNum === 3) {
+      return urls.tmall_internation
+    }
+    return false
+  }
+
+  // 定时关闭对话框
+  public closeDialog() {
+    setTimeout(() => {
+      this.showDialog = false
+    }, 1000)
+  }
+
+  // skuId匹配
+  public matchSkuId(skuId: string) {
+    const result = this.selectList.findIndex(
+      (skuItem: any) => skuItem.skuId === skuId,
+    )
+    return result
+  }
+
+  // 增加单品数量
+  public addCount(
+    storeIndex: number,
+    commodityIndex: string,
+    curNum: number,
+    limitMaxNum: number,
+    maxStockNum: number,
+    skuId: string,
+  ) {
+    // 如果有限购条件
+    if (limitMaxNum > 0) {
+      // 如果增加一件的话将超过最大限购数
+      if (curNum + 1 > limitMaxNum) {
         this.showDialog = true
-        this.isDialog = 0
         this.warningMsg = '亲，该宝贝不能购买更多哦～'
+        this.isDialog = 0
         this.closeDialog()
       } else {
         this.vaildCommodities[storeIndex].commodity_list[
           commodityIndex
         ].cur_cart_num += 1
+
         if (this.matchSkuId(skuId) !== -1) {
           this.selectList[this.matchSkuId(skuId)].curNum += 1
         }
       }
-    },
-    // 减少单品数量
-    reduceCount(storeIndex, commodityIndex, curNum, skuId) {
-      if (curNum - 1 === 0) {
-        this.showDialog = true
-        this.isDialog = 0
-        this.warningMsg = '受不了了，宝贝不能再减少了哦～'
-        this.closeDialog()
-      } else {
-        this.vaildCommodities[storeIndex].commodity_list[
-          commodityIndex
-        ].cur_cart_num -= 1
-        if (this.matchSkuId(skuId) !== -1) {
-          this.selectList[this.matchSkuId(skuId)].curNum -= 1
-        }
+      // 没有限购条件，数量只要不超过库存量即可
+    } else if (curNum + 1 > maxStockNum) {
+      this.showDialog = true
+      this.isDialog = 0
+      this.warningMsg = '亲，该宝贝不能购买更多哦～'
+      this.closeDialog()
+    } else {
+      this.vaildCommodities[storeIndex].commodity_list[
+        commodityIndex
+      ].cur_cart_num += 1
+      if (this.matchSkuId(skuId) !== -1) {
+        this.selectList[this.matchSkuId(skuId)].curNum += 1
       }
-    },
-    // 全选按钮
-    handleSelectAll(type) {
-      const selectAllDOM = document.querySelector('#selectAll')
-      if (type) {
-        selectAllDOM.nextElementSibling.classList.remove('icon-round')
-        selectAllDOM.nextElementSibling.classList.add('icon-roundcheckfill')
-        selectAllDOM.checked = true
-        this.$refs.selectAllStatus.selectAllStatus = true
-      } else {
-        selectAllDOM.nextElementSibling.classList.add('icon-round')
-        selectAllDOM.nextElementSibling.classList.remove('icon-roundcheckfill')
-        selectAllDOM.checked = false
-        this.$refs.selectAllStatus.selectAllStatus = false
+    }
+  }
+
+  // 减少单品数量
+  public reduceCount(
+    storeIndex: number,
+    commodityIndex: number,
+    curNum: number,
+    skuId: string,
+  ) {
+    if (curNum - 1 === 0) {
+      this.showDialog = true
+      this.isDialog = 0
+      this.warningMsg = '受不了了，宝贝不能再减少了哦～'
+      this.closeDialog()
+    } else {
+      this.vaildCommodities[storeIndex].commodity_list[
+        commodityIndex
+      ].cur_cart_num -= 1
+      if (this.matchSkuId(skuId) !== -1) {
+        this.selectList[this.matchSkuId(skuId)].curNum -= 1
       }
-    },
-    // 判断所有店铺是否被选中
-    getSelectStoreAll() {
-      const selectStoreAllDOM = document.querySelectorAll(
-        'input[id^=selectStoreAll]',
+    }
+  }
+
+  // 全选按钮
+  public handleSelectAll(type: any) {
+    const selectAllDOM = document.querySelector('#selectAll')
+    if (type) {
+      selectAllDOM.nextElementSibling.classList.remove('icon-round')
+      selectAllDOM.nextElementSibling.classList.add('icon-roundcheckfill')
+      selectAllDOM.checked = true
+      this.$refs.selectAllStatus.selectAllStatus = true
+    } else {
+      selectAllDOM.nextElementSibling.classList.add('icon-round')
+      selectAllDOM.nextElementSibling.classList.remove('icon-roundcheckfill')
+      selectAllDOM.checked = false
+      this.$refs.selectAllStatus.selectAllStatus = false
+    }
+  }
+
+  // 判断所有店铺是否被选中
+  public getSelectStoreAll() {
+    const selectStoreAllDOM = document.querySelectorAll(
+      'input[id^=selectStoreAll]',
+    )
+    const selectAllDOM = document.querySelector('#selectAll')
+    const result = Array.from(selectStoreAllDOM).every((item) => item.checked)
+
+    if (result) {
+      selectAllDOM.nextElementSibling.classList.remove('icon-round')
+      selectAllDOM.nextElementSibling.classList.add('icon-roundcheckfill')
+      selectAllDOM.checked = true
+      this.$refs.selectAllStatus.selectAllStatus = true
+    }
+  }
+
+  // 选择单品
+  public handleOneSelect(e, skuId, curNum, unitPrice) {
+    const sku = {
+      skuId,
+      curNum,
+      unitPrice,
+    }
+    const storeId = e.target.id.split('_')[1]
+    const curStoreDOM = document.querySelector(
+      `input[id=selectStoreAll_${storeId}]`,
+    )
+    const curStoreCommoditiesDOMList = document.querySelectorAll(
+      `input[id^=selectStoreOne_${storeId}]`,
+    )
+
+    // 取消选中时
+    if (!e.target.checked) {
+      this.selectList.splice(this.matchSkuId(skuId), 1)
+      e.target.nextElementSibling.classList.add('icon-round')
+      e.target.nextElementSibling.classList.remove('icon-roundcheckfill')
+
+      // 若先点击了店铺全选 再去取消一件单品时 将店铺全选按钮熄掉
+      curStoreDOM.nextElementSibling.classList.add('icon-round')
+      curStoreDOM.nextElementSibling.classList.remove('icon-roundcheckfill')
+      curStoreDOM.checked = false
+
+      // 全选也要熄掉
+      this.handleSelectAll(false)
+
+      // 选中时
+    } else {
+      this.selectList.push(sku)
+      e.target.nextElementSibling.classList.remove('icon-round')
+      e.target.nextElementSibling.classList.add('icon-roundcheckfill')
+
+      // 判断如果此时恰好一个商铺底下的商品全部被勾选 将店铺全选按钮点亮
+      const result = Array.from(curStoreCommoditiesDOMList).every(
+        (item) => item.checked,
       )
-      const selectAllDOM = document.querySelector('#selectAll')
-      const result = Array.from(selectStoreAllDOM).every((item) => item.checked)
 
       if (result) {
-        selectAllDOM.nextElementSibling.classList.remove('icon-round')
-        selectAllDOM.nextElementSibling.classList.add('icon-roundcheckfill')
-        selectAllDOM.checked = true
-        this.$refs.selectAllStatus.selectAllStatus = true
+        curStoreDOM.nextElementSibling.classList.remove('icon-round')
+        curStoreDOM.nextElementSibling.classList.add('icon-roundcheckfill')
+        curStoreDOM.checked = true
       }
-    },
-    // 选择单品
-    handleOneSelect(e, skuId, curNum, unitPrice) {
-      const sku = {
-        skuId,
-        curNum,
-        unitPrice,
-      }
-      const storeId = e.target.id.split('_')[1]
-      const curStoreDOM = document.querySelector(
-        `input[id=selectStoreAll_${storeId}]`,
-      )
-      const curStoreCommoditiesDOMList = document.querySelectorAll(
-        `input[id^=selectStoreOne_${storeId}]`,
-      )
 
-      // 取消选中时
-      if (!e.target.checked) {
-        this.selectList.splice(this.matchSkuId(skuId), 1)
-        e.target.nextElementSibling.classList.add('icon-round')
-        e.target.nextElementSibling.classList.remove('icon-roundcheckfill')
+      this.getSelectStoreAll()
+    }
+  }
 
-        // 若先点击了店铺全选 再去取消一件单品时 将店铺全选按钮熄掉
-        curStoreDOM.nextElementSibling.classList.add('icon-round')
-        curStoreDOM.nextElementSibling.classList.remove('icon-roundcheckfill')
-        curStoreDOM.checked = false
-
-        // 全选也要熄掉
-        this.handleSelectAll(false)
-
-        // 选中时
-      } else {
-        this.selectList.push(sku)
-        e.target.nextElementSibling.classList.remove('icon-round')
-        e.target.nextElementSibling.classList.add('icon-roundcheckfill')
-
-        // 判断如果此时恰好一个商铺底下的商品全部被勾选 将店铺全选按钮点亮
-        const result = Array.from(curStoreCommoditiesDOMList).every(
-          (item) => item.checked,
-        )
-
-        if (result) {
-          curStoreDOM.nextElementSibling.classList.remove('icon-round')
-          curStoreDOM.nextElementSibling.classList.add('icon-roundcheckfill')
-          curStoreDOM.checked = true
-        }
-
-        this.getSelectStoreAll()
-      }
-    },
-    // 按商铺批量选择
-    handleOneStoreSelect(e) {
-      const storeId = e.target.id.split('_')[1]
-      const commoditiesOfStore = document.querySelectorAll(
-        `input[id^=selectStoreOne_${storeId}]`,
-      )
-      if (e.target.checked) {
-        e.target.nextElementSibling.classList.remove('icon-round')
-        e.target.nextElementSibling.classList.add('icon-roundcheckfill')
-        for (let i = 0, l = commoditiesOfStore.length; i < l; i += 1) {
-          if (!commoditiesOfStore[i].checked) {
-            commoditiesOfStore[i].checked = true
-            commoditiesOfStore[i].nextElementSibling.classList.remove(
-              'icon-round',
-            )
-            commoditiesOfStore[i].nextElementSibling.classList.add(
-              'icon-roundcheckfill',
-            )
-
-            const dataCurArr = commoditiesOfStore[i].dataset.cur.split('_')
-            const sku = {
-              skuId: dataCurArr[0],
-              curNum: parseInt(dataCurArr[1], 10),
-              unitPrice: parseFloat(dataCurArr[2]),
-            }
-            this.selectList.push(sku)
-          }
-        }
-        this.getSelectStoreAll()
-      } else {
-        e.target.nextElementSibling.classList.add('icon-round')
-        e.target.nextElementSibling.classList.remove('icon-roundcheckfill')
-        for (let i = 0, l = commoditiesOfStore.length; i < l; i += 1) {
-          commoditiesOfStore[i].checked = false
-          commoditiesOfStore[i].nextElementSibling.classList.add('icon-round')
+  // 按商铺批量选择
+  public handleOneStoreSelect(e: any) {
+    const storeId = e.target.id.split('_')[1]
+    const commoditiesOfStore = document.querySelectorAll(
+      `input[id^=selectStoreOne_${storeId}]`,
+    )
+    if (e.target.checked) {
+      e.target.nextElementSibling.classList.remove('icon-round')
+      e.target.nextElementSibling.classList.add('icon-roundcheckfill')
+      for (let i = 0, l = commoditiesOfStore.length; i < l; i += 1) {
+        if (!commoditiesOfStore[i].checked) {
+          commoditiesOfStore[i].checked = true
           commoditiesOfStore[i].nextElementSibling.classList.remove(
+            'icon-round',
+          )
+          commoditiesOfStore[i].nextElementSibling.classList.add(
             'icon-roundcheckfill',
           )
+
           const dataCurArr = commoditiesOfStore[i].dataset.cur.split('_')
-          this.selectList.splice(this.matchSkuId(dataCurArr[0]), 1)
-          this.handleSelectAll(false)
-        }
-      }
-    },
-    // 获取全选按钮传递过来的信息
-    getSelectAllFeedback(params) {
-      const allInputDOM = document.querySelectorAll('input')
-      const commoditiesDOM = document.querySelectorAll(
-        'input[id^=selectStoreOne]',
-      )
-      this.selectList.splice(0, this.selectList.length)
-      if (params) {
-        // eslint-disable-next-line no-restricted-syntax
-        for (const item of allInputDOM) {
-          item.checked = true
-          item.nextElementSibling.classList.remove('icon-round')
-          item.nextElementSibling.classList.add('icon-roundcheckfill')
-        }
-        for (let i = 0, l = commoditiesDOM.length; i < l; i += 1) {
-          const dataCurArr = commoditiesDOM[i].dataset.cur.split('_')
           const sku = {
             skuId: dataCurArr[0],
             curNum: parseInt(dataCurArr[1], 10),
@@ -526,132 +504,178 @@ export default {
           }
           this.selectList.push(sku)
         }
-      } else {
-        // eslint-disable-next-line no-restricted-syntax
-        for (const item of allInputDOM) {
-          item.checked = false
-          item.nextElementSibling.classList.add('icon-round')
-          item.nextElementSibling.classList.remove('icon-roundcheckfill')
-        }
       }
-    },
-    // 显示隐藏一个商铺下的所有商品的删除按钮
-    toggleDelete(storeIndex) {
-      const curStoreDOM = this.$refs.getStoreDOM[storeIndex]
-      const deleteDOM = curStoreDOM.querySelectorAll('.delete_commodity')
-      const commodityDOM = curStoreDOM.querySelectorAll(
-        '.commodity_item_container',
+      this.getSelectStoreAll()
+    } else {
+      e.target.nextElementSibling.classList.add('icon-round')
+      e.target.nextElementSibling.classList.remove('icon-roundcheckfill')
+      for (let i = 0, l = commoditiesOfStore.length; i < l; i += 1) {
+        commoditiesOfStore[i].checked = false
+        commoditiesOfStore[i].nextElementSibling.classList.add('icon-round')
+        commoditiesOfStore[i].nextElementSibling.classList.remove(
+          'icon-roundcheckfill',
+        )
+        const dataCurArr = commoditiesOfStore[i].dataset.cur.split('_')
+        this.selectList.splice(this.matchSkuId(dataCurArr[0]), 1)
+        this.handleSelectAll(false)
+      }
+    }
+  }
+
+  // 获取全选按钮传递过来的信息
+  public getSelectAllFeedback(params: any) {
+    const allInputDOM = document.querySelectorAll('input')
+    const commoditiesDOM = document.querySelectorAll(
+      'input[id^=selectStoreOne]',
+    )
+    this.selectList.splice(0, this.selectList.length)
+    if (params) {
+      // eslint-disable-next-line no-restricted-syntax
+      for (const item of allInputDOM) {
+        item.checked = true
+        item.nextElementSibling.classList.remove('icon-round')
+        item.nextElementSibling.classList.add('icon-roundcheckfill')
+      }
+      for (let i = 0, l = commoditiesDOM.length; i < l; i += 1) {
+        const dataCurArr = commoditiesDOM[i].dataset.cur.split('_')
+        const sku = {
+          skuId: dataCurArr[0],
+          curNum: parseInt(dataCurArr[1], 10),
+          unitPrice: parseFloat(dataCurArr[2]),
+        }
+        this.selectList.push(sku)
+      }
+    } else {
+      // eslint-disable-next-line no-restricted-syntax
+      for (const item of allInputDOM) {
+        item.checked = false
+        item.nextElementSibling.classList.add('icon-round')
+        item.nextElementSibling.classList.remove('icon-roundcheckfill')
+      }
+    }
+  }
+
+  // 显示隐藏一个商铺下的所有商品的删除按钮
+  public toggleDelete(storeIndex: any) {
+    const curStoreDOM = this.$refs.getStoreDOM[storeIndex]
+    const deleteDOM = curStoreDOM.querySelectorAll('.delete_commodity')
+    const commodityDOM = curStoreDOM.querySelectorAll(
+      '.commodity_item_container',
+    )
+    const editorTagDOM = curStoreDOM.querySelector('.get_edit')
+    for (let i = 0, l = deleteDOM.length; i < l; i += 1) {
+      deleteDOM[i].classList.toggle('show_delete')
+      commodityDOM[i].classList.toggle('shrink_commodity_item')
+    }
+    if (editorTagDOM.innerText === '编辑') {
+      editorTagDOM.innerText = '完成'
+    } else {
+      editorTagDOM.innerText = '编辑'
+    }
+  }
+
+  // 左滑展示删除按钮
+  public handleSwiper(storeId: string, skuId: string) {
+    return (direction) => {
+      const curCommodityDOM = document.querySelector(
+        `#commodityItem_${storeId}_${skuId}`,
       )
-      const editorTagDOM = curStoreDOM.querySelector('.get_edit')
-      for (let i = 0, l = deleteDOM.length; i < l; i += 1) {
-        deleteDOM[i].classList.toggle('show_delete')
-        commodityDOM[i].classList.toggle('shrink_commodity_item')
-      }
-      if (editorTagDOM.innerText === '编辑') {
-        editorTagDOM.innerText = '完成'
+      const curDeleteDOM = document.querySelector(`#delete_${storeId}_${skuId}`)
+      if (direction === 'left') {
+        curDeleteDOM.classList.add('show_delete')
+        curCommodityDOM.classList.add('shrink_commodity_item')
       } else {
-        editorTagDOM.innerText = '编辑'
+        curDeleteDOM.classList.remove('show_delete')
+        curCommodityDOM.classList.remove('shrink_commodity_item')
       }
-    },
-    // 左滑展示删除按钮
-    handleSwiper(storeId, skuId) {
-      return (direction) => {
-        const curCommodityDOM = document.querySelector(
-          `#commodityItem_${storeId}_${skuId}`,
-        )
-        const curDeleteDOM = document.querySelector(
-          `#delete_${storeId}_${skuId}`,
-        )
-        if (direction === 'left') {
-          curDeleteDOM.classList.add('show_delete')
-          curCommodityDOM.classList.add('shrink_commodity_item')
-        } else {
-          curDeleteDOM.classList.remove('show_delete')
-          curCommodityDOM.classList.remove('shrink_commodity_item')
-        }
-      }
-    },
-    // 删除无效商品
-    deleteInvaidCommodities() {
-      this.showDialog = true
-      this.warningMsg = '确定要删除失效产品吗？'
-      this.isDialog = 1
-    },
-    // 删除单品
-    deleteCommodity(curStoreIndex, curSkuIndex, curSkuId) {
-      this.showDialog = true
-      this.warningMsg = '确定要删除这个宝贝吗？'
-      this.isDialog = 2
-      this.curStoreIndex = curStoreIndex
-      this.curSkuIndex = curSkuIndex
-      this.curSkuId = curSkuId
-    },
-    // 获取对话框传递过来的信息（确认删除无效商品 / 确认删除有效商品）
-    getDialogFeedback(type, params) {
-      if (type === 1) {
-        if (params) {
-          this.invaildCommodities.splice(0, this.invaildCommodities.length)
-          this.showDialog = false
-        } else {
-          this.showDialog = false
-        }
-      } else if (params) {
-        this.vaildCommodities[this.curStoreIndex].commodity_list.splice(
-          this.curSkuIndex,
-          1,
-        )
-        if (
-          this.vaildCommodities[this.curStoreIndex].commodity_list.length === 0
-        ) {
-          this.vaildCommodities.splice([this.curStoreIndex], 1)
-        }
+    }
+  }
 
-        this.$emit('handleTotalNum', true)
+  // 删除无效商品
+  public deleteInvaidCommodities() {
+    this.showDialog = true
+    this.warningMsg = '确定要删除失效产品吗？'
+    this.isDialog = 1
+  }
 
-        // 在删除一件商品时，如果这件商品已经被选中，那么selectList需要做出变化，相应的总价/总数量也要发生变化
-        const result = this.matchSkuId(this.curSkuId)
-        if (result !== -1) {
-          this.selectList.splice(result, 1)
-        }
-        this.showDialog = false
-      } else {
-        this.showDialog = false
-      }
-    },
-    // todo
-    // 显示隐藏sku picker
-    handleSkuSelect() {
-      const bodyDOM = document.querySelector('body')
-      bodyDOM.style.position = 'fixed'
-      this.showSkuPicker = true
-    },
-    // 获取Sku Picker反馈以关闭
-    getSkuPickFeedback(params) {
-      const bodyDOM = document.querySelector('body')
+  // 删除单品
+  public deleteCommodity(curStoreIndex, curSkuIndex, curSkuId) {
+    this.showDialog = true
+    this.warningMsg = '确定要删除这个宝贝吗？'
+    this.isDialog = 2
+    this.curStoreIndex = curStoreIndex
+    this.curSkuIndex = curSkuIndex
+    this.curSkuId = curSkuId
+  }
+
+  // 获取对话框传递过来的信息（确认删除无效商品 / 确认删除有效商品）
+  public getDialogFeedback(type, params) {
+    if (type === 1) {
       if (params) {
-        bodyDOM.style.position = 'relative'
-        this.showSkuPicker = false
-      }
-    },
-    // 获取提交订单的反馈
-    getSubmitOderFeedback() {
-      if (this.selectList.length === 0) {
-        this.showDialog = true
-        this.isDialog = 0
-        this.warningMsg = '您还没有选择宝贝哦～'
-        this.closeDialog()
+        this.invaildCommodities.splice(0, this.invaildCommodities.length)
+        this.showDialog = false
       } else {
-        this.showDialog = true
-        this.isDialog = 0
-        this.warningMsg = '家里有矿啊，你还真买啊？！'
-        this.closeDialog()
+        this.showDialog = false
       }
-    },
-  },
+    } else if (params) {
+      this.vaildCommodities[this.curStoreIndex].commodity_list.splice(
+        this.curSkuIndex,
+        1,
+      )
+      if (
+        this.vaildCommodities[this.curStoreIndex].commodity_list.length === 0
+      ) {
+        this.vaildCommodities.splice([this.curStoreIndex], 1)
+      }
+
+      this.$emit('handleTotalNum', true)
+
+      // 在删除一件商品时，如果这件商品已经被选中，那么selectList需要做出变化，相应的总价/总数量也要发生变化
+      const result = this.matchSkuId(this.curSkuId)
+      if (result !== -1) {
+        this.selectList.splice(result, 1)
+      }
+      this.showDialog = false
+    } else {
+      this.showDialog = false
+    }
+  }
+
+  // todo
+  // 显示隐藏sku picker
+  public handleSkuSelect() {
+    const bodyDOM = document.querySelector('body')
+    bodyDOM.style.position = 'fixed'
+    this.showSkuPicker = true
+  }
+
+  // 获取Sku Picker反馈以关闭
+  public getSkuPickFeedback(params) {
+    const bodyDOM = document.querySelector('body')
+    if (params) {
+      bodyDOM.style.position = 'relative'
+      this.showSkuPicker = false
+    }
+  }
+
+  // 获取提交订单的反馈
+  public getSubmitOderFeedback() {
+    if (this.selectList.length === 0) {
+      this.showDialog = true
+      this.isDialog = 0
+      this.warningMsg = '您还没有选择宝贝哦～'
+      this.closeDialog()
+    } else {
+      this.showDialog = true
+      this.isDialog = 0
+      this.warningMsg = '家里有矿啊，你还真买啊？！'
+      this.closeDialog()
+    }
+  }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" slot-scope>
 #item {
   position: relative;
   width: 100%;

@@ -9,13 +9,7 @@
   </section>
 </template>
 
-<script>
-export default {
-  name: 'noCommodities',
-}
-</script>
-
-<style lang="scss">
+<style lang="scss" slot-scope>
 #noCommodities {
   height: 100vh;
   background: $no_commodities_gray;

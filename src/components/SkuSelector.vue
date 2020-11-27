@@ -41,64 +41,62 @@
     </div>
   </section>
 </template>
-<script>
-export default {
-  name: 'skuSelector',
-  data() {
-    return {
-      skuMock: {
-        sku_id: '782731205',
-        sku_img:
-          '//img.alicdn.com/imgextra/i1/1621790841/O1CN019ENLri1I5DZGyxEDU_!!0-item_pic.jpg_120x120q50s150.jpg',
-        sku_price: 7688,
-        sku_stock: 8,
-        sku_attr: [
-          {
-            key: '颜色',
-            value: ['银灰色'],
-          },
-          {
-            key: '套餐类型',
-            value: [
-              '黑白键盘套装',
-              '灰钴蓝键盘套装',
-              '深酒红键盘套装',
-              '亮铂金键盘套装',
-              '官方标配',
-            ],
-          },
-          {
-            key: '网络类型',
-            value: ['WIFI'],
-          },
-          {
-            key: '存储容量',
-            value: ['256GB'],
-          },
-        ],
-        skus: [],
+
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
+
+@Component
+export default class SkuSelector extends Vue {
+  @Prop(Boolean) private readonly showSkuPicker!: boolean
+
+  private skuMock = {
+    sku_id: '782731205',
+    sku_img:
+      '//img.alicdn.com/imgextra/i1/1621790841/O1CN019ENLri1I5DZGyxEDU_!!0-item_pic.jpg_120x120q50s150.jpg',
+    sku_price: 7688,
+    sku_stock: 8,
+    sku_attr: [
+      {
+        key: '颜色',
+        value: ['银灰色'],
       },
-      curSelect: [
-        '银灰色',
-        '深酒红键盘套装',
-        'WIFI',
-        '256GB',
-        '全国延保 延保两年',
-      ],
-    }
-  },
-  props: {
-    showSkuPicker: Boolean,
-  },
-  methods: {
-    closeSkuPicker() {
-      this.$emit('getSkuPickFeedback', true)
-    },
-  },
+      {
+        key: '套餐类型',
+        value: [
+          '黑白键盘套装',
+          '灰钴蓝键盘套装',
+          '深酒红键盘套装',
+          '亮铂金键盘套装',
+          '官方标配',
+        ],
+      },
+      {
+        key: '网络类型',
+        value: ['WIFI'],
+      },
+      {
+        key: '存储容量',
+        value: ['256GB'],
+      },
+    ],
+    skus: [],
+  }
+
+  private curSelect = [
+    '银灰色',
+    '深酒红键盘套装',
+    'WIFI',
+    '256GB',
+    '全国延保 延保两年',
+  ]
+
+  public closeSkuPicker() {
+    this.$emit('getSkuPickFeedback', true)
+  }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" slot-scope>
 #skuSelector {
   .overlay {
     position: fixed;

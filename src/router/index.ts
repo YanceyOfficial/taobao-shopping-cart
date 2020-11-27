@@ -4,7 +4,7 @@ import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
-const routes: Array<RouteConfig> = [
+const routes: RouteConfig[] = [
   {
     path: '/',
     name: 'Home',

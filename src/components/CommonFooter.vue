@@ -35,13 +35,7 @@
   </footer>
 </template>
 
-<script>
-export default {
-  name: 'commonFooter',
-}
-</script>
-
-<style lang="scss">
+<style lang="scss" slot-scope>
 #footer {
   display: flex;
   position: fixed;

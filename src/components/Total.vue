@@ -37,30 +37,28 @@
     </span>
   </section>
 </template>
-<script>
-export default {
-  name: 'total',
-  data() {
-    return {
-      selectAllStatus: false,
-    }
-  },
-  props: {
-    selectListLength: Number,
-    curTotalPrice: Number,
-  },
-  methods: {
-    selectAll() {
-      this.$emit('getSelectAllFeedback', this.selectAllStatus)
-    },
-    submitOrder() {
-      this.$emit('getSubmitOderFeedback')
-    },
-  },
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
+
+@Component
+export default class Total extends Vue {
+  @Prop(Number) private readonly selectListLength!: number
+
+  @Prop(Number) private readonly curTotalPrice!: number
+
+  private selectAllStatus = false
+
+  public selectAll() {
+    this.$emit('getSelectAllFeedback', this.selectAllStatus)
+  }
+
+  public submitOrder() {
+    this.$emit('getSubmitOderFeedback')
+  }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" slot-scope>
 #total {
   box-sizing: border-box;
   position: fixed;
@@ -70,7 +68,6 @@ export default {
   bottom: calc(#{rem(42)} + env(safe-area-inset-bottom));
   width: 100%;
   height: rem(48);
-  // border-top: rem(1) solid $border_gray;
   background: $white;
 }
 
