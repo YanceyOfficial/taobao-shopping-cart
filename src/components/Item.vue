@@ -76,9 +76,18 @@
                     type="checkbox"
                     :id="`selectStoreOne_${store.store_id}_${commodity.sku_id}`"
                     class="select_radio"
+                    :checked="isSelected(commodity.sku_id)"
                     :data-cur="`${commodity.sku_id}_${commodity.cur_cart_num}_${commodity.sku_unit_price}`"
                   />
-                  <i class="iconfont radio_icon icon-round"></i>
+                  <i
+                    :class="[
+                      isSelected(commodity.sku_id)
+                        ? 'icon-roundcheckfill'
+                        : 'icon-round',
+                      'iconfont',
+                      'radio_icon',
+                    ]"
+                  ></i>
                 </label>
                 <img
                   :src="commodity.commodity_img"
@@ -304,6 +313,12 @@ export default class Item extends Vue {
       this.curTotalPrice +=
         this.selectList[i].curNum * this.selectList[i].unitPrice
     }
+
+    console.log(this.selectList)
+  }
+
+  public isSelected(skuId: string) {
+    this.selectList.find((val) => val.skuId === skuId)
   }
 
   public getStoreType(typeNum: number) {
@@ -390,22 +405,6 @@ export default class Item extends Vue {
     }
   }
 
-  // 全选按钮
-  public handleSelectAll(type: boolean) {
-    const selectAllDOM = document.querySelector('#selectAll')
-    if (type) {
-      selectAllDOM.nextElementSibling.classList.remove('icon-round')
-      selectAllDOM.nextElementSibling.classList.add('icon-roundcheckfill')
-      selectAllDOM.checked = true
-      this.$refs.selectAllStatus.selectAllStatus = true
-    } else {
-      selectAllDOM.nextElementSibling.classList.add('icon-round')
-      selectAllDOM.nextElementSibling.classList.remove('icon-roundcheckfill')
-      selectAllDOM.checked = false
-      this.$refs.selectAllStatus.selectAllStatus = false
-    }
-  }
-
   // 判断所有店铺是否被选中
   public getSelectStoreAll() {
     const selectStoreAllDOM = document.querySelectorAll(
@@ -443,9 +442,6 @@ export default class Item extends Vue {
       curStoreDOM.nextElementSibling.classList.add('icon-round')
       curStoreDOM.nextElementSibling.classList.remove('icon-roundcheckfill')
       curStoreDOM.checked = false
-
-      // 全选也要熄掉
-      this.handleSelectAll(false)
 
       // 选中时
     } else {
@@ -508,7 +504,6 @@ export default class Item extends Vue {
         )
         const dataCurArr = commoditiesOfStore[i].dataset.cur.split('_')
         this.selectList.splice(this.matchSkuId(dataCurArr[0]), 1)
-        this.handleSelectAll(false)
       }
     }
   }
