@@ -40,3 +40,7 @@ export interface SelectedCommodity {
   skuId: string
   unitPrice: number
 }
+
+export interface Dict<T> {
+  [index: string]: T
+}

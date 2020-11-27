@@ -248,7 +248,7 @@ import PurchaseRestrictionDialog from '@/components/PurchaseRestrictionDialog.vu
 import Total from '@/components/Total.vue'
 import SkuSelector from '@/components/SkuSelector.vue'
 import NoCommodities from '@/components/NoCommodities.vue'
-import { urls } from '@/shared/constants'
+import { storeType } from '@/shared/constants'
 import {
   ValidCommodity,
   InvalidCommodity,
@@ -306,18 +306,9 @@ export default class Item extends Vue {
     }
   }
 
-  // 获取商铺类型  1-天猫 | 2-企业店铺 | 3-天猫国际
   public getStoreType(typeNum: number) {
-    if (typeNum === 1) {
-      return urls.tmall
-    }
-    if (typeNum === 2) {
-      return urls.enterprise
-    }
-    if (typeNum === 3) {
-      return urls.tmall_internation
-    }
-    return false
+    const type = storeType[typeNum]
+    return !type ? false : type
   }
 
   // 定时关闭对话框
