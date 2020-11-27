@@ -567,7 +567,7 @@ export default class Item extends Vue {
 
   // 左滑展示删除按钮
   public handleSwiper(storeId: string, skuId: string) {
-    return (direction) => {
+    return (direction: string) => {
       const curCommodityDOM = document.querySelector(
         `#commodityItem_${storeId}_${skuId}`,
       )
