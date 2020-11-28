@@ -5,6 +5,7 @@
       :vaildCommodities="vaildCommodities"
       :invaildCommodities="invaildCommodities"
       :totalNum="totalNum"
+      :vaildCommoditiesNum="vaildCommoditiesNum"
       @handleTotalNum="handleTotalNum"
     ></Item>
     <CommonFooter />
@@ -39,6 +40,8 @@ export default class Home extends Vue {
 
   private invaildCommoditiesNum = 0
 
+  private vaildCommoditiesNum = 0
+
   public mounted() {
     this.getData()
   }
@@ -55,7 +58,8 @@ export default class Home extends Vue {
     this.vaildCommodities = data.vaild_commodities
     this.invaildCommodities = data.invaild_commodities
     this.totalNum = data.total_number
-    this.invaildCommoditiesNum += this.invaildCommodities.length
+    this.invaildCommoditiesNum = this.invaildCommodities.length
+    this.vaildCommoditiesNum = this.totalNum - this.invaildCommodities.length
   }
 
   public handleTotalNum(params: boolean) {

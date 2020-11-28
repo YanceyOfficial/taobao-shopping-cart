@@ -242,8 +242,9 @@
     <Total
       :selectListLength="selectListLength"
       :curTotalPrice="curTotalPrice"
+      :vaildCommoditiesNum="vaildCommoditiesNum"
       @getSelectAllFeedback="getSelectAllFeedback"
-      @getSubmitOderFeedback="getSubmitOderFeedback"
+      @getSubmitOrderFeedback="getSubmitOrderFeedback"
       ref="selectAllStatus"
       v-if="totalNum !== 0"
     ></Total>
@@ -284,6 +285,8 @@ export default class Item extends Vue {
   @Prop() private vaildCommodities!: ValidCommodity[]
 
   @Prop() private invaildCommodities!: InvalidCommodity[]
+
+  @Prop() private vaildCommoditiesNum!: number
 
   @Prop() private totalNum!: number
 
@@ -502,13 +505,13 @@ export default class Item extends Vue {
         `#commodityItem_${storeId}_${skuId}`,
       )
       const curDeleteDOM = document.querySelector(`#delete_${storeId}_${skuId}`)
-      // if (direction === 'left') {
-      //   curDeleteDOM.classList.add('show_delete')
-      //   curCommodityDOM.classList.add('shrink_commodity_item')
-      // } else {
-      //   curDeleteDOM.classList.remove('show_delete')
-      //   curCommodityDOM.classList.remove('shrink_commodity_item')
-      // }
+      if (direction === 'left') {
+        curDeleteDOM.classList.add('show_delete')
+        curCommodityDOM.classList.add('shrink_commodity_item')
+      } else {
+        curDeleteDOM.classList.remove('show_delete')
+        curCommodityDOM.classList.remove('shrink_commodity_item')
+      }
     }
   }
 
@@ -583,7 +586,7 @@ export default class Item extends Vue {
   }
 
   // 获取提交订单的反馈
-  public getSubmitOderFeedback() {
+  public getSubmitOrderFeedback() {
     if (this.selectList.length === 0) {
       this.showDialog = true
       this.isDialog = 0
@@ -611,7 +614,21 @@ export default class Item extends Vue {
   }
 
   public getSelectAllFeedback() {
-    // TODO:
+    if (this.selectListLength === this.vaildCommoditiesNum) {
+      this.selectList = []
+    } else {
+      this.vaildCommodities.forEach((store) => {
+        store.commodity_list.forEach((commodity) => {
+          if (!this.isCommoditySelected(commodity.sku_id)) {
+            this.selectList.push({
+              curNum: commodity.cur_cart_num,
+              skuId: commodity.sku_id,
+              unitPrice: commodity.sku_unit_price,
+            })
+          }
+        })
+      })
+    }
   }
 }
 </script>

@@ -1,17 +1,16 @@
 <template>
   <section id="total" class="border_1px_top">
-    <span class="total_left">
-      <label for="selectAll" class="radio_label">
-        <input
-          type="checkbox"
-          id="selectAll"
-          class="select_radio"
-          v-model="selectAllStatus"
-          @change="selectAll()"
-        />
-        <i class="iconfont radio_icon icon-round"></i>
-        全选
-      </label>
+    <span class="total_left radio_wrapper" @click="selectAll()">
+      <i
+        :class="[
+          vaildCommoditiesNum === selectListLength
+            ? 'icon-roundcheckfill'
+            : 'icon-round',
+          'iconfont',
+          'radio_icon',
+        ]"
+      ></i>
+      全选
     </span>
     <span class="total_right">
       <span>
@@ -44,6 +43,8 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 export default class Total extends Vue {
   @Prop(Number) private readonly selectListLength!: number
 
+  @Prop(Number) private readonly vaildCommoditiesNum!: number
+
   @Prop(Number) private readonly curTotalPrice!: number
 
   private selectAllStatus = false
@@ -53,7 +54,7 @@ export default class Total extends Vue {
   }
 
   public submitOrder() {
-    this.$emit('getSubmitOderFeedback')
+    this.$emit('getSubmitOrderFeedback')
   }
 }
 </script>
@@ -77,7 +78,7 @@ export default class Total extends Vue {
   font-size: $font_size_16;
 }
 
-.radio_label {
+.radio_wrapper {
   display: flex;
   align-items: center;
 }
