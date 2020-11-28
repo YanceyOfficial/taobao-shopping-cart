@@ -19,7 +19,7 @@
             <label
               :for="`selectStoreAll_${store.store_id}`"
               class="radio_label"
-              @change="handleOneStoreSelect($event)"
+              @change="selectStore($event)"
             >
               <input
                 type="checkbox"
@@ -65,7 +65,7 @@
                   :for="`selectStoreOne_${store.store_id}_${commodity.sku_id}`"
                   class="radio_label"
                   @change="
-                    handleOneSelect($event, {
+                    selectCommodity($event, {
                       skuId: commodity.sku_id,
                       curNum: commodity.cur_cart_num,
                       unitPrice: commodity.sku_unit_price,
@@ -422,124 +422,10 @@ export default class Item extends Vue {
   }
 
   // 选择单品
-  public handleOneSelect(e: Event, sku: SelectedCommodity) {
-    const { skuId } = sku
-    const storeId = e.target.id.split('_')[1]
-    const curStoreDOM = document.querySelector(
-      `input[id=selectStoreAll_${storeId}]`,
-    )
-    const curStoreCommoditiesDOMList = document.querySelectorAll(
-      `input[id^=selectStoreOne_${storeId}]`,
-    )
-
-    // 取消选中时
-    if (!e.target.checked) {
-      this.selectList.splice(this.matchSkuId(skuId), 1)
-      e.target.nextElementSibling.classList.add('icon-round')
-      e.target.nextElementSibling.classList.remove('icon-roundcheckfill')
-
-      // 若先点击了店铺全选 再去取消一件单品时 将店铺全选按钮熄掉
-      curStoreDOM.nextElementSibling.classList.add('icon-round')
-      curStoreDOM.nextElementSibling.classList.remove('icon-roundcheckfill')
-      curStoreDOM.checked = false
-
-      // 选中时
-    } else {
-      this.selectList.push(sku)
-      e.target.nextElementSibling.classList.remove('icon-round')
-      e.target.nextElementSibling.classList.add('icon-roundcheckfill')
-
-      // 判断如果此时恰好一个商铺底下的商品全部被勾选 将店铺全选按钮点亮
-      const result = Array.from(curStoreCommoditiesDOMList).every(
-        (item) => item.checked,
-      )
-
-      if (result) {
-        curStoreDOM.nextElementSibling.classList.remove('icon-round')
-        curStoreDOM.nextElementSibling.classList.add('icon-roundcheckfill')
-        curStoreDOM.checked = true
-      }
-
-      this.getSelectStoreAll()
-    }
-  }
+  public selectCommodity(e: Event, sku: SelectedCommodity) {}
 
   // 按商铺批量选择
-  public handleOneStoreSelect(e: Event) {
-    const storeId = e.target.id.split('_')[1]
-    const commoditiesOfStore = document.querySelectorAll(
-      `input[id^=selectStoreOne_${storeId}]`,
-    )
-    if (e.target.checked) {
-      e.target.nextElementSibling.classList.remove('icon-round')
-      e.target.nextElementSibling.classList.add('icon-roundcheckfill')
-      for (let i = 0, l = commoditiesOfStore.length; i < l; i += 1) {
-        if (!commoditiesOfStore[i].checked) {
-          commoditiesOfStore[i].checked = true
-          commoditiesOfStore[i].nextElementSibling.classList.remove(
-            'icon-round',
-          )
-          commoditiesOfStore[i].nextElementSibling.classList.add(
-            'icon-roundcheckfill',
-          )
-
-          const dataCurArr = commoditiesOfStore[i].dataset.cur.split('_')
-          const sku = {
-            skuId: dataCurArr[0],
-            curNum: parseInt(dataCurArr[1], 10),
-            unitPrice: parseFloat(dataCurArr[2]),
-          }
-          this.selectList.push(sku)
-        }
-      }
-      this.getSelectStoreAll()
-    } else {
-      e.target.nextElementSibling.classList.add('icon-round')
-      e.target.nextElementSibling.classList.remove('icon-roundcheckfill')
-      for (let i = 0, l = commoditiesOfStore.length; i < l; i += 1) {
-        commoditiesOfStore[i].checked = false
-        commoditiesOfStore[i].nextElementSibling.classList.add('icon-round')
-        commoditiesOfStore[i].nextElementSibling.classList.remove(
-          'icon-roundcheckfill',
-        )
-        const dataCurArr = commoditiesOfStore[i].dataset.cur.split('_')
-        this.selectList.splice(this.matchSkuId(dataCurArr[0]), 1)
-      }
-    }
-  }
-
-  // 获取全选按钮传递过来的信息
-  public getSelectAllFeedback(isSelectedAll: boolean) {
-    const allInputDOM = document.querySelectorAll('input')
-    const commoditiesDOM = document.querySelectorAll(
-      'input[id^=selectStoreOne]',
-    )
-    this.selectList.splice(0, this.selectList.length)
-    if (isSelectedAll) {
-      // eslint-disable-next-line no-restricted-syntax
-      for (const item of allInputDOM) {
-        item.checked = true
-        item.nextElementSibling.classList.remove('icon-round')
-        item.nextElementSibling.classList.add('icon-roundcheckfill')
-      }
-      for (let i = 0, l = commoditiesDOM.length; i < l; i += 1) {
-        const dataCurArr = commoditiesDOM[i].dataset.cur.split('_')
-        const sku = {
-          skuId: dataCurArr[0],
-          curNum: parseInt(dataCurArr[1], 10),
-          unitPrice: parseFloat(dataCurArr[2]),
-        }
-        this.selectList.push(sku)
-      }
-    } else {
-      // eslint-disable-next-line no-restricted-syntax
-      for (const item of allInputDOM) {
-        item.checked = false
-        item.nextElementSibling.classList.add('icon-round')
-        item.nextElementSibling.classList.remove('icon-roundcheckfill')
-      }
-    }
-  }
+  public selectStore(storeId: string) {}
 
   // 显示隐藏一个商铺下的所有商品的删除按钮
   public toggleDelete(storeIndex: number) {
