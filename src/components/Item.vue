@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 <template>
   <section id="item">
     <ul class="store_list" v-if="totalNum !== 0">
@@ -19,14 +18,22 @@
             <label
               :for="`selectStoreAll_${store.store_id}`"
               class="radio_label"
-              @change="selectStore($event)"
+              @change="toggleStore(store.store_id)"
             >
               <input
                 type="checkbox"
                 :id="`selectStoreAll_${store.store_id}`"
                 class="select_radio"
               />
-              <i class="iconfont radio_icon icon-round"></i>
+              <i
+                :class="[
+                  isStoreSelected(store.store_id)
+                    ? 'icon-roundcheckfill'
+                    : 'icon-round',
+                  'iconfont',
+                  'radio_icon',
+                ]"
+              ></i>
             </label>
             <i
               class="store_type_logo"
@@ -65,7 +72,7 @@
                   :for="`selectStoreOne_${store.store_id}_${commodity.sku_id}`"
                   class="radio_label"
                   @change="
-                    selectCommodity($event, {
+                    toggleCommodity({
                       skuId: commodity.sku_id,
                       curNum: commodity.cur_cart_num,
                       unitPrice: commodity.sku_unit_price,
@@ -76,12 +83,12 @@
                     type="checkbox"
                     :id="`selectStoreOne_${store.store_id}_${commodity.sku_id}`"
                     class="select_radio"
-                    :checked="isSelected(commodity.sku_id)"
+                    :checked="isCommoditySelected(commodity.sku_id)"
                     :data-cur="`${commodity.sku_id}_${commodity.cur_cart_num}_${commodity.sku_unit_price}`"
                   />
                   <i
                     :class="[
-                      isSelected(commodity.sku_id)
+                      isCommoditySelected(commodity.sku_id)
                         ? 'icon-roundcheckfill'
                         : 'icon-round',
                       'iconfont',
@@ -305,6 +312,10 @@ export default class Item extends Vue {
 
   private curSkuId = ''
 
+  get totalPrice() {
+    return this.selectList.reduce((val, acc) => acc.curNum * acc.unitPrice, 0)
+  }
+
   @Watch('selectList', { deep: true })
   handler() {
     this.selectListLength = this.selectList.length
@@ -317,28 +328,88 @@ export default class Item extends Vue {
     console.log(this.selectList)
   }
 
-  public isSelected(skuId: string) {
-    this.selectList.find((val) => val.skuId === skuId)
-  }
-
-  public getStoreType(typeNum: number) {
-    const type = storeType[typeNum]
-    return !type ? false : type
-  }
-
-  // 定时关闭对话框
-  public closeDialog() {
-    setTimeout(() => {
-      this.showDialog = false
-    }, 1000)
-  }
-
-  // skuId匹配
-  public matchSkuId(skuId: string) {
+  // 获取 sku 索引
+  public getSkuIdIndex(skuId: string) {
     const result = this.selectList.findIndex(
       (skuItem) => skuItem.skuId === skuId,
     )
     return result
+  }
+
+  // 获取所有选中的 skuId 列表
+  public getAllSelectedSkuId() {
+    return this.selectList.map((val) => val.skuId)
+  }
+
+  // 判断一个商品是否被选中
+  public isCommoditySelected(skuId: string) {
+    return this.selectList.find((val) => val.skuId === skuId)
+  }
+
+  // 获取一个商铺选中的商品 (sku 列表)
+  public getSelectedSkuIdsByStore(storeId: string) {
+    const currStore = this.getCurrentStore(storeId)
+
+    if (currStore) {
+      return currStore.commodity_list.map((val) => val.sku_id)
+    }
+
+    return []
+  }
+
+  // 一个商铺是否被选择(点击商铺全选 或者 逐一选中一个商铺的所有商品)
+  public isStoreSelected(storeId: string) {
+    const skuIds = this.getSelectedSkuIdsByStore(storeId)
+
+    if (skuIds.length > 0) {
+      return skuIds.every((skuId) => this.getAllSelectedSkuId().includes(skuId))
+    }
+
+    return false
+  }
+
+  // 获取当前商铺
+  public getCurrentStore(storeId: string) {
+    const currStore = this.vaildCommodities.find(
+      (val) => val.store_id === storeId,
+    )
+
+    return currStore
+  }
+
+  // 选择单品
+  public toggleCommodity(sku: SelectedCommodity) {
+    const isCommoditySelected = this.isCommoditySelected(sku.skuId)
+    if (isCommoditySelected) {
+      this.selectList = this.selectList.filter((val) => val.skuId !== sku.skuId)
+    } else {
+      this.selectList.push(sku)
+    }
+  }
+
+  // 按商铺批量选择
+  public toggleStore(storeId: string) {
+    const isStoreSelected = this.isStoreSelected(storeId)
+    const currStore = this.getCurrentStore(storeId)
+
+    if (currStore) {
+      if (isStoreSelected) {
+        const selectedSkuIdsByStore = this.getSelectedSkuIdsByStore(storeId)
+        this.selectList = this.selectList.filter(
+          (val) => !selectedSkuIdsByStore.includes(val.skuId),
+        )
+      } else {
+        currStore.commodity_list.forEach((val) => {
+          if (!this.isCommoditySelected(val.sku_id)) {
+            this.selectList.push({
+              skuId: val.sku_id,
+              unitPrice: val.sku_unit_price,
+              curNum: val.cur_cart_num,
+            })
+          }
+        })
+      }
+    }
   }
 
   // 增加单品数量
@@ -363,8 +434,8 @@ export default class Item extends Vue {
           commodityIndex
         ].cur_cart_num += 1
 
-        if (this.matchSkuId(skuId) !== -1) {
-          this.selectList[this.matchSkuId(skuId)].curNum += 1
+        if (this.getSkuIdIndex(skuId) !== -1) {
+          this.selectList[this.getSkuIdIndex(skuId)].curNum += 1
         }
       }
       // 没有限购条件，数量只要不超过库存量即可
@@ -377,8 +448,8 @@ export default class Item extends Vue {
       this.vaildCommodities[storeIndex].commodity_list[
         commodityIndex
       ].cur_cart_num += 1
-      if (this.matchSkuId(skuId) !== -1) {
-        this.selectList[this.matchSkuId(skuId)].curNum += 1
+      if (this.getSkuIdIndex(skuId) !== -1) {
+        this.selectList[this.getSkuIdIndex(skuId)].curNum += 1
       }
     }
   }
@@ -399,33 +470,11 @@ export default class Item extends Vue {
       this.vaildCommodities[storeIndex].commodity_list[
         commodityIndex
       ].cur_cart_num -= 1
-      if (this.matchSkuId(skuId) !== -1) {
-        this.selectList[this.matchSkuId(skuId)].curNum -= 1
+      if (this.getSkuIdIndex(skuId) !== -1) {
+        this.selectList[this.getSkuIdIndex(skuId)].curNum -= 1
       }
     }
   }
-
-  // 判断所有店铺是否被选中
-  public getSelectStoreAll() {
-    const selectStoreAllDOM = document.querySelectorAll(
-      'input[id^=selectStoreAll]',
-    )
-    const selectAllDOM = document.querySelector('#selectAll')
-    const result = Array.from(selectStoreAllDOM).every((item) => item.checked)
-
-    if (result) {
-      selectAllDOM.nextElementSibling.classList.remove('icon-round')
-      selectAllDOM.nextElementSibling.classList.add('icon-roundcheckfill')
-      selectAllDOM.checked = true
-      this.$refs.selectAllStatus.selectAllStatus = true
-    }
-  }
-
-  // 选择单品
-  public selectCommodity(e: Event, sku: SelectedCommodity) {}
-
-  // 按商铺批量选择
-  public selectStore(storeId: string) {}
 
   // 显示隐藏一个商铺下的所有商品的删除按钮
   public toggleDelete(storeIndex: number) {
@@ -453,13 +502,13 @@ export default class Item extends Vue {
         `#commodityItem_${storeId}_${skuId}`,
       )
       const curDeleteDOM = document.querySelector(`#delete_${storeId}_${skuId}`)
-      if (direction === 'left') {
-        curDeleteDOM.classList.add('show_delete')
-        curCommodityDOM.classList.add('shrink_commodity_item')
-      } else {
-        curDeleteDOM.classList.remove('show_delete')
-        curCommodityDOM.classList.remove('shrink_commodity_item')
-      }
+      // if (direction === 'left') {
+      //   curDeleteDOM.classList.add('show_delete')
+      //   curCommodityDOM.classList.add('shrink_commodity_item')
+      // } else {
+      //   curDeleteDOM.classList.remove('show_delete')
+      //   curCommodityDOM.classList.remove('shrink_commodity_item')
+      // }
     }
   }
 
@@ -507,7 +556,7 @@ export default class Item extends Vue {
       this.$emit('handleTotalNum', true)
 
       // 在删除一件商品时，如果这件商品已经被选中，那么selectList需要做出变化，相应的总价/总数量也要发生变化
-      const result = this.matchSkuId(this.curSkuId)
+      const result = this.getSkuIdIndex(this.curSkuId)
       if (result !== -1) {
         this.selectList.splice(result, 1)
       }
@@ -517,7 +566,6 @@ export default class Item extends Vue {
     }
   }
 
-  // todo
   // 显示隐藏sku picker
   public handleSkuSelect() {
     const bodyDOM = document.querySelector('body') as HTMLBodyElement
@@ -547,6 +595,23 @@ export default class Item extends Vue {
       this.warningMsg = '家里有矿啊，你还真买啊？！'
       this.closeDialog()
     }
+  }
+
+  // 定时关闭对话框
+  public closeDialog() {
+    setTimeout(() => {
+      this.showDialog = false
+    }, 1000)
+  }
+
+  // 1 为天猫商铺, 2 为企业店铺
+  public getStoreType(typeNum: number) {
+    const type = storeType[typeNum]
+    return !type ? false : type
+  }
+
+  public getSelectAllFeedback() {
+    // TODO:
   }
 }
 </script>

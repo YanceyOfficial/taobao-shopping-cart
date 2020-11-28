@@ -1,7 +1,7 @@
 <template>
   <footer id="footer" class="border_1px_top">
-    <ul class="nav_list" v-for="item in tabItems" :key="item.name">
-      <li class="nav_item">
+    <ul class="nav_list">
+      <li class="nav_item" v-for="item in tabItems" :key="item.name">
         <span class="nav_item_tab">
           <i class="iconfont footer_icon" :class="item.icon"></i>
           <p class="tab_name">{{ item.name }}</p>
@@ -26,7 +26,7 @@ export default class CommonFooter extends Vue {
       icon: 'icon-cartfill',
     },
     {
-      name: '我的淘宝',
+      name: '我的',
       icon: 'icon-my',
     },
     {
