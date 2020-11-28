@@ -1,39 +1,45 @@
 <template>
   <footer id="footer" class="border_1px_top">
-    <ul class="nav_list">
+    <ul class="nav_list" v-for="item in tabItems" :key="item.name">
       <li class="nav_item">
         <span class="nav_item_tab">
-          <i class="iconfont icon-home footer_icon"></i>
-          <p class="tab_name">首页</p>
-        </span>
-      </li>
-      <li class="nav_item">
-        <span class="nav_item_tab">
-          <i class="iconfont icon-cartfill footer_icon"></i>
-          <p class="tab_name">购物车</p>
-        </span>
-      </li>
-      <li class="nav_item">
-        <span class="nav_item_tab">
-          <i class="iconfont icon-my footer_icon"></i>
-          <p class="tab_name">我的淘宝</p>
-        </span>
-      </li>
-      <li class="nav_item">
-        <span class="nav_item_tab">
-          <i class="iconfont icon-like footer_icon"></i>
-          <p class="tab_name">心水</p>
-        </span>
-      </li>
-      <li class="nav_item">
-        <span class="nav_item_tab">
-          <i class="iconfont icon-more_light footer_icon"></i>
-          <p class="tab_name">更多</p>
+          <i class="iconfont footer_icon" :class="item.icon"></i>
+          <p class="tab_name">{{ item.name }}</p>
         </span>
       </li>
     </ul>
   </footer>
 </template>
+
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+
+@Component
+export default class CommonFooter extends Vue {
+  private tabItems = [
+    {
+      name: '首页',
+      icon: 'icon-home',
+    },
+    {
+      name: '购物车',
+      icon: 'icon-cartfill',
+    },
+    {
+      name: '我的淘宝',
+      icon: 'icon-my',
+    },
+    {
+      name: '心水',
+      icon: 'icon-like',
+    },
+    {
+      name: '更多',
+      icon: 'icon-more_light',
+    },
+  ]
+}
+</script>
 
 <style lang="scss" slot-scope>
 #footer {
