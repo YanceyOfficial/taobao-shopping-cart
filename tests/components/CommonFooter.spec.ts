@@ -7,7 +7,7 @@ describe('测试 CommonFooter 组件', () => {
 
     cy.contains('p', '首页').should('be.visible')
     cy.contains('p', '购物车').should('be.visible')
-    cy.contains('p', '我的淘宝').should('be.visible')
+    cy.contains('p', '我的').should('be.visible')
     cy.contains('p', '心水').should('be.visible')
     cy.contains('p', '更多').should('be.visible')
   })
