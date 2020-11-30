@@ -1,1 +1,659 @@
-{}
+{
+  "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/CommonFooter.vue": {
+    "path": "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/CommonFooter.vue",
+    "statementMap": {
+      "0": {
+        "start": {
+          "line": 3,
+          "column": 19
+        },
+        "end": {
+          "line": 29,
+          "column": 1
+        }
+      },
+      "1": {
+        "start": {
+          "line": 5,
+          "column": 8
+        },
+        "end": {
+          "line": 5,
+          "column": 28
+        }
+      },
+      "2": {
+        "start": {
+          "line": 6,
+          "column": 8
+        },
+        "end": {
+          "line": 27,
+          "column": 10
+        }
+      },
+      "3": {
+        "start": {
+          "line": 30,
+          "column": 0
+        },
+        "end": {
+          "line": 32,
+          "column": 17
+        }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": {
+            "line": 4,
+            "column": 4
+          },
+          "end": {
+            "line": 4,
+            "column": 5
+          }
+        },
+        "loc": {
+          "start": {
+            "line": 4,
+            "column": 18
+          },
+          "end": {
+            "line": 28,
+            "column": 5
+          }
+        },
+        "line": 4
+      }
+    },
+    "branchMap": {},
+    "s": {
+      "0": 6,
+      "1": 6,
+      "2": 6,
+      "3": 6
+    },
+    "f": {
+      "0": 6
+    },
+    "b": {},
+    "inputSourceMap": {
+      "version": 3,
+      "file": "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/CommonFooter.vue.ts",
+      "sourceRoot": "",
+      "sources": [
+        "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/CommonFooter.vue"
+      ],
+      "names": [],
+      "mappings": ";AAcA,OAAO,EAAE,SAAS,EAAE,GAAG,EAAE,MAAM,wBAAwB,CAAC;AAGxD,IAAqB,YAAY,GAAjC,MAAqB,YAAa,SAAQ,GAAG;IAA7C;;QACY,aAAQ,GAAG;YACf;gBACI,IAAI,EAAE,IAAI;gBACV,IAAI,EAAE,WAAW;aACpB;YACD;gBACI,IAAI,EAAE,KAAK;gBACX,IAAI,EAAE,eAAe;aACxB;YACD;gBACI,IAAI,EAAE,IAAI;gBACV,IAAI,EAAE,SAAS;aAClB;YACD;gBACI,IAAI,EAAE,IAAI;gBACV,IAAI,EAAE,WAAW;aACpB;YACD;gBACI,IAAI,EAAE,IAAI;gBACV,IAAI,EAAE,iBAAiB;aAC1B;SACJ,CAAC;IACN,CAAC;CAAA,CAAA;AAvBoB,YAAY;IADhC,SAAS;GACW,YAAY,CAuBhC;eAvBoB,YAAY",
+      "sourcesContent": [
+        "\n\n\n\n\n\n\n\n\n\n\n\n\n\nimport { Component, Vue } from 'vue-property-decorator';\n\n@Component\nexport default class CommonFooter extends Vue {\n    private tabItems = [\n        {\n            name: '首页',\n            icon: 'icon-home',\n        },\n        {\n            name: '购物车',\n            icon: 'icon-cartfill',\n        },\n        {\n            name: '我的',\n            icon: 'icon-my',\n        },\n        {\n            name: '心水',\n            icon: 'icon-like',\n        },\n        {\n            name: '更多',\n            icon: 'icon-more_light',\n        },\n    ];\n}\n"
+      ]
+    },
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "77c7411c094c545f4d331077aa359551f903251a"
+  },
+  "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/CommonHeader.vue": {
+    "path": "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/CommonHeader.vue",
+    "statementMap": {
+      "0": {
+        "start": {
+          "line": 3,
+          "column": 19
+        },
+        "end": {
+          "line": 4,
+          "column": 1
+        }
+      },
+      "1": {
+        "start": {
+          "line": 5,
+          "column": 0
+        },
+        "end": {
+          "line": 7,
+          "column": 47
+        }
+      },
+      "2": {
+        "start": {
+          "line": 8,
+          "column": 0
+        },
+        "end": {
+          "line": 10,
+          "column": 17
+        }
+      }
+    },
+    "fnMap": {},
+    "branchMap": {},
+    "s": {
+      "0": 6,
+      "1": 6,
+      "2": 6
+    },
+    "f": {},
+    "b": {},
+    "inputSourceMap": {
+      "version": 3,
+      "file": "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/CommonHeader.vue.ts",
+      "sourceRoot": "",
+      "sources": [
+        "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/CommonHeader.vue"
+      ],
+      "names": [],
+      "mappings": ";AAQA,OAAO,EAAE,SAAS,EAAE,IAAI,EAAE,GAAG,EAAE,MAAM,wBAAwB,CAAC;AAG9D,IAAqB,YAAY,GAAjC,MAAqB,YAAa,SAAQ,GAAG;CAE5C,CAAA;AADiB;IAAb,IAAI,CAAC,MAAM,CAAC;8CAAoC;AADhC,YAAY;IADhC,SAAS;GACW,YAAY,CAEhC;eAFoB,YAAY",
+      "sourcesContent": [
+        "\n\n\n\n\n\n\n\nimport { Component, Prop, Vue } from 'vue-property-decorator';\n\n@Component\nexport default class CommonHeader extends Vue {\n    @Prop(Number) private readonly totalNum!: number;\n}\n"
+      ]
+    },
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "b96f4a8f8555b83f1a37ca7a210a66a266ec6e51"
+  },
+  "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/SkuSelector.vue": {
+    "path": "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/SkuSelector.vue",
+    "statementMap": {
+      "0": {
+        "start": {
+          "line": 3,
+          "column": 18
+        },
+        "end": {
+          "line": 48,
+          "column": 1
+        }
+      },
+      "1": {
+        "start": {
+          "line": 5,
+          "column": 8
+        },
+        "end": {
+          "line": 5,
+          "column": 28
+        }
+      },
+      "2": {
+        "start": {
+          "line": 6,
+          "column": 8
+        },
+        "end": {
+          "line": 36,
+          "column": 10
+        }
+      },
+      "3": {
+        "start": {
+          "line": 37,
+          "column": 8
+        },
+        "end": {
+          "line": 43,
+          "column": 10
+        }
+      },
+      "4": {
+        "start": {
+          "line": 46,
+          "column": 8
+        },
+        "end": {
+          "line": 46,
+          "column": 47
+        }
+      },
+      "5": {
+        "start": {
+          "line": 49,
+          "column": 0
+        },
+        "end": {
+          "line": 51,
+          "column": 51
+        }
+      },
+      "6": {
+        "start": {
+          "line": 52,
+          "column": 0
+        },
+        "end": {
+          "line": 54,
+          "column": 16
+        }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": {
+            "line": 4,
+            "column": 4
+          },
+          "end": {
+            "line": 4,
+            "column": 5
+          }
+        },
+        "loc": {
+          "start": {
+            "line": 4,
+            "column": 18
+          },
+          "end": {
+            "line": 44,
+            "column": 5
+          }
+        },
+        "line": 4
+      },
+      "1": {
+        "name": "(anonymous_1)",
+        "decl": {
+          "start": {
+            "line": 45,
+            "column": 4
+          },
+          "end": {
+            "line": 45,
+            "column": 5
+          }
+        },
+        "loc": {
+          "start": {
+            "line": 45,
+            "column": 21
+          },
+          "end": {
+            "line": 47,
+            "column": 5
+          }
+        },
+        "line": 45
+      }
+    },
+    "branchMap": {},
+    "s": {
+      "0": 6,
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 0,
+      "5": 6,
+      "6": 6
+    },
+    "f": {
+      "0": 3,
+      "1": 0
+    },
+    "b": {},
+    "inputSourceMap": {
+      "version": 3,
+      "file": "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/SkuSelector.vue.ts",
+      "sourceRoot": "",
+      "sources": [
+        "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/SkuSelector.vue"
+      ],
+      "names": [],
+      "mappings": ";AAuDA,OAAO,EAAE,SAAS,EAAE,IAAI,EAAE,GAAG,EAAE,MAAM,wBAAwB,CAAC;AAG9D,IAAqB,WAAW,GAAhC,MAAqB,WAAY,SAAQ,GAAG;IAA5C;;QAGY,YAAO,GAAG;YACd,MAAM,EAAE,WAAW;YACnB,OAAO,EACH,qGAAqG;YACzG,SAAS,EAAE,IAAI;YACf,SAAS,EAAE,CAAC;YACZ,QAAQ,EAAE;gBACN;oBACI,GAAG,EAAE,IAAI;oBACT,KAAK,EAAE,CAAC,KAAK,CAAC;iBACjB;gBACD;oBACI,GAAG,EAAE,MAAM;oBACX,KAAK,EAAE;wBACH,QAAQ;wBACR,SAAS;wBACT,SAAS;wBACT,SAAS;wBACT,MAAM;qBACT;iBACJ;gBACD;oBACI,GAAG,EAAE,MAAM;oBACX,KAAK,EAAE,CAAC,MAAM,CAAC;iBAClB;gBACD;oBACI,GAAG,EAAE,MAAM;oBACX,KAAK,EAAE,CAAC,OAAO,CAAC;iBACnB;aACJ;YACD,IAAI,EAAE,EAAE;SACX,CAAC;QAEM,cAAS,GAAG;YAChB,KAAK;YACL,SAAS;YACT,MAAM;YACN,OAAO;YACP,WAAW;SACd,CAAC;IAKN,CAAC;IAHU,cAAc;QACjB,IAAI,CAAC,KAAK,CAAC,oBAAoB,EAAE,IAAI,CAAC,CAAC;IAC3C,CAAC;CACJ,CAAA;AA9CkB;IAAd,IAAI,CAAC,OAAO,CAAC;kDAA0C;AADvC,WAAW;IAD/B,SAAS;GACW,WAAW,CA+C/B;eA/CoB,WAAW",
+      "sourcesContent": [
+        "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nimport { Component, Prop, Vue } from 'vue-property-decorator';\n\n@Component\nexport default class SkuSelector extends Vue {\n    @Prop(Boolean) private readonly showSkuPicker!: boolean;\n\n    private skuMock = {\n        sku_id: '782731205',\n        sku_img:\n            '//img.alicdn.com/imgextra/i1/1621790841/O1CN019ENLri1I5DZGyxEDU_!!0-item_pic.jpg_120x120q50s150.jpg',\n        sku_price: 7688,\n        sku_stock: 8,\n        sku_attr: [\n            {\n                key: '颜色',\n                value: ['银灰色'],\n            },\n            {\n                key: '套餐类型',\n                value: [\n                    '黑白键盘套装',\n                    '灰钴蓝键盘套装',\n                    '深酒红键盘套装',\n                    '亮铂金键盘套装',\n                    '官方标配',\n                ],\n            },\n            {\n                key: '网络类型',\n                value: ['WIFI'],\n            },\n            {\n                key: '存储容量',\n                value: ['256GB'],\n            },\n        ],\n        skus: [],\n    };\n\n    private curSelect = [\n        '银灰色',\n        '深酒红键盘套装',\n        'WIFI',\n        '256GB',\n        '全国延保 延保两年',\n    ];\n\n    public closeSkuPicker() {\n        this.$emit('getSkuPickFeedback', true);\n    }\n}\n"
+      ]
+    },
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "0b6475b9a9d3982d2455ffa76fb2404f0fc268ef"
+  },
+  "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/Total.vue": {
+    "path": "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/Total.vue",
+    "statementMap": {
+      "0": {
+        "start": {
+          "line": 3,
+          "column": 12
+        },
+        "end": {
+          "line": 14,
+          "column": 1
+        }
+      },
+      "1": {
+        "start": {
+          "line": 5,
+          "column": 8
+        },
+        "end": {
+          "line": 5,
+          "column": 28
+        }
+      },
+      "2": {
+        "start": {
+          "line": 6,
+          "column": 8
+        },
+        "end": {
+          "line": 6,
+          "column": 37
+        }
+      },
+      "3": {
+        "start": {
+          "line": 9,
+          "column": 8
+        },
+        "end": {
+          "line": 9,
+          "column": 65
+        }
+      },
+      "4": {
+        "start": {
+          "line": 12,
+          "column": 8
+        },
+        "end": {
+          "line": 12,
+          "column": 45
+        }
+      },
+      "5": {
+        "start": {
+          "line": 15,
+          "column": 0
+        },
+        "end": {
+          "line": 17,
+          "column": 48
+        }
+      },
+      "6": {
+        "start": {
+          "line": 18,
+          "column": 0
+        },
+        "end": {
+          "line": 20,
+          "column": 51
+        }
+      },
+      "7": {
+        "start": {
+          "line": 21,
+          "column": 0
+        },
+        "end": {
+          "line": 23,
+          "column": 45
+        }
+      },
+      "8": {
+        "start": {
+          "line": 24,
+          "column": 0
+        },
+        "end": {
+          "line": 26,
+          "column": 10
+        }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": {
+            "line": 4,
+            "column": 4
+          },
+          "end": {
+            "line": 4,
+            "column": 5
+          }
+        },
+        "loc": {
+          "start": {
+            "line": 4,
+            "column": 18
+          },
+          "end": {
+            "line": 7,
+            "column": 5
+          }
+        },
+        "line": 4
+      },
+      "1": {
+        "name": "(anonymous_1)",
+        "decl": {
+          "start": {
+            "line": 8,
+            "column": 4
+          },
+          "end": {
+            "line": 8,
+            "column": 5
+          }
+        },
+        "loc": {
+          "start": {
+            "line": 8,
+            "column": 16
+          },
+          "end": {
+            "line": 10,
+            "column": 5
+          }
+        },
+        "line": 8
+      },
+      "2": {
+        "name": "(anonymous_2)",
+        "decl": {
+          "start": {
+            "line": 11,
+            "column": 4
+          },
+          "end": {
+            "line": 11,
+            "column": 5
+          }
+        },
+        "loc": {
+          "start": {
+            "line": 11,
+            "column": 18
+          },
+          "end": {
+            "line": 13,
+            "column": 5
+          }
+        },
+        "line": 11
+      }
+    },
+    "branchMap": {},
+    "s": {
+      "0": 6,
+      "1": 2,
+      "2": 2,
+      "3": 0,
+      "4": 0,
+      "5": 6,
+      "6": 6,
+      "7": 6,
+      "8": 6
+    },
+    "f": {
+      "0": 2,
+      "1": 0,
+      "2": 0
+    },
+    "b": {},
+    "inputSourceMap": {
+      "version": 3,
+      "file": "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/Total.vue.ts",
+      "sourceRoot": "",
+      "sources": [
+        "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/Total.vue"
+      ],
+      "names": [],
+      "mappings": ";AAuCA,OAAO,EAAE,SAAS,EAAE,IAAI,EAAE,GAAG,EAAE,MAAM,wBAAwB,CAAC;AAG9D,IAAqB,KAAK,GAA1B,MAAqB,KAAM,SAAQ,GAAG;IAAtC;;QAOY,oBAAe,GAAG,KAAK,CAAC;IASpC,CAAC;IAPU,SAAS;QACZ,IAAI,CAAC,KAAK,CAAC,sBAAsB,EAAE,IAAI,CAAC,eAAe,CAAC,CAAC;IAC7D,CAAC;IAEM,WAAW;QACd,IAAI,CAAC,KAAK,CAAC,wBAAwB,CAAC,CAAC;IACzC,CAAC;CACJ,CAAA;AAfiB;IAAb,IAAI,CAAC,MAAM,CAAC;+CAA4C;AAE3C;IAAb,IAAI,CAAC,MAAM,CAAC;kDAA+C;AAE9C;IAAb,IAAI,CAAC,MAAM,CAAC;4CAAyC;AALrC,KAAK;IADzB,SAAS;GACW,KAAK,CAgBzB;eAhBoB,KAAK",
+      "sourcesContent": [
+        "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nimport { Component, Prop, Vue } from 'vue-property-decorator';\n\n@Component\nexport default class Total extends Vue {\n    @Prop(Number) private readonly selectListLength!: number;\n\n    @Prop(Number) private readonly vaildCommoditiesNum!: number;\n\n    @Prop(Number) private readonly curTotalPrice!: number;\n\n    private selectAllStatus = false;\n\n    public selectAll() {\n        this.$emit('getSelectAllFeedback', this.selectAllStatus);\n    }\n\n    public submitOrder() {\n        this.$emit('getSubmitOrderFeedback');\n    }\n}\n"
+      ]
+    },
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "61cba5a7f4c6bf3638f49971937cc2755076b3d3"
+  },
+  "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/App.vue": {
+    "path": "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/App.vue",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/main.ts": {
+    "path": "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/main.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/registerServiceWorker.ts": {
+    "path": "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/registerServiceWorker.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/shims-tsx.d.ts": {
+    "path": "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/shims-tsx.d.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/shims-vue.d.ts": {
+    "path": "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/shims-vue.d.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/Item.vue": {
+    "path": "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/Item.vue",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/NoCommodities.vue": {
+    "path": "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/NoCommodities.vue",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/Overlay.vue": {
+    "path": "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/Overlay.vue",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/PurchaseRestrictionDialog.vue": {
+    "path": "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/PurchaseRestrictionDialog.vue",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/router/index.ts": {
+    "path": "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/router/index.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/shared/constants.ts": {
+    "path": "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/shared/constants.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/shared/utils.ts": {
+    "path": "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/shared/utils.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/store/index.ts": {
+    "path": "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/store/index.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/types/types.ts": {
+    "path": "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/types/types.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/views/Home.vue": {
+    "path": "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/views/Home.vue",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/assets/mock/data.ts": {
+    "path": "/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/assets/mock/data.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  }
+}

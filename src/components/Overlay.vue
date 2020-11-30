@@ -2,15 +2,6 @@
   <section id="overlay"></section>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-
-@Component
-export default class Overlay extends Vue {
-  private openOverlay = false
-}
-</script>
-
 <style lang="scss" slot-scope>
 #overlay {
   position: fixed;

@@ -1,6 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1606644735844" clover="3.2.0">
-  <project timestamp="1606644735845" name="All files">
-    <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0" elements="0" coveredelements="0" complexity="0" loc="0" ncloc="0" packages="0" files="0" classes="0"/>
+<coverage generated="1606725011857" clover="3.2.0">
+  <project timestamp="1606725011857" name="All files">
+    <metrics statements="16" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="3" elements="22" coveredelements="16" complexity="0" loc="16" ncloc="16" packages="8" files="20" classes="20"/>
+    <package name="src">
+      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="App.vue" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/App.vue">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="main.ts" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/main.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="registerServiceWorker.ts" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/registerServiceWorker.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="shims-tsx.d.ts" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/shims-tsx.d.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="shims-vue.d.ts" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/shims-vue.d.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="src.assets.mock">
+      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="data.ts" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/assets/mock/data.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="src.components">
+      <metrics statements="16" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="3"/>
+      <file name="CommonFooter.vue" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/CommonFooter.vue">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="18" count="6" type="stmt"/>
+        <line num="19" count="6" type="stmt"/>
+      </file>
+      <file name="CommonHeader.vue" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/CommonHeader.vue">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="12" count="6" type="stmt"/>
+        <line num="13" count="6" type="stmt"/>
+      </file>
+      <file name="Item.vue" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/Item.vue">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="NoCommodities.vue" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/NoCommodities.vue">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="Overlay.vue" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/Overlay.vue">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="PurchaseRestrictionDialog.vue" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/PurchaseRestrictionDialog.vue">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="SkuSelector.vue" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/SkuSelector.vue">
+        <metrics statements="5" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+        <line num="59" count="6" type="stmt"/>
+        <line num="60" count="6" type="stmt"/>
+        <line num="62" count="3" type="stmt"/>
+        <line num="95" count="3" type="stmt"/>
+        <line num="104" count="0" type="stmt"/>
+      </file>
+      <file name="Total.vue" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/Total.vue">
+        <metrics statements="7" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
+        <line num="43" count="6" type="stmt"/>
+        <line num="44" count="6" type="stmt"/>
+        <line num="46" count="6" type="stmt"/>
+        <line num="48" count="6" type="stmt"/>
+        <line num="50" count="2" type="stmt"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.router">
+      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="index.ts" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/router/index.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="src.shared">
+      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="constants.ts" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/shared/constants.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="utils.ts" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/shared/utils.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="src.store">
+      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="index.ts" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/store/index.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="src.types">
+      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="types.ts" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/types/types.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="src.views">
+      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="Home.vue" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/views/Home.vue">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
   </project>
 </coverage>

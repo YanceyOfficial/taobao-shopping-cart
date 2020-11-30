@@ -1,8 +1,8 @@
-import Vue from 'vue'
-import VueRouter, { RouteConfig } from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from 'vue';
+import VueRouter, { RouteConfig } from 'vue-router';
+import Home from '../views/Home.vue';
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes: RouteConfig[] = [
   {
@@ -10,11 +10,11 @@ const routes: RouteConfig[] = [
     name: 'Home',
     component: Home,
   },
-]
+];
 
 const router = new VueRouter({
   routes,
   mode: 'history',
-})
+});
 
-export default router
+export default router;

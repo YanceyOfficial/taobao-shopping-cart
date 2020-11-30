@@ -1,98 +1,98 @@
 <template>
-  <section id="total" class="border_1px_top">
-    <span class="total_left radio_wrapper" @click="selectAll()">
-      <i
-        :class="[
-          vaildCommoditiesNum === selectListLength
-            ? 'icon-roundcheckfill'
-            : 'icon-round',
-          'iconfont',
-          'radio_icon',
-        ]"
-      ></i>
-      全选
-    </span>
-    <span class="total_right">
-      <span>
-        合计：
-        <span class="price_wrapper">
-          <span class="large_text"
-            >{{ curTotalPrice.toString().split('.')[0] }}.</span
-          >
-          <span class="small_text">
-            {{
-              curTotalPrice.toString().split('.')[1]
-                ? curTotalPrice.toString().split('.')[1]
-                : '00'
-            }}
-          </span>
+    <section id="total" class="border_1px_top">
+        <span class="total_left radio_wrapper" @click="selectAll()">
+            <i
+                :class="[
+                    vaildCommoditiesNum === selectListLength
+                        ? 'icon-roundcheckfill'
+                        : 'icon-round',
+                    'iconfont',
+                    'radio_icon',
+                ]"
+            ></i>
+            全选
         </span>
-        <span class="settle_wrapper">
-          <button class="settle_btn" @click="submitOrder()">
-            结算({{ selectListLength }})
-          </button>
+        <span class="total_right">
+            <span>
+                合计：
+                <span class="price_wrapper">
+                    <span class="large_text"
+                        >{{ curTotalPrice.toString().split('.')[0] }}.</span
+                    >
+                    <span class="small_text">
+                        {{
+                            curTotalPrice.toString().split('.')[1]
+                                ? curTotalPrice.toString().split('.')[1]
+                                : '00'
+                        }}
+                    </span>
+                </span>
+                <span class="settle_wrapper">
+                    <button class="settle_btn" @click="submitOrder()">
+                        结算({{ selectListLength }})
+                    </button>
+                </span>
+            </span>
         </span>
-      </span>
-    </span>
-  </section>
+    </section>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
 export default class Total extends Vue {
-  @Prop(Number) private readonly selectListLength!: number
+    @Prop(Number) private readonly selectListLength!: number;
 
-  @Prop(Number) private readonly vaildCommoditiesNum!: number
+    @Prop(Number) private readonly vaildCommoditiesNum!: number;
 
-  @Prop(Number) private readonly curTotalPrice!: number
+    @Prop(Number) private readonly curTotalPrice!: number;
 
-  private selectAllStatus = false
+    private selectAllStatus = false;
 
-  public selectAll() {
-    this.$emit('getSelectAllFeedback', this.selectAllStatus)
-  }
+    public selectAll() {
+      this.$emit('getSelectAllFeedback', this.selectAllStatus);
+    }
 
-  public submitOrder() {
-    this.$emit('getSubmitOrderFeedback')
-  }
+    public submitOrder() {
+      this.$emit('getSubmitOrderFeedback');
+    }
 }
 </script>
 
 <style lang="scss" slot-scope>
 #total {
-  box-sizing: border-box;
-  position: fixed;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  bottom: calc(#{rem(42)} + env(safe-area-inset-bottom));
-  width: 100%;
-  height: rem(48);
-  background: $white;
+    box-sizing: border-box;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    bottom: calc(#{rem(42)} + env(safe-area-inset-bottom));
+    width: 100%;
+    height: rem(48);
+    background: $white;
 }
 
 .total_left {
-  position: relative;
-  margin-left: rem(10);
-  font-size: $font_size_16;
+    position: relative;
+    margin-left: rem(10);
+    font-size: $font_size_16;
 }
 
 .radio_wrapper {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .total_right {
-  font-size: $font_size_16;
+    font-size: $font_size_16;
 }
 
 .settle_btn {
-  width: rem(100);
-  height: rem(48);
-  margin-left: rem(12);
-  background: $orange;
-  color: $white;
-  font-size: $font_size_14;
+    width: rem(100);
+    height: rem(48);
+    margin-left: rem(12);
+    background: $orange;
+    color: $white;
+    font-size: $font_size_14;
 }
 </style>
