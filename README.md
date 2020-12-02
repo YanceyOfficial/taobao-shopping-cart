@@ -51,7 +51,7 @@
 
 使用 Cypress 进行组件测试.
 
-![cpress](./public/img/markdown/test.png)
+![cpress](./public/img/markdown/coverage.jpg)
 
 ## License
 

@@ -1,5 +1,5 @@
 import { mount } from '@cypress/vue';
-import CommonFooter from '@/components/CommonFooter.vue';
+import CommonFooter from '../../src/components/CommonFooter.vue';
 
 describe('测试 CommonFooter 组件', () => {
     it('是否包含首页, 购物车, 我的淘宝, 心水, 更多 tab item', () => {

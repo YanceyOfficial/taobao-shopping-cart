@@ -381,8 +381,6 @@ export default class Item extends Vue {
         this.curTotalPrice +=
                 this.selectList[i].curNum * this.selectList[i].unitPrice;
       }
-
-      console.log(this.selectList);
     }
 
     // 获取 sku 索引

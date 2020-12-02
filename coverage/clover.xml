@@ -1,104 +1,260 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1606725011857" clover="3.2.0">
-  <project timestamp="1606725011857" name="All files">
-    <metrics statements="16" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="3" elements="22" coveredelements="16" complexity="0" loc="16" ncloc="16" packages="8" files="20" classes="20"/>
+<coverage generated="1606884985708" clover="3.2.0">
+  <project timestamp="1606884985708" name="All files">
+    <metrics statements="172" coveredstatements="107" conditionals="50" coveredconditionals="20" methods="46" coveredmethods="32" elements="268" coveredelements="159" complexity="0" loc="172" ncloc="172" packages="8" files="20" classes="20"/>
     <package name="src">
       <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="App.vue" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/App.vue">
+      <file name="App.vue" path="/Users/liuyanzhao/code/taobao-shopping-cart/src/App.vue">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
-      <file name="main.ts" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/main.ts">
+      <file name="main.ts" path="/Users/liuyanzhao/code/taobao-shopping-cart/src/main.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
-      <file name="registerServiceWorker.ts" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/registerServiceWorker.ts">
+      <file name="registerServiceWorker.ts" path="/Users/liuyanzhao/code/taobao-shopping-cart/src/registerServiceWorker.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
-      <file name="shims-tsx.d.ts" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/shims-tsx.d.ts">
+      <file name="shims-tsx.d.ts" path="/Users/liuyanzhao/code/taobao-shopping-cart/src/shims-tsx.d.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
-      <file name="shims-vue.d.ts" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/shims-vue.d.ts">
+      <file name="shims-vue.d.ts" path="/Users/liuyanzhao/code/taobao-shopping-cart/src/shims-vue.d.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.assets.mock">
-      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="data.ts" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/assets/mock/data.ts">
-        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="data.ts" path="/Users/liuyanzhao/code/taobao-shopping-cart/src/assets/mock/data.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="5" count="8" type="stmt"/>
       </file>
     </package>
     <package name="src.components">
-      <metrics statements="16" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="3"/>
-      <file name="CommonFooter.vue" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/CommonFooter.vue">
+      <metrics statements="169" coveredstatements="104" conditionals="50" coveredconditionals="20" methods="46" coveredmethods="32"/>
+      <file name="CommonFooter.vue" path="/Users/liuyanzhao/code/taobao-shopping-cart/src/components/CommonFooter.vue">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="18" count="6" type="stmt"/>
-        <line num="19" count="6" type="stmt"/>
+        <line num="18" count="8" type="stmt"/>
+        <line num="19" count="8" type="stmt"/>
       </file>
-      <file name="CommonHeader.vue" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/CommonHeader.vue">
+      <file name="CommonHeader.vue" path="/Users/liuyanzhao/code/taobao-shopping-cart/src/components/CommonHeader.vue">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="12" count="6" type="stmt"/>
-        <line num="13" count="6" type="stmt"/>
+        <line num="12" count="8" type="stmt"/>
+        <line num="13" count="8" type="stmt"/>
       </file>
-      <file name="Item.vue" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/Item.vue">
+      <file name="Item.vue" path="/Users/liuyanzhao/code/taobao-shopping-cart/src/components/Item.vue">
+        <metrics statements="148" coveredstatements="87" conditionals="50" coveredconditionals="20" methods="38" coveredmethods="28"/>
+        <line num="335" count="8" type="stmt"/>
+        <line num="336" count="8" type="stmt"/>
+        <line num="338" count="8" type="stmt"/>
+        <line num="340" count="8" type="stmt"/>
+        <line num="342" count="8" type="stmt"/>
+        <line num="344" count="6" type="stmt"/>
+        <line num="347" count="6" type="stmt"/>
+        <line num="349" count="6" type="stmt"/>
+        <line num="351" count="6" type="stmt"/>
+        <line num="353" count="6" type="stmt"/>
+        <line num="355" count="6" type="stmt"/>
+        <line num="357" count="6" type="stmt"/>
+        <line num="359" count="6" type="stmt"/>
+        <line num="361" count="6" type="stmt"/>
+        <line num="363" count="6" type="stmt"/>
+        <line num="365" count="6" type="stmt"/>
+        <line num="367" count="6" type="stmt"/>
+        <line num="370" count="0" type="stmt"/>
+        <line num="371" count="0" type="stmt"/>
+        <line num="377" count="8" type="stmt"/>
+        <line num="378" count="162" type="stmt"/>
+        <line num="379" count="162" type="stmt"/>
+        <line num="380" count="162" type="stmt"/>
+        <line num="381" count="726" type="stmt"/>
+        <line num="388" count="132" type="stmt"/>
+        <line num="389" count="552" type="stmt"/>
+        <line num="391" count="132" type="stmt"/>
+        <line num="396" count="8292" type="stmt"/>
+        <line num="401" count="10278" type="stmt"/>
+        <line num="406" count="1188" type="stmt"/>
+        <line num="408" count="1188" type="cond" truecount="1" falsecount="1"/>
+        <line num="409" count="1782" type="stmt"/>
+        <line num="412" count="0" type="stmt"/>
+        <line num="417" count="1188" type="stmt"/>
+        <line num="419" count="1188" type="cond" truecount="1" falsecount="1"/>
+        <line num="420" count="1494" type="stmt"/>
+        <line num="423" count="0" type="stmt"/>
+        <line num="428" count="1224" type="stmt"/>
+        <line num="429" count="4284" type="stmt"/>
+        <line num="432" count="1224" type="stmt"/>
+        <line num="437" count="54" type="stmt"/>
+        <line num="438" count="54" type="cond" truecount="1" falsecount="1"/>
+        <line num="439" count="54" type="stmt"/>
+        <line num="440" count="78" type="stmt"/>
+        <line num="443" count="0" type="stmt"/>
+        <line num="449" count="36" type="stmt"/>
+        <line num="450" count="36" type="stmt"/>
+        <line num="452" count="36" type="cond" truecount="1" falsecount="1"/>
+        <line num="453" count="36" type="cond" truecount="1" falsecount="1"/>
+        <line num="454" count="0" type="stmt"/>
+        <line num="457" count="0" type="stmt"/>
+        <line num="458" count="0" type="stmt"/>
+        <line num="461" count="36" type="stmt"/>
+        <line num="462" count="54" type="cond" truecount="1" falsecount="1"/>
+        <line num="463" count="54" type="stmt"/>
+        <line num="484" count="54" type="cond" truecount="2" falsecount="0"/>
+        <line num="486" count="24" type="cond" truecount="2" falsecount="0"/>
+        <line num="487" count="6" type="stmt"/>
+        <line num="488" count="6" type="stmt"/>
+        <line num="489" count="6" type="stmt"/>
+        <line num="490" count="6" type="stmt"/>
+        <line num="492" count="18" type="stmt"/>
+        <line num="496" count="18" type="cond" truecount="1" falsecount="1"/>
+        <line num="497" count="18" type="stmt"/>
+        <line num="501" count="30" type="cond" truecount="1" falsecount="1"/>
+        <line num="502" count="0" type="stmt"/>
+        <line num="503" count="0" type="stmt"/>
+        <line num="504" count="0" type="stmt"/>
+        <line num="505" count="0" type="stmt"/>
+        <line num="507" count="30" type="stmt"/>
+        <line num="510" count="30" type="cond" truecount="1" falsecount="1"/>
+        <line num="511" count="30" type="stmt"/>
+        <line num="523" count="54" type="cond" truecount="2" falsecount="0"/>
+        <line num="524" count="36" type="stmt"/>
+        <line num="525" count="36" type="stmt"/>
+        <line num="526" count="36" type="stmt"/>
+        <line num="527" count="36" type="stmt"/>
+        <line num="529" count="18" type="stmt"/>
+        <line num="532" count="18" type="cond" truecount="1" falsecount="1"/>
+        <line num="533" count="18" type="stmt"/>
+        <line num="540" count="36" type="stmt"/>
+        <line num="541" count="36" type="stmt"/>
+        <line num="542" count="36" type="stmt"/>
+        <line num="545" count="36" type="stmt"/>
+        <line num="546" count="36" type="stmt"/>
+        <line num="547" count="54" type="stmt"/>
+        <line num="548" count="54" type="stmt"/>
+        <line num="550" count="36" type="cond" truecount="1" falsecount="1"/>
+        <line num="551" count="36" type="stmt"/>
+        <line num="553" count="0" type="stmt"/>
+        <line num="559" count="1728" type="stmt"/>
+        <line num="560" count="0" type="stmt"/>
+        <line num="563" count="0" type="stmt"/>
+        <line num="566" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="567" count="0" type="stmt"/>
+        <line num="568" count="0" type="stmt"/>
+        <line num="570" count="0" type="stmt"/>
+        <line num="571" count="0" type="stmt"/>
+        <line num="578" count="0" type="stmt"/>
+        <line num="579" count="0" type="stmt"/>
+        <line num="580" count="0" type="stmt"/>
+        <line num="589" count="0" type="stmt"/>
+        <line num="590" count="0" type="stmt"/>
+        <line num="591" count="0" type="stmt"/>
+        <line num="592" count="0" type="stmt"/>
+        <line num="593" count="0" type="stmt"/>
+        <line num="594" count="0" type="stmt"/>
+        <line num="599" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="600" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="601" count="0" type="stmt"/>
+        <line num="605" count="0" type="stmt"/>
+        <line num="607" count="0" type="stmt"/>
+        <line num="609" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="610" count="0" type="stmt"/>
+        <line num="614" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="618" count="0" type="stmt"/>
+        <line num="621" count="0" type="stmt"/>
+        <line num="624" count="0" type="stmt"/>
+        <line num="625" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="626" count="0" type="stmt"/>
+        <line num="628" count="0" type="stmt"/>
+        <line num="630" count="0" type="stmt"/>
+        <line num="636" count="0" type="stmt"/>
+        <line num="637" count="0" type="stmt"/>
+        <line num="638" count="0" type="stmt"/>
+        <line num="643" count="0" type="stmt"/>
+        <line num="644" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="645" count="0" type="stmt"/>
+        <line num="646" count="0" type="stmt"/>
+        <line num="652" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="653" count="0" type="stmt"/>
+        <line num="654" count="0" type="stmt"/>
+        <line num="655" count="0" type="stmt"/>
+        <line num="656" count="0" type="stmt"/>
+        <line num="658" count="0" type="stmt"/>
+        <line num="659" count="0" type="stmt"/>
+        <line num="660" count="0" type="stmt"/>
+        <line num="661" count="0" type="stmt"/>
+        <line num="667" count="42" type="stmt"/>
+        <line num="668" count="24" type="stmt"/>
+        <line num="674" count="1152" type="stmt"/>
+        <line num="675" count="1152" type="cond" truecount="1" falsecount="1"/>
+        <line num="679" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="680" count="0" type="stmt"/>
+        <line num="682" count="6" type="stmt"/>
+        <line num="683" count="36" type="stmt"/>
+        <line num="684" count="54" type="cond" truecount="1" falsecount="1"/>
+        <line num="685" count="54" type="stmt"/>
+      </file>
+      <file name="NoCommodities.vue" path="/Users/liuyanzhao/code/taobao-shopping-cart/src/components/NoCommodities.vue">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
-      <file name="NoCommodities.vue" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/NoCommodities.vue">
+      <file name="Overlay.vue" path="/Users/liuyanzhao/code/taobao-shopping-cart/src/components/Overlay.vue">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
-      <file name="Overlay.vue" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/Overlay.vue">
-        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="PurchaseRestrictionDialog.vue" path="/Users/liuyanzhao/code/taobao-shopping-cart/src/components/PurchaseRestrictionDialog.vue">
+        <metrics statements="5" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="18" count="16" type="stmt"/>
+        <line num="19" count="16" type="stmt"/>
+        <line num="21" count="16" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
       </file>
-      <file name="PurchaseRestrictionDialog.vue" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/PurchaseRestrictionDialog.vue">
-        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      </file>
-      <file name="SkuSelector.vue" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/SkuSelector.vue">
+      <file name="SkuSelector.vue" path="/Users/liuyanzhao/code/taobao-shopping-cart/src/components/SkuSelector.vue">
         <metrics statements="5" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
-        <line num="59" count="6" type="stmt"/>
-        <line num="60" count="6" type="stmt"/>
-        <line num="62" count="3" type="stmt"/>
-        <line num="95" count="3" type="stmt"/>
+        <line num="59" count="16" type="stmt"/>
+        <line num="60" count="16" type="stmt"/>
+        <line num="62" count="9" type="stmt"/>
+        <line num="95" count="9" type="stmt"/>
         <line num="104" count="0" type="stmt"/>
       </file>
-      <file name="Total.vue" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/components/Total.vue">
-        <metrics statements="7" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
-        <line num="43" count="6" type="stmt"/>
-        <line num="44" count="6" type="stmt"/>
-        <line num="46" count="6" type="stmt"/>
-        <line num="48" count="6" type="stmt"/>
-        <line num="50" count="2" type="stmt"/>
-        <line num="53" count="0" type="stmt"/>
+      <file name="Total.vue" path="/Users/liuyanzhao/code/taobao-shopping-cart/src/components/Total.vue">
+        <metrics statements="7" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
+        <line num="43" count="16" type="stmt"/>
+        <line num="44" count="16" type="stmt"/>
+        <line num="46" count="16" type="stmt"/>
+        <line num="48" count="16" type="stmt"/>
+        <line num="50" count="8" type="stmt"/>
+        <line num="53" count="6" type="stmt"/>
         <line num="57" count="0" type="stmt"/>
       </file>
     </package>
     <package name="src.router">
       <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="index.ts" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/router/index.ts">
+      <file name="index.ts" path="/Users/liuyanzhao/code/taobao-shopping-cart/src/router/index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.shared">
-      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="constants.ts" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/shared/constants.ts">
-        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="constants.ts" path="/Users/liuyanzhao/code/taobao-shopping-cart/src/shared/constants.ts">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="3" count="8" type="stmt"/>
+        <line num="14" count="8" type="stmt"/>
       </file>
-      <file name="utils.ts" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/shared/utils.ts">
+      <file name="utils.ts" path="/Users/liuyanzhao/code/taobao-shopping-cart/src/shared/utils.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.store">
       <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="index.ts" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/store/index.ts">
+      <file name="index.ts" path="/Users/liuyanzhao/code/taobao-shopping-cart/src/store/index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.types">
       <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="types.ts" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/types/types.ts">
+      <file name="types.ts" path="/Users/liuyanzhao/code/taobao-shopping-cart/src/types/types.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.views">
       <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="Home.vue" path="/Users/liuyanzhao/baidu/personal-code/liuyanzhao-gc/src/views/Home.vue">
+      <file name="Home.vue" path="/Users/liuyanzhao/code/taobao-shopping-cart/src/views/Home.vue">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
